@@ -1,6 +1,7 @@
 package com.rappytv.betterfriends.nametags;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
+import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import java.awt.*;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
@@ -17,11 +18,11 @@ public class FriendNoteNameTag extends NameTag {
 
   private static final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
   private static final int gray = new Color(0, 0, 0, 70).getRGB();
-  private final BetterFriendsAddon addon;
+  private final BetterFriendsConfig config;
   private final PositionType position;
 
   public FriendNoteNameTag(BetterFriendsAddon addon, PositionType position) {
-    this.addon = addon;
+    this.config = addon.configuration();
     this.position = position;
   }
 
@@ -45,7 +46,7 @@ public class FriendNoteNameTag extends NameTag {
     if (note != null && !note.isBlank()) {
       return RenderableComponent.of(serializer.deserialize(note));
     } else {
-      String defaultTag = this.addon.configuration().friendNoteTagConfig().defaultTag().get();
+      String defaultTag = this.config.friendNoteTagConfig().defaultTag().get();
       if (defaultTag.isBlank()) {
         return null;
       }
@@ -55,12 +56,12 @@ public class FriendNoteNameTag extends NameTag {
 
   @Override
   public float getScale() {
-    return (float) this.addon.configuration().friendNoteTagConfig().size().get() / 10;
+    return (float) this.config.friendNoteTagConfig().size().get() / 10;
   }
 
   @Override
   protected NameTagBackground getCustomBackground() {
-    boolean enabled = !this.addon.configuration().friendNoteTagConfig().hideBackground().get();
+    boolean enabled = !this.config.friendNoteTagConfig().hideBackground().get();
     NameTagBackground background = super.getCustomBackground();
 
     if (background == null) {
@@ -73,7 +74,9 @@ public class FriendNoteNameTag extends NameTag {
 
   @Override
   public boolean isVisible() {
-    return this.addon.configuration().friendNoteTagConfig().position().get() == this.position
+    return this.config.enabled().get()
+        && this.config.friendNoteTagConfig().enabled().get()
+        && this.config.friendNoteTagConfig().position().get() == this.position
         && !this.entity.isCrouching()
         && super.isVisible();
   }
