@@ -3,6 +3,28 @@
     "settings": {
       "enabled": {
         "name": "Enabled"
+      },
+      "friendNoteTagConfig": {
+        "name": "Friend note tags",
+        "size": {
+          "name": "Size"
+        },
+        "hideBackground": {
+          "name": "Hide background"
+        },
+        "position": {
+          "name": "Position",
+          "entries": {
+            "aboveName": "Above name",
+            "belowName": "Below name",
+            "rightToName": "Right to name",
+            "leftToName": "Left to name"
+          }
+        },
+        "defaultTag": {
+          "name": "Fallback tag",
+          "description": "You can leave this empty to disable"
+        }
       }
     }
   }

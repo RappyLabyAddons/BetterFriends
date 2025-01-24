@@ -1,5 +1,6 @@
 package com.rappytv.betterfriends;
 
+import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import com.rappytv.betterfriends.nametags.FriendNoteNameTag;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.entity.player.tag.PositionType;
@@ -12,11 +13,13 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   protected void enable() {
     this.registerSettingCategory();
 
-    this.labyAPI().tagRegistry().register(
-        "betterfriends_friendnote",
-        PositionType.ABOVE_NAME,
-        new FriendNoteNameTag()
-    );
+    for (PositionType position : PositionType.values()) {
+      this.labyAPI().tagRegistry().register(
+          "betterfriends_friendnote",
+          position,
+          new FriendNoteNameTag(this, position)
+      );
+    }
   }
 
   @Override
