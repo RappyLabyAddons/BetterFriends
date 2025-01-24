@@ -25,6 +25,9 @@
           "name": "Fallback tag",
           "description": "You can leave this empty to disable"
         }
+      },
+      "advancedFriendlist": {
+        "name": "Advanced friend list"
       }
     }
   }
