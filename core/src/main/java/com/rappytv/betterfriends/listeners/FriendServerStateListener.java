@@ -31,14 +31,13 @@ public class FriendServerStateListener {
       return;
     }
 
-    String addressName = event.serverInfo().getAddress();
-    Component address = Component.text(addressName)
-        .clickEvent(ClickEvent.runCommand("/bf join " + addressName))
+    Component address = Component.text(info.getAddress())
+        .color(NamedTextColor.AQUA)
+        .clickEvent(ClickEvent.runCommand("/bf join " + info.getDisplayInfo()))
         .hoverEvent(HoverEvent.showText(Component.translatable(
             "betterfriends.notifications.serverUpdate.hover",
             NamedTextColor.DARK_PURPLE
-        )))
-        .color(NamedTextColor.AQUA);
+        )));
 
     this.addon.displayMessage(
         Component.empty()

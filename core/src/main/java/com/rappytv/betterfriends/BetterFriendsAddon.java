@@ -1,5 +1,6 @@
 package com.rappytv.betterfriends;
 
+import com.rappytv.betterfriends.command.BetterFriendsCommand;
 import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import com.rappytv.betterfriends.listeners.ChatReceiveListener;
 import com.rappytv.betterfriends.listeners.FriendRemoveListener;
@@ -32,6 +33,8 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   @Override
   protected void enable() {
     this.registerSettingCategory();
+
+    this.registerCommand(new BetterFriendsCommand());
 
     this.registerListener(new ChatReceiveListener(this));
     this.registerListener(new FriendRemoveListener(this));

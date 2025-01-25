@@ -40,6 +40,13 @@
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
       }
     },
+    "command": {
+      "usage": "Usage: %s",
+      "join": {
+        "enterAddress": "Please provide a valid server address!",
+        "connecting": "Connecting..."
+      }
+    },
     "notifications": {
       "friendRemoval": {
         "title": "Friend removed!",
