@@ -7,6 +7,11 @@ import com.rappytv.betterfriends.listeners.FriendServerStateListener;
 import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
 import com.rappytv.betterfriends.nametags.FriendNoteNameTag;
 import net.labymod.api.addon.LabyAddon;
+import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.TextComponent;
+import net.labymod.api.client.component.format.NamedTextColor;
+import net.labymod.api.client.component.format.TextColor;
+import net.labymod.api.client.component.format.TextDecoration;
 import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.models.addon.annotation.AddonMain;
@@ -15,13 +20,21 @@ import net.labymod.api.models.addon.annotation.AddonMain;
 public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
   private final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
+  public static final TextComponent prefix = Component.empty()
+      .append(Component.text(
+          "BF",
+          TextColor.color(255, 102, 0)
+      ).decorate(TextDecoration.BOLD))
+      .append(Component.space())
+      .append(Component.text("»", NamedTextColor.DARK_GRAY))
+      .append(Component.space());
 
   @Override
   protected void enable() {
     this.registerSettingCategory();
 
     this.registerListener(new ChatReceiveListener(this));
-    this.registerListener(new FriendRemoveListener());
+    this.registerListener(new FriendRemoveListener(this));
     this.registerListener(new FriendServerStateListener(this));
     this.registerListener(new FriendStatusUpdateListener(this));
 

@@ -1,6 +1,11 @@
 {
   "betterfriends": {
     "settings": {
+      "header": {
+        "notifications": {
+          "name": "Notifications"
+        }
+      },
       "enabled": {
         "name": "Enabled"
       },
@@ -29,6 +34,24 @@
       "friendPrefix": {
         "name": "Friend prefix in chat",
         "description": "This will be prepended to friend messages. You can leave this empty to disable."
+      },
+      "friendRemovalNotifications": {
+        "name": "Notify you if one of your friends removes you",
+        "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
+      }
+    },
+    "notifications": {
+      "friendRemoval": {
+        "title": "Friend removed!",
+        "description": "Either you removed %s as a friend or they removed you."
+      },
+      "statusUpdate": {
+        "message": "%1$s is now %2$s!",
+        "offline": "offline"
+      },
+      "serverUpdate": {
+        "message": "%1$s is now playing on %2$s!",
+        "hover": "Click to join"
       }
     }
   }

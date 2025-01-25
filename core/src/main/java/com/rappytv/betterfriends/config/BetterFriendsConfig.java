@@ -5,6 +5,7 @@ import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
+import net.labymod.api.configuration.settings.annotation.SettingSection;
 
 public class BetterFriendsConfig extends AddonConfig {
 
@@ -13,6 +14,10 @@ public class BetterFriendsConfig extends AddonConfig {
   private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
   @TextFieldSetting
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
+
+  @SettingSection("notifications")
+  @SwitchSetting
+  private final ConfigProperty<Boolean> friendRemovalNotifications = new ConfigProperty<>(true);
 
   @Override
   public ConfigProperty<Boolean> enabled() {
@@ -25,5 +30,9 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public ConfigProperty<String> friendPrefix() {
     return this.friendPrefix;
+  }
+
+  public ConfigProperty<Boolean> friendRemovalNotifications() {
+    return this.friendRemovalNotifications;
   }
 }

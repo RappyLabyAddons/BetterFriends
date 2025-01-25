@@ -9,6 +9,7 @@ import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendServerEvent;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
+import net.labymod.api.labyconnect.protocol.model.friend.ServerInfo;
 
 public class FriendServerStateListener {
 
@@ -19,30 +20,36 @@ public class FriendServerStateListener {
   }
 
   @Subscribe
-  public void onServerUpdate(LabyConnectFriendServerEvent serverEvent) {
-    if (serverEvent.serverInfo() == null) {
+  public void onServerUpdate(LabyConnectFriendServerEvent event) {
+    ServerInfo info = event.serverInfo();
+    if (info == null || info.getAddress() == null) {
       return;
     }
 
-    if (serverEvent.serverInfo().getAddress() == null) {
-      return;
-    }
-
-    Friend friend = serverEvent.friend();
+    Friend friend = event.friend();
     if (friend == null) {
       return;
     }
 
-    String addressName = serverEvent.serverInfo().getAddress();
+    String addressName = event.serverInfo().getAddress();
     Component address = Component.text(addressName)
-        .color(NamedTextColor.WHITE)
-        .clickEvent(ClickEvent.runCommand("/bf server " + addressName))
-        .hoverEvent(HoverEvent.showText(Component.translatable("Klick")))
-        .color(NamedTextColor.GRAY);
+        .clickEvent(ClickEvent.runCommand("/bf join " + addressName))
+        .hoverEvent(HoverEvent.showText(Component.translatable(
+            "betterfriends.notifications.serverUpdate.hover",
+            NamedTextColor.DARK_PURPLE
+        )))
+        .color(NamedTextColor.AQUA);
 
     this.addon.displayMessage(
-        Component.text("§bBFriends §8» §a").append(NameHelper.getColoredName(friend))
-            .append(Component.space()).append(Component.text("spielt nun auf ")).append(address));
+        Component.empty()
+            .append(BetterFriendsAddon.prefix)
+            .append(Component.translatable(
+                "betterfriends.notifications.serverUpdate.message",
+                NameHelper.getColoredName(friend),
+                address
+            ))
+            .color(NamedTextColor.GRAY)
+    );
   }
 
 }
