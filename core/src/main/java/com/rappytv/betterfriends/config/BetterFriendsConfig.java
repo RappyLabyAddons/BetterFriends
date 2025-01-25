@@ -10,6 +10,8 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
   private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
+  @SwitchSetting
+  private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
 
   @Override
   public ConfigProperty<Boolean> enabled() {
@@ -18,5 +20,9 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public FriendNoteTagConfig friendNoteTagConfig() {
     return this.friendNoteTagConfig;
+  }
+
+  public ConfigProperty<String> friendPrefix() {
+    return this.friendPrefix;
   }
 }
