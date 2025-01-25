@@ -25,6 +25,10 @@
           "name": "Fallback tag",
           "description": "You can leave this empty to disable"
         }
+      },
+      "friendPrefix": {
+        "name": "Friend prefix in chat",
+        "description": "This will be prepended to friend messages. You can leave this empty to disable."
       }
     }
   }
