@@ -87,7 +87,6 @@
         "offline": "offline"
       },
       "serverUpdate": {
-        "message": "%1$s is now playing on %2$s!",
         "hover": "Click to join"
       }
     }
