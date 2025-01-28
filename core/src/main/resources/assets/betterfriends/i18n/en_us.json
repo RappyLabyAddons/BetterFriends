@@ -35,6 +35,9 @@
         "name": "Friend prefix in chat",
         "description": "This will be prepended to friend messages. You can leave this empty to disable."
       },
+      "friendRequestNotifications": {
+        "name": "Friend requests"
+      },
       "friendServerSwitchNotifications": {
         "name": "Friend switches server"
       },
@@ -45,6 +48,9 @@
         "name": "Friend gets removed from your friend list",
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
       }
+    },
+    "general": {
+      "labynet": "Open on laby.net"
     },
     "errors": {
       "notConnected": "You're not connected to the LabyChat!"

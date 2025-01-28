@@ -17,6 +17,8 @@ public class BetterFriendsConfig extends AddonConfig {
 
   @SettingSection("notifications")
   @SwitchSetting
+  private final ConfigProperty<Boolean> friendRequestNotifications = new ConfigProperty<>(true);
+  @SwitchSetting
   private final ConfigProperty<Boolean> friendServerSwitchNotifications = new ConfigProperty<>(true);
   @SwitchSetting
   private final ConfigProperty<Boolean> friendStatusUpdateNotifications = new ConfigProperty<>(true);
@@ -34,6 +36,10 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public ConfigProperty<String> friendPrefix() {
     return this.friendPrefix;
+  }
+
+  public ConfigProperty<Boolean> friendRequestNotifications() {
+    return this.friendRequestNotifications;
   }
 
   public ConfigProperty<Boolean> friendServerSwitchNotifications() {

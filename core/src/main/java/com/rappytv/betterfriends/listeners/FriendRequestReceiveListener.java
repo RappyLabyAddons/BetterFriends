@@ -21,6 +21,9 @@ public class FriendRequestReceiveListener {
 
   @Subscribe
   public void onFriendRequestReceive(LabyConnectIncomingFriendRequestAddEvent event) {
+    if(!this.addon.configuration().friendRequestNotifications().get()) {
+      return;
+    }
     IncomingFriendRequest request = event.request();
 
     Laby.references().chatExecutor().displayClientMessage(
@@ -31,7 +34,7 @@ public class FriendRequestReceiveListener {
                 NamedTextColor.GRAY,
                 NameHelper.getColoredName(request.getName(), request.gameUser())
                     .hoverEvent(HoverEvent.showText(Component.translatable(
-                        "Open on laby.net",
+                        "betterfriends.general.labynet",
                         NamedTextColor.DARK_PURPLE
                     )))
                     .clickEvent(ClickEvent.openUrl(
