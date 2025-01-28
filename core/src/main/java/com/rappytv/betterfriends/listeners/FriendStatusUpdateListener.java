@@ -17,8 +17,11 @@ public class FriendStatusUpdateListener {
   }
 
   @Subscribe
-  public void onStatusUpdate(LabyConnectFriendStatusEvent statusEvent) {
-    UserStatus state = statusEvent.getStatus();
+  public void onStatusUpdate(LabyConnectFriendStatusEvent event) {
+    if (!this.addon.configuration().friendStatusUpdateNotifications().get()) {
+      return;
+    }
+    UserStatus state = event.getStatus();
     Component stateComponent = Component.translatable(
         state.getLocalTranslationKey(),
         state.textColor()
@@ -27,7 +30,7 @@ public class FriendStatusUpdateListener {
     if (state == UserStatus.OFFLINE) {
       stateComponent = Component.translatable(
           "betterfriends.notifications.statusUpdate.offline",
-          NamedTextColor.RED
+          NamedTextColor.DARK_GRAY
       );
     }
 
@@ -36,7 +39,7 @@ public class FriendStatusUpdateListener {
             .append(BetterFriendsAddon.prefix)
             .append(Component.translatable(
                 "betterfriends.notifications.statusUpdate.message",
-                NameHelper.getColoredName(statusEvent.friend()),
+                NameHelper.getColoredName(event.friend()),
                 stateComponent
             ))
             .color(NamedTextColor.GRAY)

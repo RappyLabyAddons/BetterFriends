@@ -35,8 +35,14 @@
         "name": "Friend prefix in chat",
         "description": "This will be prepended to friend messages. You can leave this empty to disable."
       },
+      "friendServerSwitchNotifications": {
+        "name": "Friend switches server"
+      },
+      "friendStatusUpdateNotifications": {
+        "name": "Friend updates their status"
+      },
       "friendRemovalNotifications": {
-        "name": "Notify you if one of your friends removes you",
+        "name": "Friend gets removed from your friend list",
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
       }
     },

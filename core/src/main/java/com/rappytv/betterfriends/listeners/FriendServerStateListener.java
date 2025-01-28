@@ -21,6 +21,9 @@ public class FriendServerStateListener {
 
   @Subscribe
   public void onServerUpdate(LabyConnectFriendServerEvent event) {
+    if (!this.addon.configuration().friendServerSwitchNotifications().get()) {
+      return;
+    }
     ServerInfo info = event.serverInfo();
     if (info == null || info.getAddress() == null) {
       return;
