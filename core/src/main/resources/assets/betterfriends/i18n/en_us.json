@@ -46,8 +46,19 @@
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
       }
     },
+    "errors": {
+      "notConnected": "You're not connected to the LabyChat!"
+    },
     "command": {
       "usage": "Usage: %s",
+      "requests": {
+        "notFound": "Unknown friend request!",
+        "enterName": "Please provide a valid username!",
+        "success": {
+          "accept": "You and %s are now friends!",
+          "decline": "You declined %s's friend request."
+        }
+      },
       "join": {
         "enterAddress": "Please provide a valid server address!",
         "connecting": "Connecting..."
@@ -57,6 +68,13 @@
       "friendRemoval": {
         "title": "Friend removed!",
         "description": "Either you removed %s as a friend or they removed you."
+      },
+      "friendRequest": {
+        "message": "%s just sent you a friend request!",
+        "hover": {
+          "accept": "Accept friend request",
+          "decline": "Decline friend request"
+        }
       },
       "statusUpdate": {
         "message": "%1$s is now %2$s!",
