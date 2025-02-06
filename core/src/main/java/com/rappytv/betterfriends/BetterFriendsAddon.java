@@ -15,8 +15,8 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   protected void enable() {
     this.registerSettingCategory();
 
-    this.labyAPI().interactionMenuRegistry().register(new FriendNoteEditorBullet());
-    this.labyAPI().interactionMenuRegistry().register(new FriendTogglePinBullet());
+    this.labyAPI().interactionMenuRegistry().register(new FriendNoteEditorBullet(this));
+    this.labyAPI().interactionMenuRegistry().register(new FriendTogglePinBullet(this));
 
     for (PositionType position : PositionType.values()) {
       this.labyAPI().tagRegistry().register(

@@ -1,6 +1,11 @@
 {
   "betterfriends": {
     "settings": {
+      "header": {
+        "interactions": {
+          "name": "Interaction Bullets"
+        }
+      },
       "enabled": {
         "name": "Enabled"
       },
@@ -25,6 +30,12 @@
           "name": "Fallback tag",
           "description": "You can leave this empty to disable"
         }
+      },
+      "noteEditorBullet": {
+        "name": "Show friend note editor bullet"
+      },
+      "togglePinBullet": {
+        "name": "Show toggle pin bullet"
       }
     },
     "interactions": {

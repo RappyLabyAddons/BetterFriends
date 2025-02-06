@@ -1,5 +1,6 @@
 package com.rappytv.betterfriends.interactions;
 
+import com.rappytv.betterfriends.BetterFriendsAddon;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.Player;
@@ -13,33 +14,40 @@ import java.util.concurrent.TimeUnit;
 
 public class FriendNoteEditorBullet implements BulletPoint {
 
-    private Friend friend = null;
+  private final BetterFriendsAddon addon;
+  private Friend friend = null;
 
-    @Override
-    public Component getTitle() {
-        return Component.translatable("betterfriends.interactions.editNote.title");
-    }
+  public FriendNoteEditorBullet(BetterFriendsAddon addon) {
+    this.addon = addon;
+  }
 
-    @Override
-    public Icon getIcon() {
-        return null;
-    }
+  @Override
+  public Component getTitle() {
+    return Component.translatable("betterfriends.interactions.editNote.title");
+  }
 
-    @Override
-    public void execute(Player player) {
-        // TODO: Fix this
-        Task.builder(this.friend::openNoteEditor).delay(5, TimeUnit.SECONDS).build().execute();
-    }
+  @Override
+  public Icon getIcon() {
+    return null;
+  }
 
-    @Override
-    public boolean isVisible(Player player) {
-        LabyConnectSession session = Laby.references().labyConnect().getSession();
-        if (session == null || !session.isAuthenticated()) return false;
+  @Override
+  public void execute(Player player) {
+    // TODO: Fix this
+    Task.builder(this.friend::openNoteEditor).delay(5, TimeUnit.SECONDS).build().execute();
+  }
 
-        Friend friend = session.getFriend(player.getUniqueId());
-        if (friend == null) return false;
+  @Override
+  public boolean isVisible(Player player) {
+    if (!this.addon.configuration().noteEditorBullet().get()) return false;
 
-        this.friend = friend;
-        return true;
-    }
+    LabyConnectSession session = Laby.references().labyConnect().getSession();
+    if (session == null || !session.isAuthenticated()) return false;
+
+    Friend friend = session.getFriend(player.getUniqueId());
+    if (friend == null) return false;
+
+    this.friend = friend;
+    return true;
+  }
 }
