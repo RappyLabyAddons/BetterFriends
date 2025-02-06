@@ -42,7 +42,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     this.registerCommand(new BetterFriendsCommand());
 
     this.registerListener(new ChatReceiveListener(this));
-      this.registerListener(new FriendAddListener());
+    this.registerListener(new FriendAddListener(this));
     this.registerListener(new FriendRemoveListener(this));
     this.registerListener(new FriendRequestReceiveListener(this));
     this.registerListener(new FriendServerStateListener(this));

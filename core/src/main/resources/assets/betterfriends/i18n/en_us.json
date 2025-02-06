@@ -7,6 +7,9 @@
         },
         "interactions": {
           "name": "Interaction Bullets"
+        },
+        "voicechat": {
+          "name": "VoiceChat"
         }
       },
       "enabled": {
@@ -62,6 +65,9 @@
       },
       "togglePinBullet": {
         "name": "Show toggle pin bullet"
+      },
+      "restartWhenMuted": {
+        "name": "Restart VoiceChat when adding friends when globally muted"
       }
     },
     "general": {
