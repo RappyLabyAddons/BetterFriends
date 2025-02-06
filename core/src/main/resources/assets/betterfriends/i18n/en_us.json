@@ -1,6 +1,11 @@
 {
   "betterfriends": {
     "settings": {
+      "header": {
+        "interactions": {
+          "name": "Interaction Bullets"
+        }
+      },
       "enabled": {
         "name": "Enabled"
       },
@@ -24,6 +29,27 @@
         "defaultTag": {
           "name": "Fallback tag",
           "description": "You can leave this empty to disable"
+        }
+      },
+      "noteEditorBullet": {
+        "name": "Show friend note editor bullet"
+      },
+      "togglePinBullet": {
+        "name": "Show toggle pin bullet"
+      }
+    },
+    "interactions": {
+      "editNote": {
+        "title": "Edit friend note"
+      },
+      "togglePin": {
+        "pin": {
+          "title": "Pin friend",
+          "success": "%s was pinned!"
+        },
+        "unpin": {
+          "title": "Unpin friend",
+          "success": "%s was unpinned!"
         }
       }
     }
