@@ -39,7 +39,8 @@ public class FriendNoteEditorBullet implements BulletPoint {
 
   @Override
   public boolean isVisible(Player player) {
-    if (!this.addon.configuration().noteEditorBullet().get()) return false;
+      if (!this.addon.configuration().enabled().get() || !this.addon.configuration().noteEditorBullet().get())
+          return false;
 
     LabyConnectSession session = Laby.references().labyConnect().getSession();
     if (session == null || !session.isAuthenticated()) return false;
