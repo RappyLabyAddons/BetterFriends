@@ -47,6 +47,12 @@
       "friendRemovalNotifications": {
         "name": "Friend gets removed from your friend list",
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
+      },
+      "labyChatMessageNotifications": {
+        "name": "LabyChat Messages"
+      },
+      "ownLabyChatMessages": {
+        "name": "Own LabyChat Messages"
       }
     },
     "general": {
@@ -68,6 +74,16 @@
       "join": {
         "enterAddress": "Please provide a valid server address!",
         "connecting": "Connecting..."
+      },
+      "read": {
+        "manual": "This command can't be run manually!",
+        "alreadyRead": "You've already read that message!",
+        "success": "The message was marked as read."
+      },
+      "message": {
+        "enterName": "Please enter a username!",
+        "enterText": "Please enter the message content you want to send!",
+        "notFound": "Player not found!"
       }
     },
     "notifications": {
@@ -88,6 +104,11 @@
       },
       "serverUpdate": {
         "hover": "Click to join"
+      },
+      "chats": {
+        "attachments": "[%s Attachments]",
+        "read": "Mark chat as read",
+        "reply": "Reply to %s"
       }
     }
   }

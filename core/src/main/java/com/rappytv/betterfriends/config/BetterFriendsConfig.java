@@ -5,6 +5,7 @@ import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
+import net.labymod.api.configuration.settings.annotation.SettingRequires;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
 
 public class BetterFriendsConfig extends AddonConfig {
@@ -24,6 +25,11 @@ public class BetterFriendsConfig extends AddonConfig {
   private final ConfigProperty<Boolean> friendStatusUpdateNotifications = new ConfigProperty<>(true);
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRemovalNotifications = new ConfigProperty<>(true);
+  @SwitchSetting
+  private final ConfigProperty<Boolean> labyChatMessageNotifications = new ConfigProperty<>(true);
+  @SettingRequires("labyChatMessageNotifications")
+  @SwitchSetting
+  private final ConfigProperty<Boolean> ownLabyChatMessages = new ConfigProperty<>(true);
 
   @Override
   public ConfigProperty<Boolean> enabled() {
@@ -52,5 +58,13 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public ConfigProperty<Boolean> friendRemovalNotifications() {
     return this.friendRemovalNotifications;
+  }
+
+  public ConfigProperty<Boolean> labyChatMessageNotifications() {
+    return this.labyChatMessageNotifications;
+  }
+
+  public ConfigProperty<Boolean> ownLabyChatMessages() {
+    return this.ownLabyChatMessages;
   }
 }
