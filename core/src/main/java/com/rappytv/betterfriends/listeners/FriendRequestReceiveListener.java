@@ -25,6 +25,43 @@ public class FriendRequestReceiveListener {
       return;
     }
     IncomingFriendRequest request = event.request();
+    Component sender = NameHelper.getColoredName(request.getName(), request.gameUser())
+        .hoverEvent(HoverEvent.showText(Component.translatable(
+            "betterfriends.general.labynet",
+            NamedTextColor.DARK_PURPLE
+        )))
+        .clickEvent(ClickEvent.openUrl(
+            "https://laby.net/@" + request.getName()
+        ));
+
+    switch (this.addon.configuration().automaticFriendRequestReaction().get()) {
+      case ACCEPT -> {
+        request.accept();
+        Laby.references().chatExecutor().displayClientMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.prefix)
+                .append(Component.translatable(
+                    "betterfriends.notifications.friendRequest.automatedAction.accepted",
+                    NamedTextColor.GREEN,
+                    sender
+                ))
+        );
+        return;
+      }
+      case DECLINE -> {
+        request.decline();
+        Laby.references().chatExecutor().displayClientMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.prefix)
+                .append(Component.translatable(
+                    "betterfriends.notifications.friendRequest.automatedAction.declined",
+                    NamedTextColor.RED,
+                    sender
+                ))
+        );
+        return;
+      }
+    }
 
     Laby.references().chatExecutor().displayClientMessage(
         Component.empty()
@@ -32,14 +69,7 @@ public class FriendRequestReceiveListener {
             .append(Component.translatable(
                 "betterfriends.notifications.friendRequest.message",
                 NamedTextColor.GRAY,
-                NameHelper.getColoredName(request.getName(), request.gameUser())
-                    .hoverEvent(HoverEvent.showText(Component.translatable(
-                        "betterfriends.general.labynet",
-                        NamedTextColor.DARK_PURPLE
-                    )))
-                    .clickEvent(ClickEvent.openUrl(
-                        "https://laby.net/@" + request.getName()
-                    ))
+                sender
             ))
             .append(Component.space())
             .append(

@@ -4,6 +4,7 @@ import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
+import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.SettingRequires;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
@@ -19,6 +20,10 @@ public class BetterFriendsConfig extends AddonConfig {
   @SettingSection("notifications")
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestNotifications = new ConfigProperty<>(true);
+  @SettingRequires("friendRequestNotifications")
+  @DropdownSetting
+  private final ConfigProperty<FriendRequestReaction> automaticFriendRequestReaction = new ConfigProperty<>(
+      FriendRequestReaction.NONE);
   @SwitchSetting
   private final ConfigProperty<Boolean> friendServerSwitchNotifications = new ConfigProperty<>(true);
   @SwitchSetting
@@ -58,6 +63,10 @@ public class BetterFriendsConfig extends AddonConfig {
     return this.friendRequestNotifications;
   }
 
+  public ConfigProperty<FriendRequestReaction> automaticFriendRequestReaction() {
+    return this.automaticFriendRequestReaction;
+  }
+
   public ConfigProperty<Boolean> friendServerSwitchNotifications() {
     return this.friendServerSwitchNotifications;
   }
@@ -88,5 +97,9 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public ConfigProperty<Boolean> restartWhenMuted() {
     return this.restartWhenMuted;
+  }
+
+  public enum FriendRequestReaction {
+    NONE, ACCEPT, DECLINE
   }
 }
