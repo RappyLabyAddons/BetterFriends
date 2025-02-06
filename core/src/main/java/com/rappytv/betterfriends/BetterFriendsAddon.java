@@ -2,14 +2,15 @@ package com.rappytv.betterfriends;
 
 import com.rappytv.betterfriends.command.BetterFriendsCommand;
 import com.rappytv.betterfriends.config.BetterFriendsConfig;
+import com.rappytv.betterfriends.interactions.FriendNoteEditorBullet;
+import com.rappytv.betterfriends.interactions.FriendTogglePinBullet;
 import com.rappytv.betterfriends.listeners.ChatReceiveListener;
+import com.rappytv.betterfriends.listeners.FriendAddListener;
 import com.rappytv.betterfriends.listeners.FriendRemoveListener;
 import com.rappytv.betterfriends.listeners.FriendRequestReceiveListener;
 import com.rappytv.betterfriends.listeners.FriendServerStateListener;
 import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
-import com.rappytv.betterfriends.interactions.FriendNoteEditorBullet;
-import com.rappytv.betterfriends.interactions.FriendTogglePinBullet;
 import com.rappytv.betterfriends.nametags.FriendNoteNameTag;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
@@ -41,6 +42,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     this.registerCommand(new BetterFriendsCommand());
 
     this.registerListener(new ChatReceiveListener(this));
+      this.registerListener(new FriendAddListener());
     this.registerListener(new FriendRemoveListener(this));
     this.registerListener(new FriendRequestReceiveListener(this));
     this.registerListener(new FriendServerStateListener(this));
