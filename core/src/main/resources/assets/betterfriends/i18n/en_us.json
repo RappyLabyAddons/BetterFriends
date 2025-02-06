@@ -44,6 +44,14 @@
       "friendRequestNotifications": {
         "name": "Friend requests"
       },
+      "automaticFriendRequestReaction": {
+        "name": "Automatic friend request reaction",
+        "entries": {
+          "none": "None",
+          "accept": "Accept",
+          "decline": "Decline"
+        }
+      },
       "friendServerSwitchNotifications": {
         "name": "Friend switches server"
       },
@@ -111,6 +119,10 @@
         "hover": {
           "accept": "Accept friend request",
           "decline": "Decline friend request"
+        },
+        "automatedAction": {
+          "accepted": "%s sent a friend request which was automatically accepted.",
+          "declined": "%s sent a friend request which was automatically declined."
         }
       },
       "statusUpdate": {
