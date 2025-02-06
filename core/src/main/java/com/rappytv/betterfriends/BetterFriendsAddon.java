@@ -11,7 +11,11 @@ import com.rappytv.betterfriends.listeners.FriendRequestReceiveListener;
 import com.rappytv.betterfriends.listeners.FriendServerStateListener;
 import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
-import com.rappytv.betterfriends.nametags.FriendNoteNameTag;
+import com.rappytv.betterfriends.ui.badge.FriendPinBadge;
+import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
+import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
+import net.labymod.api.Laby;
+import net.labymod.api.Textures.SpriteCommon;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TextComponent;
@@ -53,12 +57,25 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     this.labyAPI().interactionMenuRegistry().register(new FriendTogglePinBullet(this));
 
     for (PositionType position : PositionType.values()) {
-      this.labyAPI().tagRegistry().register(
-          "betterfriends_friendnote",
+      this.labyAPI().tagRegistry().registerBefore(
+          "labymod_role",
+          "betterfriends_friend_note",
           position,
           new FriendNoteNameTag(this, position)
       );
     }
+    this.labyAPI().tagRegistry().registerBefore(
+        "VoiceTag",
+        "betterfriends_pin_icon",
+        PositionType.RIGHT_TO_NAME,
+        new FriendPinIconTag(this, SpriteCommon.PIN)
+    );
+    Laby.references().badgeRegistry().registerBefore(
+        "VoiceBadge",
+        "betterfriends_pin_badge",
+        net.labymod.api.client.entity.player.badge.PositionType.RIGHT_TO_NAME,
+        new FriendPinBadge(this, SpriteCommon.PIN)
+    );
   }
 
   @Override

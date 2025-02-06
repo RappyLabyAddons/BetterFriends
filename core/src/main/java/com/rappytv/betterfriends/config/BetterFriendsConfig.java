@@ -1,6 +1,7 @@
 package com.rappytv.betterfriends.config;
 
 import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
+import com.rappytv.betterfriends.config.subconfig.PinIconConfig;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
@@ -14,6 +15,7 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
   private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
+  private final PinIconConfig pinIconConfig = new PinIconConfig();
   @TextFieldSetting
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
 
@@ -53,6 +55,10 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public FriendNoteTagConfig friendNoteTagConfig() {
     return this.friendNoteTagConfig;
+  }
+
+  public PinIconConfig pinIconConfig() {
+    return this.pinIconConfig;
   }
 
   public ConfigProperty<String> friendPrefix() {

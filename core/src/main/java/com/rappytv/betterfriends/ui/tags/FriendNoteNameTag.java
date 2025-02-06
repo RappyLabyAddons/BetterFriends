@@ -1,4 +1,4 @@
-package com.rappytv.betterfriends.nametags;
+package com.rappytv.betterfriends.ui.tags;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
 import java.awt.*;

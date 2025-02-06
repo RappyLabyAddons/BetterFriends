@@ -37,6 +37,15 @@
           "description": "You can leave this empty to disable"
         }
       },
+      "pinIconConfig": {
+        "name": "Friend pin icon",
+        "pinIcon": {
+          "name": "Nametag icon"
+        },
+        "pinBadge": {
+          "name": "Tablist badge"
+        }
+      },
       "friendPrefix": {
         "name": "Friend prefix in chat",
         "description": "This will be prepended to friend messages. You can leave this empty to disable."
