@@ -37,6 +37,10 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> togglePinBullet = new ConfigProperty<>(true);
 
+  @SettingSection("voicechat")
+  @SwitchSetting
+  private final ConfigProperty<Boolean> restartWhenMuted = new ConfigProperty<>(true);
+
   @Override
   public ConfigProperty<Boolean> enabled() {
     return this.enabled;
@@ -80,5 +84,9 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public ConfigProperty<Boolean> togglePinBullet() {
     return this.togglePinBullet;
+  }
+
+  public ConfigProperty<Boolean> restartWhenMuted() {
+    return this.restartWhenMuted;
   }
 }
