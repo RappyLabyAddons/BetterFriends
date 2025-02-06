@@ -26,6 +26,21 @@
           "description": "You can leave this empty to disable"
         }
       }
+    },
+    "interactions": {
+      "editNote": {
+        "title": "Edit friend note"
+      },
+      "togglePin": {
+        "pin": {
+          "title": "Pin friend",
+          "success": "%s was pinned!"
+        },
+        "unpin": {
+          "title": "Unpin friend",
+          "success": "%s was unpinned!"
+        }
+      }
     }
   }
 }
