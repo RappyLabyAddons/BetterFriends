@@ -4,6 +4,9 @@
       "header": {
         "notifications": {
           "name": "Notifications"
+        },
+        "interactions": {
+          "name": "Interaction Bullets"
         }
       },
       "enabled": {
@@ -53,6 +56,12 @@
       },
       "ownLabyChatMessages": {
         "name": "Own LabyChat Messages"
+      },
+      "noteEditorBullet": {
+        "name": "Show friend note editor bullet"
+      },
+      "togglePinBullet": {
+        "name": "Show toggle pin bullet"
       }
     },
     "general": {
@@ -109,6 +118,21 @@
         "attachments": "[%s Attachments]",
         "read": "Mark chat as read",
         "reply": "Reply to %s"
+      }
+    },
+    "interactions": {
+      "editNote": {
+        "title": "Edit friend note"
+      },
+      "togglePin": {
+        "pin": {
+          "title": "Pin friend",
+          "success": "%s was pinned!"
+        },
+        "unpin": {
+          "title": "Unpin friend",
+          "success": "%s was unpinned!"
+        }
       }
     }
   }

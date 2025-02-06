@@ -8,6 +8,8 @@ import com.rappytv.betterfriends.listeners.FriendRequestReceiveListener;
 import com.rappytv.betterfriends.listeners.FriendServerStateListener;
 import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
+import com.rappytv.betterfriends.interactions.FriendNoteEditorBullet;
+import com.rappytv.betterfriends.interactions.FriendTogglePinBullet;
 import com.rappytv.betterfriends.nametags.FriendNoteNameTag;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
@@ -44,6 +46,9 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     this.registerListener(new FriendServerStateListener(this));
     this.registerListener(new FriendStatusUpdateListener(this));
     this.registerListener(new LabyChatReceiveListener(this));
+
+    this.labyAPI().interactionMenuRegistry().register(new FriendNoteEditorBullet(this));
+    this.labyAPI().interactionMenuRegistry().register(new FriendTogglePinBullet(this));
 
     for (PositionType position : PositionType.values()) {
       this.labyAPI().tagRegistry().register(
