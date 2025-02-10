@@ -1,8 +1,31 @@
 {
   "betterfriends": {
     "settings": {
+      "header": {
+        "notifications": {
+          "name": "Notifications"
+        },
+        "interactions": {
+          "name": "Interaction Bullets"
+        },
+        "voicechat": {
+          "name": "VoiceChat"
+        }
+      },
       "enabled": {
         "name": "Enabled"
+      },
+      "advancedFriendlist": {
+        "name": "Advanced friend list"
+      },
+      "pinIconConfig": {
+        "name": "Friend pin icon",
+        "pinIcon": {
+          "name": "Nametag icon"
+        },
+        "pinBadge": {
+          "name": "Tablist badge"
+        }
       },
       "friendNoteTagConfig": {
         "name": "Friend note tags",
@@ -26,8 +49,120 @@
           "description": "You can leave this empty to disable"
         }
       },
-      "advancedFriendlist": {
-        "name": "Advanced friend list"
+      "friendPrefix": {
+        "name": "Friend prefix in chat",
+        "description": "This will be prepended to friend messages. You can leave this empty to disable."
+      },
+      "friendRequestNotifications": {
+        "name": "Friend requests"
+      },
+      "automaticFriendRequestReaction": {
+        "name": "Automatic friend request reaction",
+        "entries": {
+          "none": "None",
+          "accept": "Accept",
+          "decline": "Decline"
+        }
+      },
+      "friendServerSwitchNotifications": {
+        "name": "Friend switches server"
+      },
+      "friendStatusUpdateNotifications": {
+        "name": "Friend updates their status"
+      },
+      "friendRemovalNotifications": {
+        "name": "Friend gets removed from your friend list",
+        "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
+      },
+      "labyChatMessageNotifications": {
+        "name": "LabyChat Messages"
+      },
+      "ownLabyChatMessages": {
+        "name": "Own LabyChat Messages"
+      },
+      "noteEditorBullet": {
+        "name": "Show friend note editor bullet"
+      },
+      "togglePinBullet": {
+        "name": "Show toggle pin bullet"
+      },
+      "restartWhenMuted": {
+        "name": "Restart VoiceChat when adding friends when globally muted"
+      }
+    },
+    "general": {
+      "labynet": "Open on laby.net"
+    },
+    "errors": {
+      "notConnected": "You're not connected to the LabyChat!"
+    },
+    "command": {
+      "usage": "Usage: %s",
+      "requests": {
+        "notFound": "Unknown friend request!",
+        "enterName": "Please provide a valid username!",
+        "success": {
+          "accept": "You and %s are now friends!",
+          "decline": "You declined %s's friend request."
+        }
+      },
+      "join": {
+        "enterAddress": "Please provide a valid server address!",
+        "connecting": "Connecting..."
+      },
+      "read": {
+        "manual": "This command can't be run manually!",
+        "alreadyRead": "You've already read that message!",
+        "success": "The message was marked as read."
+      },
+      "message": {
+        "enterName": "Please enter a username!",
+        "enterText": "Please enter the message content you want to send!",
+        "notFound": "Player not found!"
+      }
+    },
+    "notifications": {
+      "friendRemoval": {
+        "title": "Friend removed!",
+        "description": "Either you removed %s as a friend or they removed you."
+      },
+      "friendRequest": {
+        "message": "%s just sent you a friend request!",
+        "hover": {
+          "accept": "Accept friend request",
+          "decline": "Decline friend request"
+        },
+        "automatedAction": {
+          "accepted": "%s sent a friend request which was automatically accepted.",
+          "declined": "%s sent a friend request which was automatically declined."
+        }
+      },
+      "statusUpdate": {
+        "message": "%1$s is now %2$s!",
+        "offline": "offline"
+      },
+      "serverUpdate": {
+        "hover": "Click to join"
+      },
+      "chats": {
+        "attachments": "[%s Attachments]",
+        "read": "Mark chat as read",
+        "reply": "Reply to %s"
+      }
+    },
+    "interactions": {
+      "editNote": {
+        "title": "Edit friend note"
+      },
+      "togglePin": {
+        "pin": {
+          "title": "Pin friend",
+          "success": "%s was pinned!"
+        },
+        "unpin": {
+          "title": "Unpin friend",
+          "success": "%s was unpinned!"
+        }
       }
     }
   }

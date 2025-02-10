@@ -28,6 +28,8 @@ labyMod {
         description = "We'll figure that out later"
         minecraftVersion = "*"
         version = rootProject.version.toString()
+
+        addon("voicechat", true)
     }
 }
 

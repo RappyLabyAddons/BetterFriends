@@ -1,10 +1,8 @@
-package com.rappytv.betterfriends.nametags;
+package com.rappytv.betterfriends.ui.tags;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import java.awt.*;
 import net.labymod.api.Laby;
-import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.client.entity.player.Player;
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.client.entity.player.tag.tags.NameTag;
@@ -16,13 +14,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class FriendNoteNameTag extends NameTag {
 
-  private static final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
   private static final int gray = new Color(0, 0, 0, 70).getRGB();
-  private final BetterFriendsConfig config;
+  private final BetterFriendsAddon addon;
   private final PositionType position;
 
   public FriendNoteNameTag(BetterFriendsAddon addon, PositionType position) {
-    this.config = addon.configuration();
+    this.addon = addon;
     this.position = position;
   }
 
@@ -44,24 +41,24 @@ public class FriendNoteNameTag extends NameTag {
 
     String note = friend.getNote();
     if (note != null && !note.isBlank()) {
-      return RenderableComponent.of(serializer.deserialize(note));
+      return RenderableComponent.of(this.addon.getSerializer().deserialize(note));
     } else {
-      String defaultTag = this.config.friendNoteTagConfig().defaultTag().get();
+      String defaultTag = this.addon.configuration().friendNoteTagConfig().defaultTag().get();
       if (defaultTag.isBlank()) {
         return null;
       }
-      return RenderableComponent.of(serializer.deserialize(defaultTag));
+      return RenderableComponent.of(this.addon.getSerializer().deserialize(defaultTag));
     }
   }
 
   @Override
   public float getScale() {
-    return (float) this.config.friendNoteTagConfig().size().get() / 10;
+    return (float) this.addon.configuration().friendNoteTagConfig().size().get() / 10;
   }
 
   @Override
   protected NameTagBackground getCustomBackground() {
-    boolean enabled = !this.config.friendNoteTagConfig().hideBackground().get();
+    boolean enabled = !this.addon.configuration().friendNoteTagConfig().hideBackground().get();
     NameTagBackground background = super.getCustomBackground();
 
     if (background == null) {
@@ -74,9 +71,9 @@ public class FriendNoteNameTag extends NameTag {
 
   @Override
   public boolean isVisible() {
-    return this.config.enabled().get()
-        && this.config.friendNoteTagConfig().enabled().get()
-        && this.config.friendNoteTagConfig().position().get() == this.position
+    return this.addon.configuration().enabled().get()
+        && this.addon.configuration().friendNoteTagConfig().enabled().get()
+        && this.addon.configuration().friendNoteTagConfig().position().get() == this.position
         && !this.entity.isCrouching()
         && super.isVisible();
   }
