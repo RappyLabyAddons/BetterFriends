@@ -12,6 +12,10 @@ import com.rappytv.betterfriends.listeners.FriendServerStateListener;
 import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
 import com.rappytv.betterfriends.ui.badge.FriendPinBadge;
+import com.rappytv.betterfriends.ui.hud.FriendCountHudWidget;
+import com.rappytv.betterfriends.ui.hud.IncomingFriendRequestCountHudWidget;
+import com.rappytv.betterfriends.ui.hud.OnlineFriendCountHudWidget;
+import com.rappytv.betterfriends.ui.hud.UnreadChatCountWidget;
 import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
 import net.labymod.api.Laby;
@@ -24,6 +28,7 @@ import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.client.component.format.TextDecoration;
 import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.client.entity.player.tag.PositionType;
+import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.models.addon.annotation.AddonMain;
 
 @AddonMain
@@ -55,6 +60,13 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
     this.labyAPI().interactionMenuRegistry().register(new FriendNoteEditorBullet(this));
     this.labyAPI().interactionMenuRegistry().register(new FriendTogglePinBullet(this));
+
+    HudWidgetCategory category = new HudWidgetCategory(this, "widgets");
+    this.labyAPI().hudWidgetRegistry().categoryRegistry().register(category);
+    this.labyAPI().hudWidgetRegistry().register(new FriendCountHudWidget(category));
+    this.labyAPI().hudWidgetRegistry().register(new IncomingFriendRequestCountHudWidget(category));
+    this.labyAPI().hudWidgetRegistry().register(new OnlineFriendCountHudWidget(category));
+    this.labyAPI().hudWidgetRegistry().register(new UnreadChatCountWidget(category));
 
     for (PositionType position : PositionType.values()) {
       this.labyAPI().tagRegistry().registerBefore(
