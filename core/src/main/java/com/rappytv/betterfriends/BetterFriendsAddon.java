@@ -19,7 +19,6 @@ import com.rappytv.betterfriends.ui.hud.UnreadChatCountWidget;
 import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
 import net.labymod.api.Laby;
-import net.labymod.api.Textures.SpriteCommon;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TextComponent;
@@ -80,13 +79,13 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
         "VoiceTag",
         "betterfriends_pin_icon",
         PositionType.RIGHT_TO_NAME,
-        new FriendPinIconTag(this, SpriteCommon.PIN)
+        new FriendPinIconTag(this)
     );
     Laby.references().badgeRegistry().registerBefore(
         "VoiceBadge",
         "betterfriends_pin_badge",
         net.labymod.api.client.entity.player.badge.PositionType.RIGHT_TO_NAME,
-        new FriendPinBadge(this, SpriteCommon.PIN)
+        new FriendPinBadge(this)
     );
   }
 

@@ -12,9 +12,14 @@ public class FriendPinIconTag extends IconTag {
 
   private final BetterFriendsAddon addon;
 
-  public FriendPinIconTag(BetterFriendsAddon addon, Icon icon) {
-    super(icon, 8);
+  public FriendPinIconTag(BetterFriendsAddon addon) {
+    super(8);
     this.addon = addon;
+  }
+
+  @Override
+  public Icon getIcon() {
+    return this.addon.configuration().pinIconConfig().texture().get().getIcon();
   }
 
   @Override
