@@ -84,7 +84,8 @@
         "name": "Show toggle pin bullet"
       },
       "restartWhenMuted": {
-        "name": "Restart VoiceChat when adding friends when globally muted"
+        "name": "Restart VoiceChat when adding friends when globally muted",
+        "description": "When you are globally muted, only your friends can hear you. Normally, after adding a friend, you need to restart the VoiceChat addon for them to hear you. Enabling this option will automatically reconnect your VoiceChat (only while globally muted) whenever you add a new friend."
       }
     },
     "hudWidgetCategory": {
