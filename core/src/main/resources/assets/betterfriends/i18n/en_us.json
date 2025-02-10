@@ -87,6 +87,30 @@
         "name": "Restart VoiceChat when adding friends when globally muted"
       }
     },
+    "hudWidgetCategory": {
+      "widgets": {
+        "name": "BetterFriends",
+        "description": "Shows you live information about your LabyMod friends"
+      }
+    },
+    "hudWidget": {
+      "friend_count": {
+        "name": "Friend count",
+        "key": "Friends"
+      },
+      "incoming_friend_request_count": {
+        "name": "Friend requests",
+        "key": "Friend requests"
+      },
+      "online_friend_count": {
+        "name": "Online friends",
+        "key": "Online friends"
+      },
+      "unread_count": {
+        "name": "Unread messages",
+        "key": "Unread messages"
+      }
+    },
     "general": {
       "labynet": "Open on laby.net"
     },
