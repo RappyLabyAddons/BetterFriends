@@ -39,7 +39,7 @@ public class FriendRequestReceiveListener {
         request.accept();
         Laby.references().chatExecutor().displayClientMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     "betterfriends.notifications.friendRequest.automatedAction.accepted",
                     NamedTextColor.GREEN,
@@ -52,7 +52,7 @@ public class FriendRequestReceiveListener {
         request.decline();
         Laby.references().chatExecutor().displayClientMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     "betterfriends.notifications.friendRequest.automatedAction.declined",
                     NamedTextColor.RED,
@@ -65,7 +65,7 @@ public class FriendRequestReceiveListener {
 
     Laby.references().chatExecutor().displayClientMessage(
         Component.empty()
-            .append(BetterFriendsAddon.prefix)
+            .append(BetterFriendsAddon.getPrefix())
             .append(Component.translatable(
                 "betterfriends.notifications.friendRequest.message",
                 NamedTextColor.GRAY,

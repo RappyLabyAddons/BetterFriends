@@ -19,7 +19,6 @@ import com.rappytv.betterfriends.ui.hud.UnreadChatCountWidget;
 import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
 import net.labymod.api.Laby;
-import net.labymod.api.Textures.SpriteCommon;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TextComponent;
@@ -35,17 +34,11 @@ import net.labymod.api.models.addon.annotation.AddonMain;
 public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
   private final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
-  public static final TextComponent prefix = Component.empty()
-      .append(Component.text(
-          "BF",
-          TextColor.color(255, 102, 0)
-      ).decorate(TextDecoration.BOLD))
-      .append(Component.space())
-      .append(Component.text("»", NamedTextColor.DARK_GRAY))
-      .append(Component.space());
+  private static BetterFriendsAddon instance;
 
   @Override
   protected void enable() {
+    instance = this;
     this.registerSettingCategory();
 
     this.registerCommand(new BetterFriendsCommand());
@@ -80,19 +73,30 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
         "VoiceTag",
         "betterfriends_pin_icon",
         PositionType.RIGHT_TO_NAME,
-        new FriendPinIconTag(this, SpriteCommon.PIN)
+        new FriendPinIconTag(this)
     );
     Laby.references().badgeRegistry().registerBefore(
         "VoiceBadge",
         "betterfriends_pin_badge",
         net.labymod.api.client.entity.player.badge.PositionType.RIGHT_TO_NAME,
-        new FriendPinBadge(this, SpriteCommon.PIN)
+        new FriendPinBadge(this)
     );
   }
 
   @Override
   protected Class<? extends BetterFriendsConfig> configurationClass() {
     return BetterFriendsConfig.class;
+  }
+
+  public static TextComponent getPrefix() {
+    return Component.empty()
+        .append(Component.text(
+            "BF",
+            TextColor.color(instance.configuration().prefixColor().get().get())
+        ).decorate(TextDecoration.BOLD))
+        .append(Component.space())
+        .append(Component.text("»", NamedTextColor.DARK_GRAY))
+        .append(Component.space());
   }
 
   public LegacyComponentSerializer getSerializer() {

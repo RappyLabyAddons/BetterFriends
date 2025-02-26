@@ -2,6 +2,7 @@ package com.rappytv.betterfriends.interactions;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
 import net.labymod.api.Laby;
+import net.labymod.api.Textures.SpriteCommon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.Player;
 import net.labymod.api.client.entity.player.interaction.BulletPoint;
@@ -28,7 +29,7 @@ public class FriendNoteEditorBullet implements BulletPoint {
 
   @Override
   public Icon getIcon() {
-    return null;
+    return SpriteCommon.EDIT;
   }
 
   @Override

@@ -15,8 +15,13 @@
       "enabled": {
         "name": "Enabled"
       },
+      "prefixColor": {
+        "name": "Prefix color",
+        "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
+      },
       "friendNoteTagConfig": {
         "name": "Friend note tags",
+        "description": "This feature displays an additional tag next to your friends' names, showing the text from their friend note. It can serve as a replacement for the FriendTags addon.",
         "size": {
           "name": "Size"
         },
@@ -34,11 +39,18 @@
         },
         "defaultTag": {
           "name": "Fallback tag",
-          "description": "You can leave this empty to disable"
+          "description": "This is a fallback text which appears for friends without an explicit friend note. Leave it empty to disable it."
         }
       },
       "pinIconConfig": {
         "name": "Friend pin icon",
+        "texture": {
+          "name": "Icon texture",
+          "entries": {
+            "pin": "Pin",
+            "marker": "Marker"
+          }
+        },
         "pinIcon": {
           "name": "Nametag icon"
         },
@@ -84,7 +96,8 @@
         "name": "Show toggle pin bullet"
       },
       "restartWhenMuted": {
-        "name": "Restart VoiceChat when adding friends when globally muted"
+        "name": "Restart VoiceChat when adding friends when globally muted",
+        "description": "When you are globally muted, only your friends can hear you. Normally, after adding a friend, you need to restart the VoiceChat addon for them to hear you. Enabling this option will automatically reconnect your VoiceChat (only while globally muted) whenever you add a new friend."
       }
     },
     "hudWidgetCategory": {

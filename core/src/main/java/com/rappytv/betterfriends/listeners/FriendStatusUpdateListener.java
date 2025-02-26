@@ -36,7 +36,7 @@ public class FriendStatusUpdateListener {
 
     this.addon.displayMessage(
         Component.empty()
-            .append(BetterFriendsAddon.prefix)
+            .append(BetterFriendsAddon.getPrefix())
             .append(Component.translatable(
                 "betterfriends.notifications.statusUpdate.message",
                 NameHelper.getColoredName(event.friend()),
