@@ -42,7 +42,7 @@ public class BetterFriendsCommand extends Command {
 
     this.displayMessage(
         Component.empty()
-            .append(BetterFriendsAddon.prefix)
+            .append(BetterFriendsAddon.getPrefix())
             .append(Component.translatable(
                 this.getTranslationKey("usage"),
                 NamedTextColor.RED,
@@ -68,7 +68,7 @@ public class BetterFriendsCommand extends Command {
       if(arguments.length < 1) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("enterName"),
                     NamedTextColor.RED
@@ -80,7 +80,7 @@ public class BetterFriendsCommand extends Command {
       if(session == null) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     "betterfriends.errors.notConnected",
                     NamedTextColor.RED
@@ -95,7 +95,7 @@ public class BetterFriendsCommand extends Command {
         request.accept();
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("success.accept"),
                     NamedTextColor.GRAY,
@@ -106,7 +106,7 @@ public class BetterFriendsCommand extends Command {
       }
       this.displayMessage(
           Component.empty()
-              .append(BetterFriendsAddon.prefix)
+              .append(BetterFriendsAddon.getPrefix())
               .append(Component.translatable(
                   this.getTranslationKey("notFound"),
                   NamedTextColor.RED
@@ -129,7 +129,7 @@ public class BetterFriendsCommand extends Command {
       if(arguments.length < 1) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("enterName"),
                     NamedTextColor.RED
@@ -141,7 +141,7 @@ public class BetterFriendsCommand extends Command {
       if(session == null) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     "betterfriends.errors.notConnected",
                     NamedTextColor.RED
@@ -156,7 +156,7 @@ public class BetterFriendsCommand extends Command {
         request.decline();
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("success.decline"),
                     NamedTextColor.GRAY,
@@ -167,7 +167,7 @@ public class BetterFriendsCommand extends Command {
       }
       this.displayMessage(
           Component.empty()
-              .append(BetterFriendsAddon.prefix)
+              .append(BetterFriendsAddon.getPrefix())
               .append(Component.translatable(
                   this.getTranslationKey("notFound"),
                   NamedTextColor.RED
@@ -190,7 +190,7 @@ public class BetterFriendsCommand extends Command {
       if (arguments.length < 1) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("enterAddress"),
                     NamedTextColor.RED
@@ -201,7 +201,7 @@ public class BetterFriendsCommand extends Command {
 
       this.displayMessage(
           Component.empty()
-              .append(BetterFriendsAddon.prefix)
+              .append(BetterFriendsAddon.getPrefix())
               .append(Component.translatable(this.getTranslationKey("connecting")))
       );
       Laby.references()
@@ -224,7 +224,7 @@ public class BetterFriendsCommand extends Command {
       if(arguments.length < 1) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("enterName"),
                     NamedTextColor.RED
@@ -236,7 +236,7 @@ public class BetterFriendsCommand extends Command {
       if(session == null) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     "betterfriends.errors.notConnected",
                     NamedTextColor.RED
@@ -255,7 +255,7 @@ public class BetterFriendsCommand extends Command {
         if(arguments.length < 2) {
           this.displayMessage(
               Component.empty()
-                  .append(BetterFriendsAddon.prefix)
+                  .append(BetterFriendsAddon.getPrefix())
                   .append(Component.translatable(
                       this.getTranslationKey("enterText"),
                       NamedTextColor.RED
@@ -277,7 +277,7 @@ public class BetterFriendsCommand extends Command {
       }
       this.displayMessage(
           Component.empty()
-              .append(BetterFriendsAddon.prefix)
+              .append(BetterFriendsAddon.getPrefix())
               .append(Component.translatable(
                   this.getTranslationKey("notFound"),
                   NamedTextColor.RED
@@ -300,7 +300,7 @@ public class BetterFriendsCommand extends Command {
       if(Laby.references().labyConnect().getSession() == null) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     "betterfriends.errors.notConnected",
                     NamedTextColor.RED
@@ -311,7 +311,7 @@ public class BetterFriendsCommand extends Command {
       if(arguments.length < 1) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("manual"),
                     NamedTextColor.RED
@@ -326,7 +326,7 @@ public class BetterFriendsCommand extends Command {
       } catch (IllegalArgumentException e) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("manual"),
                     NamedTextColor.RED
@@ -340,7 +340,7 @@ public class BetterFriendsCommand extends Command {
       if(message == null) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("manual"),
                     NamedTextColor.RED
@@ -351,7 +351,7 @@ public class BetterFriendsCommand extends Command {
       if(message.isRead()) {
         this.displayMessage(
             Component.empty()
-                .append(BetterFriendsAddon.prefix)
+                .append(BetterFriendsAddon.getPrefix())
                 .append(Component.translatable(
                     this.getTranslationKey("alreadyRead"),
                     NamedTextColor.RED
@@ -362,7 +362,7 @@ public class BetterFriendsCommand extends Command {
       message.markAsRead();
       this.displayMessage(
           Component.empty()
-              .append(BetterFriendsAddon.prefix)
+              .append(BetterFriendsAddon.getPrefix())
               .append(Component.translatable(this.getTranslationKey("success")))
       );
       return true;

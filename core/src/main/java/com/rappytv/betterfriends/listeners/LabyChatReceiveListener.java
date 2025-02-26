@@ -50,7 +50,7 @@ public class LabyChatReceiveListener {
     }
 
     Component component = Component.empty()
-        .append(BetterFriendsAddon.prefix)
+        .append(BetterFriendsAddon.getPrefix())
         .append(NameHelper.getColoredName(sender.getName(), sender.gameUser()))
         .append(Component.text(" → ", NamedTextColor.DARK_GRAY))
         .append(NameHelper.getColoredName(receiver.getName(), receiver.gameUser()))

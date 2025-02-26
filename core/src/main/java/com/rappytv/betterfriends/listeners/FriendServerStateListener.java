@@ -67,7 +67,7 @@ public class FriendServerStateListener {
 
     this.addon.displayMessage(
         Component.empty()
-            .append(BetterFriendsAddon.prefix)
+            .append(BetterFriendsAddon.getPrefix())
             .append(NameHelper.getColoredName(friend))
             .append(Component.space())
             .append(text)
