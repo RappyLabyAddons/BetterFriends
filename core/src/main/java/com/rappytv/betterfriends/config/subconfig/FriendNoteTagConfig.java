@@ -27,19 +27,15 @@ public class FriendNoteTagConfig extends Config {
   public ConfigProperty<Boolean> enabled() {
     return this.enabled;
   }
-
   public ConfigProperty<Integer> size() {
     return this.size;
   }
-
   public ConfigProperty<Boolean> hideBackground() {
     return this.hideBackground;
   }
-
   public ConfigProperty<PositionType> position() {
     return this.position;
   }
-
   public ConfigProperty<String> defaultTag() {
     return this.defaultTag;
   }

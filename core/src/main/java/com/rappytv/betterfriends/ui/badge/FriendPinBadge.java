@@ -2,6 +2,7 @@ package com.rappytv.betterfriends.ui.badge;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
 import net.labymod.api.Laby;
+import net.labymod.api.Textures;
 import net.labymod.api.client.entity.player.badge.renderer.BadgeRenderer;
 import net.labymod.api.client.network.NetworkPlayerInfo;
 import net.labymod.api.client.render.matrix.Stack;
@@ -18,16 +19,7 @@ public class FriendPinBadge extends BadgeRenderer {
 
   @Override
   public void render(Stack stack, float x, float y, NetworkPlayerInfo player) {
-    this.addon.configuration()
-        .pinIconConfig()
-        .texture().get()
-        .getIcon()
-        .render(
-            stack,
-            x + 2.0F,
-            y + 0.5F,
-            this.addon.configuration().pinIconConfig().texture().get().getBadgeSize()
-        );
+    Textures.SpriteCommon.PIN.render(stack, x + 2.0F, y + 0.5F, 6f);
   }
 
   @Override

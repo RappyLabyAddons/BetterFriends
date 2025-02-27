@@ -2,6 +2,7 @@ package com.rappytv.betterfriends.ui.tags;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
 import net.labymod.api.Laby;
+import net.labymod.api.Textures;
 import net.labymod.api.client.entity.player.Player;
 import net.labymod.api.client.entity.player.tag.tags.IconTag;
 import net.labymod.api.client.gui.icon.Icon;
@@ -19,7 +20,7 @@ public class FriendPinIconTag extends IconTag {
 
   @Override
   public Icon getIcon() {
-    return this.addon.configuration().pinIconConfig().texture().get().getIcon();
+    return Textures.SpriteCommon.PIN;
   }
 
   @Override

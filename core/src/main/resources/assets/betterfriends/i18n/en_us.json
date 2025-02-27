@@ -21,13 +21,6 @@
       },
       "pinIconConfig": {
         "name": "Friend pin icon",
-        "texture": {
-          "name": "Icon texture",
-          "entries": {
-            "pin": "Pin",
-            "marker": "Marker"
-          }
-        },
         "pinIcon": {
           "name": "Nametag icon"
         },
