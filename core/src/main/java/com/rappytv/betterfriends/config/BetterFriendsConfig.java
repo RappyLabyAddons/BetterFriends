@@ -37,6 +37,8 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRemovalNotifications = new ConfigProperty<>(true);
   @SwitchSetting
+  private final ConfigProperty<Boolean> friendRequestRemovalNotifications = new ConfigProperty<>(true);
+  @SwitchSetting
   private final ConfigProperty<Boolean> labyChatMessageNotifications = new ConfigProperty<>(true);
   @SettingRequires("labyChatMessageNotifications")
   @SwitchSetting
@@ -83,6 +85,9 @@ public class BetterFriendsConfig extends AddonConfig {
   }
   public ConfigProperty<Boolean> friendRemovalNotifications() {
     return this.friendRemovalNotifications;
+  }
+  public ConfigProperty<Boolean> friendRequestRemovalNotifications() {
+    return this.friendRequestRemovalNotifications;
   }
   public ConfigProperty<Boolean> labyChatMessageNotifications() {
     return this.labyChatMessageNotifications;

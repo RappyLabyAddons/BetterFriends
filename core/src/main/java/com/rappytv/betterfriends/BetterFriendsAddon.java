@@ -8,6 +8,7 @@ import com.rappytv.betterfriends.listeners.ChatReceiveListener;
 import com.rappytv.betterfriends.listeners.FriendAddListener;
 import com.rappytv.betterfriends.listeners.FriendRemoveListener;
 import com.rappytv.betterfriends.listeners.FriendRequestReceiveListener;
+import com.rappytv.betterfriends.listeners.FriendRequestRemoveListener;
 import com.rappytv.betterfriends.listeners.FriendServerStateListener;
 import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
@@ -47,6 +48,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     this.registerListener(new FriendAddListener(this));
     this.registerListener(new FriendRemoveListener(this));
     this.registerListener(new FriendRequestReceiveListener(this));
+    this.registerListener(new FriendRequestRemoveListener(this));
     this.registerListener(new FriendServerStateListener(this));
     this.registerListener(new FriendStatusUpdateListener(this));
     this.registerListener(new LabyChatReceiveListener(this));

@@ -87,6 +87,10 @@
         "name": "Friend gets removed from your friend list",
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
       },
+      "friendRequestRemovalNotifications": {
+        "name": "Friend declines your friend request",
+        "description": "Note that this will also notify you when you cancel the friend request as there is no way to check who was performing the action."
+      },
       "labyChatMessageNotifications": {
         "name": "LabyChat Messages",
         "description": "If you want to receive LabyChat messages in your minecraft chat."
@@ -178,6 +182,10 @@
           "accepted": "%s sent a friend request which was automatically accepted.",
           "declined": "%s sent a friend request which was automatically declined."
         }
+      },
+      "friendRequestRemoval": {
+        "title": "Request removed",
+        "description": "%s has declined your friend request. (Or you removed it)"
       },
       "statusUpdate": {
         "message": "%1$s is now %2$s!",
