@@ -1,0 +1,215 @@
+{
+  "betterfriends": {
+    "settings": {
+      "header": {
+        "general": {
+          "name": "General"
+        },
+        "notifications": {
+          "name": "Notifications"
+        },
+        "interactions": {
+          "name": "Interaction Bullets"
+        },
+        "voicechat": {
+          "name": "VoiceChat"
+        }
+      },
+      "enabled": {
+        "name": "Enabled"
+      },
+      "prefixColor": {
+        "name": "Prefix color",
+        "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
+      },
+      "pinIconConfig": {
+        "name": "Friend pin icon",
+        "pinIcon": {
+          "name": "Nametag icon"
+        },
+        "pinBadge": {
+          "name": "Tablist badge"
+        }
+      },
+      "friendNoteTagConfig": {
+        "name": "Friend note tags",
+        "description": "This feature displays an additional tag next to your friends' names, showing the text from their friend note. It can serve as a replacement for the FriendTags addon.",
+        "size": {
+          "name": "Size"
+        },
+        "hideBackground": {
+          "name": "Hide background"
+        },
+        "position": {
+          "name": "Position",
+          "entries": {
+            "aboveName": "Above name",
+            "belowName": "Below name",
+            "rightToName": "Right to name",
+            "leftToName": "Left to name"
+          }
+        },
+        "defaultTag": {
+          "name": "Fallback tag",
+          "description": "This is a fallback text which appears for friends without an explicit friend note. Leave it empty to disable it."
+        }
+      },
+      "friendPrefix": {
+        "name": "Friend prefix in chat",
+        "description": "This will be prepended to friend messages. You can leave this empty to disable."
+      },
+      "friendRequestNotifications": {
+        "name": "Friend requests",
+        "description": "If you want to receive chat messages when you receive a friend request."
+      },
+      "automaticFriendRequestReaction": {
+        "name": "Automatic friend request reaction",
+        "description": "With this option you can set an automatic reaction to incoming friend requests. You will still be notified about any incoming friend requests and if they were accepted/denied automatically.",
+        "entries": {
+          "none": "None",
+          "accept": "Accept",
+          "decline": "Decline"
+        }
+      },
+      "friendServerSwitchNotifications": {
+        "name": "Friend switches server",
+        "description": "If you want to receive chat messages when a friend of yours goes on a different server."
+      },
+      "friendStatusUpdateNotifications": {
+        "name": "Friend updates their status",
+        "description": "If you want to receive chat messages when a friend of yours changes their online status."
+      },
+      "friendRemovalNotifications": {
+        "name": "Friend gets removed from your friend list",
+        "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
+      },
+      "friendRequestRemovalNotifications": {
+        "name": "Friend declines your friend request",
+        "description": "Note that this will also notify you when you cancel the friend request as there is no way to check who was performing the action."
+      },
+      "labyChatMessageNotifications": {
+        "name": "LabyChat Messages",
+        "description": "If you want to receive LabyChat messages in your minecraft chat."
+      },
+      "ownLabyChatMessages": {
+        "name": "Own LabyChat Messages",
+        "description": "If you also want to see your own sent messages in chat."
+      },
+      "noteEditorBullet": {
+        "name": "Show friend note editor bullet",
+        "description": "Toggles the visibility of the interaction bullet which can open the note editor of a friend."
+      },
+      "togglePinBullet": {
+        "name": "Show toggle pin bullet",
+        "description": "Toggles the visibility of the interaction bullet which toggles if a friend is pinned or not."
+      },
+      "restartWhenMuted": {
+        "name": "Restart VoiceChat when adding friends when globally muted",
+        "description": "When you are globally muted, only your friends can hear you. Normally, after adding a friend, you need to restart the VoiceChat addon for them to hear you. Enabling this option will automatically reconnect your VoiceChat (only while globally muted) whenever you add a new friend."
+      }
+    },
+    "hudWidgetCategory": {
+      "widgets": {
+        "name": "BetterFriends",
+        "description": "Shows you live information about your LabyMod friends"
+      }
+    },
+    "hudWidget": {
+      "friend_count": {
+        "name": "Friend count",
+        "key": "Friends"
+      },
+      "incoming_friend_request_count": {
+        "name": "Friend requests",
+        "key": "Friend requests"
+      },
+      "online_friend_count": {
+        "name": "Online friends",
+        "key": "Online friends"
+      },
+      "unread_count": {
+        "name": "Unread messages",
+        "key": "Unread messages"
+      }
+    },
+    "general": {
+      "labynet": "Open on laby.net"
+    },
+    "errors": {
+      "notConnected": "You're not connected to the LabyChat!"
+    },
+    "command": {
+      "usage": "Usage: %s",
+      "requests": {
+        "notFound": "Unknown friend request!",
+        "enterName": "Please provide a valid username!",
+        "success": {
+          "accept": "You and %s are now friends!",
+          "decline": "You declined %s's friend request."
+        }
+      },
+      "join": {
+        "enterAddress": "Please provide a valid server address!",
+        "connecting": "Connecting..."
+      },
+      "read": {
+        "manual": "This command can't be run manually!",
+        "alreadyRead": "You've already read that message!",
+        "success": "The message was marked as read."
+      },
+      "message": {
+        "enterName": "Please enter a username!",
+        "enterText": "Please enter the message content you want to send!",
+        "notFound": "Player not found!"
+      }
+    },
+    "notifications": {
+      "friendRemoval": {
+        "title": "Friend removed!",
+        "description": "Either you removed %s as a friend or they removed you."
+      },
+      "friendRequest": {
+        "message": "%s just sent you a friend request!",
+        "hover": {
+          "accept": "Accept friend request",
+          "decline": "Decline friend request"
+        },
+        "automatedAction": {
+          "accepted": "%s sent a friend request which was automatically accepted.",
+          "declined": "%s sent a friend request which was automatically declined."
+        }
+      },
+      "friendRequestRemoval": {
+        "title": "Request removed",
+        "description": "%s has declined your friend request. (Or you removed it)"
+      },
+      "statusUpdate": {
+        "message": "%1$s is now %2$s!",
+        "offline": "offline"
+      },
+      "serverUpdate": {
+        "hover": "Click to join"
+      },
+      "chats": {
+        "attachments": "[%s Attachments]",
+        "read": "Mark chat as read",
+        "reply": "Reply to %s"
+      }
+    },
+    "interactions": {
+      "editNote": {
+        "title": "Edit friend note"
+      },
+      "togglePin": {
+        "pin": {
+          "title": "Pin friend",
+          "success": "%s was pinned!"
+        },
+        "unpin": {
+          "title": "Unpin friend",
+          "success": "%s was unpinned!"
+        }
+      }
+    }
+  }
+}
