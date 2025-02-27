@@ -19,6 +19,22 @@
         "name": "Prefix color",
         "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
       },
+      "pinIconConfig": {
+        "name": "Friend pin icon",
+        "texture": {
+          "name": "Icon texture",
+          "entries": {
+            "pin": "Pin",
+            "marker": "Marker"
+          }
+        },
+        "pinIcon": {
+          "name": "Nametag icon"
+        },
+        "pinBadge": {
+          "name": "Tablist badge"
+        }
+      },
       "friendNoteTagConfig": {
         "name": "Friend note tags",
         "description": "This feature displays an additional tag next to your friends' names, showing the text from their friend note. It can serve as a replacement for the FriendTags addon.",
@@ -40,22 +56,6 @@
         "defaultTag": {
           "name": "Fallback tag",
           "description": "This is a fallback text which appears for friends without an explicit friend note. Leave it empty to disable it."
-        }
-      },
-      "pinIconConfig": {
-        "name": "Friend pin icon",
-        "texture": {
-          "name": "Icon texture",
-          "entries": {
-            "pin": "Pin",
-            "marker": "Marker"
-          }
-        },
-        "pinIcon": {
-          "name": "Nametag icon"
-        },
-        "pinBadge": {
-          "name": "Tablist badge"
         }
       },
       "friendPrefix": {

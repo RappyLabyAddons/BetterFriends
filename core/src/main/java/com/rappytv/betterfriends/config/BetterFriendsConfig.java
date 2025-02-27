@@ -18,8 +18,8 @@ public class BetterFriendsConfig extends AddonConfig {
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
   @ColorPickerSetting
   private final ConfigProperty<Color> prefixColor = new ConfigProperty<>(Color.ofRGB(255, 102, 0));
-  private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
   private final PinIconConfig pinIconConfig = new PinIconConfig();
+  private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
   @TextFieldSetting
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
 
@@ -59,11 +59,11 @@ public class BetterFriendsConfig extends AddonConfig {
   public ConfigProperty<Color> prefixColor() {
     return this.prefixColor;
   }
-  public FriendNoteTagConfig friendNoteTagConfig() {
-    return this.friendNoteTagConfig;
-  }
   public PinIconConfig pinIconConfig() {
     return this.pinIconConfig;
+  }
+  public FriendNoteTagConfig friendNoteTagConfig() {
+    return this.friendNoteTagConfig;
   }
   public ConfigProperty<String> friendPrefix() {
     return this.friendPrefix;
