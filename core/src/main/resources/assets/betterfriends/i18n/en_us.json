@@ -63,10 +63,12 @@
         "description": "This will be prepended to friend messages. You can leave this empty to disable."
       },
       "friendRequestNotifications": {
-        "name": "Friend requests"
+        "name": "Friend requests",
+        "description": "If you want to receive chat messages when you receive a friend request."
       },
       "automaticFriendRequestReaction": {
         "name": "Automatic friend request reaction",
+        "description": "With this option you can set an automatic reaction to incoming friend requests. You will still be notified about any incoming friend requests and if they were accepted/denied automatically.",
         "entries": {
           "none": "None",
           "accept": "Accept",
@@ -74,26 +76,32 @@
         }
       },
       "friendServerSwitchNotifications": {
-        "name": "Friend switches server"
+        "name": "Friend switches server",
+        "description": "If you want to receive chat messages when a friend of yours goes on a different server."
       },
       "friendStatusUpdateNotifications": {
-        "name": "Friend updates their status"
+        "name": "Friend updates their status",
+        "description": "If you want to receive chat messages when a friend of yours changes their online status."
       },
       "friendRemovalNotifications": {
         "name": "Friend gets removed from your friend list",
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
       },
       "labyChatMessageNotifications": {
-        "name": "LabyChat Messages"
+        "name": "LabyChat Messages",
+        "description": "If you want to receive LabyChat messages in your minecraft chat."
       },
       "ownLabyChatMessages": {
-        "name": "Own LabyChat Messages"
+        "name": "Own LabyChat Messages",
+        "description": "If you also want to see your own sent messages in chat."
       },
       "noteEditorBullet": {
-        "name": "Show friend note editor bullet"
+        "name": "Show friend note editor bullet",
+        "description": "Toggles the visibility of the interaction bullet which can open the note editor of a friend."
       },
       "togglePinBullet": {
-        "name": "Show toggle pin bullet"
+        "name": "Show toggle pin bullet",
+        "description": "Toggles the visibility of the interaction bullet which toggles if a friend is pinned or not."
       },
       "restartWhenMuted": {
         "name": "Restart VoiceChat when adding friends when globally muted",
