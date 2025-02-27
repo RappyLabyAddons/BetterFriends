@@ -62,9 +62,9 @@ public class BetterFriendsConfig extends AddonConfig {
   private final ConfigProperty<Boolean> ownLabyChatMessages = new ConfigProperty<>(true);
 
   @SettingSection(value = "interactions", center = true)
-  @SpriteSlot(x = 5, y = 1)
-  @SwitchSetting
-  private final ConfigProperty<Boolean> noteEditorBullet = new ConfigProperty<>(true);
+//  @SpriteSlot(x = 5, y = 1)
+//  @SwitchSetting
+//  private final ConfigProperty<Boolean> noteEditorBullet = new ConfigProperty<>(true);
   @SpriteSlot(size = 8, x = 4)
   @SwitchSetting
   private final ConfigProperty<Boolean> togglePinBullet = new ConfigProperty<>(true);
@@ -116,9 +116,9 @@ public class BetterFriendsConfig extends AddonConfig {
     return this.ownLabyChatMessages;
   }
 
-  public ConfigProperty<Boolean> noteEditorBullet() {
-    return this.noteEditorBullet;
-  }
+//  public ConfigProperty<Boolean> noteEditorBullet() {
+//    return this.noteEditorBullet;
+//  }
   public ConfigProperty<Boolean> togglePinBullet() {
     return this.togglePinBullet;
   }

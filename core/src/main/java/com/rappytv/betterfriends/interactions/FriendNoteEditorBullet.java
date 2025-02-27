@@ -7,12 +7,11 @@ import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.Player;
 import net.labymod.api.client.entity.player.interaction.BulletPoint;
 import net.labymod.api.client.gui.icon.Icon;
-import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
-import net.labymod.api.util.concurrent.task.Task;
 
-import java.util.concurrent.TimeUnit;
-
+/**
+ * This needs to be fixed soon
+ */
 public class FriendNoteEditorBullet implements BulletPoint {
 
   private final BetterFriendsAddon addon;
@@ -35,21 +34,22 @@ public class FriendNoteEditorBullet implements BulletPoint {
   @Override
   public void execute(Player player) {
     // TODO: Fix this
-    Task.builder(this.friend::openNoteEditor).delay(5, TimeUnit.SECONDS).build().execute();
+    Laby.labyAPI().minecraft().executeNextTick(this.friend::openNoteEditor);
   }
 
   @Override
   public boolean isVisible(Player player) {
-      if (!this.addon.configuration().enabled().get() || !this.addon.configuration().noteEditorBullet().get())
-          return false;
-
-    LabyConnectSession session = Laby.references().labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) return false;
-
-    Friend friend = session.getFriend(player.getUniqueId());
-    if (friend == null) return false;
-
-    this.friend = friend;
-    return true;
+//    if (!this.addon.configuration().enabled().get() || !this.addon.configuration().noteEditorBullet().get())
+//      return false;
+//
+//    LabyConnectSession session = Laby.references().labyConnect().getSession();
+//    if (session == null || !session.isAuthenticated()) return false;
+//
+//    Friend friend = session.getFriend(player.getUniqueId());
+//    if (friend == null) return false;
+//
+//    this.friend = friend;
+//    return true;
+    return false;
   }
 }
