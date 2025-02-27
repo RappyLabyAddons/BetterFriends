@@ -7,50 +7,70 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.Switc
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
+import net.labymod.api.configuration.loader.annotation.SpriteSlot;
+import net.labymod.api.configuration.loader.annotation.SpriteTexture;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.SettingRequires;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
 import net.labymod.api.util.Color;
 
+@SpriteTexture("settings.png")
 public class BetterFriendsConfig extends AddonConfig {
 
+  @SettingSection(value = "general", center = true)
+  @SpriteSlot
   @SwitchSetting
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+  @SpriteSlot(x = 1)
   @ColorPickerSetting
   private final ConfigProperty<Color> prefixColor = new ConfigProperty<>(Color.ofRGB(255, 102, 0));
+  @SpriteSlot(size = 8, x = 4)
   private final PinIconConfig pinIconConfig = new PinIconConfig();
+  @SpriteSlot(x = 3)
   private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
+  @SpriteSlot(x = 4)
   @TextFieldSetting
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
 
-  @SettingSection("notifications")
+  @SettingSection(value = "notifications", center = true)
+  @SpriteSlot(x = 5)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestNotifications = new ConfigProperty<>(true);
   @SettingRequires("friendRequestNotifications")
+  @SpriteSlot(x = 6)
   @DropdownSetting
   private final ConfigProperty<FriendRequestReaction> automaticFriendRequestReaction = new ConfigProperty<>(
       FriendRequestReaction.NONE);
+  @SpriteSlot(x = 7)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendServerSwitchNotifications = new ConfigProperty<>(true);
+  @SpriteSlot(y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendStatusUpdateNotifications = new ConfigProperty<>(true);
+  @SpriteSlot(x = 1, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRemovalNotifications = new ConfigProperty<>(true);
+  @SpriteSlot(x = 2, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestRemovalNotifications = new ConfigProperty<>(true);
+  @SpriteSlot(x = 3, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> labyChatMessageNotifications = new ConfigProperty<>(true);
   @SettingRequires("labyChatMessageNotifications")
+  @SpriteSlot(x = 4, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> ownLabyChatMessages = new ConfigProperty<>(true);
 
-  @SettingSection("interactions")
+  @SettingSection(value = "interactions", center = true)
+  @SpriteSlot(x = 5, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> noteEditorBullet = new ConfigProperty<>(true);
+  @SpriteSlot(size = 8, x = 4)
   @SwitchSetting
   private final ConfigProperty<Boolean> togglePinBullet = new ConfigProperty<>(true);
 
-  @SettingSection("voicechat")
+  @SettingSection(value = "voicechat", center = true)
+  @SpriteSlot(x = 6, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> restartWhenMuted = new ConfigProperty<>(true);
 

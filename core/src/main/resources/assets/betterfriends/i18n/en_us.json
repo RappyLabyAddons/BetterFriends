@@ -2,6 +2,9 @@
   "betterfriends": {
     "settings": {
       "header": {
+        "general": {
+          "name": "General"
+        },
         "notifications": {
           "name": "Notifications"
         },
