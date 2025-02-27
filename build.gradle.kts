@@ -25,7 +25,7 @@ labyMod {
         namespace = "betterfriends"
         displayName = "BetterFriends"
         author = "RappyTV, JarDateien"
-        description = "We'll figure that out later"
+        description = "All-in-one addon packed with advanced features for your LabyChat friends."
         minecraftVersion = "*"
         version = rootProject.version.toString()
 
