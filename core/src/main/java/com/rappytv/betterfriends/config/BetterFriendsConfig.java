@@ -2,7 +2,10 @@ package com.rappytv.betterfriends.config;
 
 import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
 import com.rappytv.betterfriends.config.subconfig.PinIconConfig;
+import com.rappytv.betterfriends.ui.activities.config.AdvancedFriendListActivity;
 import net.labymod.api.addon.AddonConfig;
+import net.labymod.api.client.gui.screen.activity.Activity;
+import net.labymod.api.client.gui.screen.widget.widgets.activity.settings.ActivitySettingWidget.ActivitySetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
@@ -13,6 +16,7 @@ import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.SettingRequires;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
 import net.labymod.api.util.Color;
+import net.labymod.api.util.MethodOrder;
 
 @SpriteTexture("settings.png")
 public class BetterFriendsConfig extends AddonConfig {
@@ -31,6 +35,12 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot(x = 4)
   @TextFieldSetting
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
+
+  @MethodOrder(after = "friendPrefix")
+  @ActivitySetting
+  public Activity advancedFriendlist() {
+    return new AdvancedFriendListActivity();
+  }
 
   @SettingSection(value = "notifications", center = true)
   @SpriteSlot(x = 5)
