@@ -2,13 +2,13 @@ package com.rappytv.betterfriends.ui.activities.config;
 
 import com.rappytv.betterfriends.ui.widgets.FriendWidget;
 import com.rappytv.betterfriends.ui.widgets.FriendlistFriendWidget;
+import java.util.List;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.gui.screen.Parent;
 import net.labymod.api.client.gui.screen.activity.AutoActivity;
 import net.labymod.api.client.gui.screen.activity.Link;
 import net.labymod.api.client.gui.screen.activity.types.SimpleActivity;
-import net.labymod.api.client.gui.screen.widget.Widget;
 import net.labymod.api.client.gui.screen.widget.widgets.ComponentWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.FlexibleContentWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.ScrollWidget;
@@ -22,7 +22,6 @@ import net.labymod.api.event.labymod.user.UserUpdateDataEvent;
 import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 import net.labymod.api.util.ThreadSafe;
-import java.util.List;
 
 @Link("friend_list.lss")
 @AutoActivity
