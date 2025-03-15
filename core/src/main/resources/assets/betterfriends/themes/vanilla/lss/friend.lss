@@ -9,6 +9,11 @@ Friend, FriendlistFriend {
     height: width;
   }
 
+  .indicator {
+    width: 8;
+    height: width;
+  }
+
   .username {
     max-width: 80%;
     width: fit-content;
