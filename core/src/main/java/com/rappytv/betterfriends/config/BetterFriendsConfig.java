@@ -29,6 +29,13 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot(x = 1)
   @ColorPickerSetting
   private final ConfigProperty<Color> prefixColor = new ConfigProperty<>(Color.ofRGB(255, 102, 0));
+
+  @MethodOrder(after = "prefixColor")
+  @ActivitySetting
+  public Activity advancedFriendlist() {
+    return new FriendListActivity<>(FriendlistFriendWidget::new);
+  }
+
   @SpriteSlot(size = 8, x = 4)
   private final PinIconConfig pinIconConfig = new PinIconConfig();
   @SpriteSlot(x = 3)
@@ -36,12 +43,6 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot(x = 4)
   @TextFieldSetting
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
-
-  @MethodOrder(after = "friendPrefix")
-  @ActivitySetting
-  public Activity advancedFriendlist() {
-    return new FriendListActivity<>(FriendlistFriendWidget::new);
-  }
 
   @SettingSection(value = "notifications", center = true)
   @SpriteSlot(x = 5)

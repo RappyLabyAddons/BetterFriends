@@ -22,6 +22,9 @@
         "name": "Prefix color",
         "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
       },
+      "advancedFriendlist": {
+        "name": "Advanced friend list"
+      },
       "pinIconConfig": {
         "name": "Friend pin icon",
         "pinIcon": {
