@@ -1,5 +1,6 @@
 package com.rappytv.betterfriends.ui.widgets;
 
+import java.util.List;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.TextColor;
@@ -12,7 +13,6 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.list.HorizontalListWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.renderer.IconWidget;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
-import java.util.List;
 
 @Link("friend.lss")
 @AutoWidget
@@ -64,6 +64,12 @@ public abstract class FriendWidget extends HorizontalListWidget {
 
   public Friend getFriend() {
     return this.friend;
+  }
+
+  // Without this the comparator just doesn't work for whatever reason
+  @Override
+  public int getSortingValue() {
+    return 1;
   }
 
   public abstract List<ButtonWidget> getButtons();

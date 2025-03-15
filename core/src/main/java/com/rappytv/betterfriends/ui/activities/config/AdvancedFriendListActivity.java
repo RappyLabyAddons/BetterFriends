@@ -20,6 +20,7 @@ import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFrien
 import net.labymod.api.event.labymod.labyconnect.session.login.LabyConnectFriendAddBulkEvent;
 import net.labymod.api.event.labymod.user.UserUpdateDataEvent;
 import net.labymod.api.labyconnect.LabyConnectSession;
+import net.labymod.api.labyconnect.protocol.model.chat.ChatMessage;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 import net.labymod.api.util.ThreadSafe;
 
@@ -36,14 +37,34 @@ public class AdvancedFriendListActivity extends SimpleActivity {
 
     FlexibleContentWidget container = new FlexibleContentWidget().addId("container");
 
-    // TODO: Fix sorting
     this.entries.setComparator((f1, f2) -> {
-      if (!(f1 instanceof FriendWidget friendA && f2 instanceof FriendWidget friendB)) {
+      if (!(f1 instanceof FriendWidget friendWidget1 && f2 instanceof FriendWidget friendWidget2)) {
         return 0;
       }
-      System.out.println(friendA.getFriend().getName());
-      System.out.println(friendB.getFriend().getName());
-      return friendA.getFriend().getName().compareToIgnoreCase(friendB.getFriend().getName());
+      Friend friend1 = friendWidget1.getFriend();
+      Friend friend2 = friendWidget2.getFriend();
+      int comparePin = Boolean.compare(friend2.isPinned(), friend1.isPinned());
+      if (comparePin != 0) {
+        return comparePin;
+      } else {
+        int compareStatus = Boolean.compare(friend2.isOnline(), friend1.isOnline());
+        if (compareStatus != 0) {
+          return compareStatus;
+        } else {
+          ChatMessage message1 = friend1.chat().getLastMessage();
+          ChatMessage message2 = friend2.chat().getLastMessage();
+          if (message1 != null || message2 != null) {
+            int compareLastMessage = Long.compare(
+                message2 != null ? message2.getTimestamp() : 0L,
+                message1 != null ? message1.getTimestamp() : 0L
+            );
+            if (compareLastMessage != 0) {
+              return compareLastMessage;
+            }
+          }
+          return Long.compare(friend2.getLastOnline(), friend1.getLastOnline());
+        }
+      }
     });
 
     ScrollWidget scroll = new ScrollWidget(this.entries);
