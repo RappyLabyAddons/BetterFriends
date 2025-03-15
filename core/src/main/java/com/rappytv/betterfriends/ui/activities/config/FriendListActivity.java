@@ -1,8 +1,8 @@
 package com.rappytv.betterfriends.ui.activities.config;
 
 import com.rappytv.betterfriends.ui.widgets.FriendWidget;
-import com.rappytv.betterfriends.ui.widgets.FriendlistFriendWidget;
 import java.util.List;
+import java.util.function.Function;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.gui.screen.Parent;
@@ -26,10 +26,15 @@ import net.labymod.api.util.ThreadSafe;
 
 @Link("friend_list.lss")
 @AutoActivity
-public class AdvancedFriendListActivity extends SimpleActivity {
+public class FriendListActivity<T extends FriendWidget> extends SimpleActivity {
 
-  private final VerticalListWidget<FriendWidget> entries = new VerticalListWidget<>()
+  private final VerticalListWidget<T> entries = new VerticalListWidget<>()
       .addId("friends");
+  private final Function<Friend, T> friendWidgetConstructor;
+
+  public FriendListActivity(Function<Friend, T> friendWidgetConstructor) {
+    this.friendWidgetConstructor = friendWidgetConstructor;
+  }
 
   @Override
   public void initialize(Parent parent) {
@@ -100,9 +105,9 @@ public class AdvancedFriendListActivity extends SimpleActivity {
     this.entries.getChildren().clear();
     for (Friend friend : friends) {
       if (initialized) {
-        this.entries.addChildInitialized(new FriendlistFriendWidget(friend));
+        this.entries.addChildInitialized(this.friendWidgetConstructor.apply(friend));
       } else {
-        this.entries.addChild(new FriendlistFriendWidget(friend));
+        this.entries.addChild(this.friendWidgetConstructor.apply(friend));
       }
     }
   }
@@ -111,7 +116,7 @@ public class AdvancedFriendListActivity extends SimpleActivity {
   public void onUserUpdateData(final UserUpdateDataEvent event) {
     if (event.phase() == Phase.POST) {
       this.labyAPI.minecraft().executeOnRenderThread(() ->
-          AdvancedFriendListActivity.this.entries.reInitializeChildrenIf(
+          FriendListActivity.this.entries.reInitializeChildrenIf(
               FriendWidget.class,
               widget -> widget.getFriend().getUniqueId().equals(
                   event.gameUser().getUniqueId()
@@ -123,13 +128,13 @@ public class AdvancedFriendListActivity extends SimpleActivity {
 
   @Subscribe
   public void onLabyConnectFriendAdd(LabyConnectFriendAddEvent event) {
-    this.entries.addChildAsync(new FriendlistFriendWidget(event.friend()));
+    this.entries.addChildAsync(this.friendWidgetConstructor.apply(event.friend()));
   }
 
   @Subscribe
   public void onLabyConnectFriendAddBulk(LabyConnectFriendAddBulkEvent event) {
     for (Friend friend : event.getFriends()) {
-      this.entries.addChildAsync(new FriendlistFriendWidget(friend));
+      this.entries.addChildAsync(this.friendWidgetConstructor.apply(friend));
     }
   }
 

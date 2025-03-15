@@ -2,7 +2,8 @@ package com.rappytv.betterfriends.config;
 
 import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
 import com.rappytv.betterfriends.config.subconfig.PinIconConfig;
-import com.rappytv.betterfriends.ui.activities.config.AdvancedFriendListActivity;
+import com.rappytv.betterfriends.ui.activities.config.FriendListActivity;
+import com.rappytv.betterfriends.ui.widgets.FriendlistFriendWidget;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.activity.Activity;
 import net.labymod.api.client.gui.screen.widget.widgets.activity.settings.ActivitySettingWidget.ActivitySetting;
@@ -39,7 +40,7 @@ public class BetterFriendsConfig extends AddonConfig {
   @MethodOrder(after = "friendPrefix")
   @ActivitySetting
   public Activity advancedFriendlist() {
-    return new AdvancedFriendListActivity();
+    return new FriendListActivity<>(FriendlistFriendWidget::new);
   }
 
   @SettingSection(value = "notifications", center = true)
