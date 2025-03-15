@@ -1,5 +1,6 @@
 package com.rappytv.betterfriends.ui.widgets;
 
+import java.util.List;
 import net.labymod.api.Laby;
 import net.labymod.api.Textures;
 import net.labymod.api.Textures.SpriteCommon;
@@ -11,13 +12,11 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.input.KeyEvent;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
-import java.util.List;
 
 @AutoWidget
 public class FriendlistFriendWidget extends FriendWidget {
 
   private boolean skipConfirmation = false;
-  private ButtonWidget pinButton = null;
 
   public FriendlistFriendWidget(Friend friend) {
     super(friend);
@@ -26,15 +25,21 @@ public class FriendlistFriendWidget extends FriendWidget {
 
   @Override
   public List<ButtonWidget> getButtons() {
-    this.pinButton = ButtonWidget.icon(Textures.SpriteCommon.PIN, () -> {
+    ButtonWidget pinButton = ButtonWidget.icon(Textures.SpriteCommon.PIN, () -> {
       if (this.friend.isPinned()) {
         this.friend.unpin();
       } else {
         this.friend.pin();
       }
-      this.updatePinButton();
+      this.reInitialize();
     }).addId("pin-button");
-    this.updatePinButton();
+    pinButton.setHoverComponent(
+        Component.translatable(
+            this.friend.isPinned()
+                ? "labymod.activity.labyconnect.chat.action.unpin"
+                : "labymod.activity.labyconnect.chat.action.pin"
+        )
+    );
     ButtonWidget noteButton = ButtonWidget.icon(
         SpriteCommon.PAINT,
         this.friend::openNoteEditor
@@ -59,20 +64,7 @@ public class FriendlistFriendWidget extends FriendWidget {
                 NamedTextColor.DARK_GRAY
             ))
     );
-    return List.of(this.pinButton, noteButton, removeButton);
-  }
-
-  private void updatePinButton() {
-    if (this.pinButton == null) {
-      return;
-    }
-    this.pinButton.setHoverComponent(
-        Component.translatable(
-            this.friend.isPinned()
-                ? "labymod.activity.labyconnect.chat.action.unpin"
-                : "labymod.activity.labyconnect.chat.action.pin"
-        )
-    );
+    return List.of(pinButton, noteButton, removeButton);
   }
 
   @Subscribe

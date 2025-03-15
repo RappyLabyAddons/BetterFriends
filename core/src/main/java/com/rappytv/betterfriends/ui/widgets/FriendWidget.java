@@ -2,6 +2,7 @@ package com.rappytv.betterfriends.ui.widgets;
 
 import java.util.List;
 import net.labymod.api.Laby;
+import net.labymod.api.Textures.SpriteCommon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.client.gui.icon.Icon;
@@ -49,6 +50,13 @@ public abstract class FriendWidget extends HorizontalListWidget {
 
     this.addEntry(headWidget);
     this.addEntry(usernameWidget);
+
+    if (this.friend.isPinned()) {
+      IconWidget pinIconWidget = new IconWidget(SpriteCommon.PIN)
+          .addId("pin-icon");
+      this.addEntry(pinIconWidget);
+    }
+
     List<ButtonWidget> buttons = this.getButtons();
 
     if(!buttons.isEmpty()) {

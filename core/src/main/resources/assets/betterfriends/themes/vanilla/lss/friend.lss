@@ -18,6 +18,12 @@ Friend, FriendlistFriend {
     top: 2;
   }
 
+  .pin-icon {
+    margin-left: 3;
+    width: 8;
+    height: width;
+  }
+
   .buttons {
     height: fit-content;
     width: fit-content;
