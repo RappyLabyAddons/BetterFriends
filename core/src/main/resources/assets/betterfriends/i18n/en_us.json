@@ -23,7 +23,13 @@
         "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
       },
       "advancedFriendlist": {
-        "name": "Advanced friend list"
+        "name": "Advanced friend list",
+        "sorting": {
+          "onlineStatus": "Online status",
+          "role": "LabyMod role",
+          "aToZ": "A-Z",
+          "zToA": "Z-A"
+        }
       },
       "pinIconConfig": {
         "name": "Friend pin icon",
@@ -140,7 +146,8 @@
       "copyUuid": "Click to copy UUID"
     },
     "errors": {
-      "notConnected": "You're not connected to the LabyChat!"
+      "notConnected": "You're not connected to the LabyChat!",
+      "emptyList": "Your friend list is empty!"
     },
     "command": {
       "usage": "Usage: %s",
