@@ -16,7 +16,9 @@ import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 @AutoWidget
 public class FriendlistFriendWidget extends FriendWidget {
 
+  private static final Component X = Component.text("✘", NamedTextColor.RED);
   private boolean skipConfirmation = false;
+  private boolean confirmRemoval = false;
 
   public FriendlistFriendWidget(Friend friend) {
     super(friend);
@@ -25,6 +27,26 @@ public class FriendlistFriendWidget extends FriendWidget {
 
   @Override
   public List<ButtonWidget> getButtons() {
+    if(this.confirmRemoval) {
+      ButtonWidget removeConfirmationButton = ButtonWidget.icon(SpriteCommon.GREEN_CHECKED, () -> {
+        this.friend.remove();
+        this.confirmRemoval = false;
+        this.reInitialize();
+      });
+      removeConfirmationButton.setHoverComponent(Component.translatable(
+          "betterfriends.settings.advancedFriendlist.removal.confirm",
+          NamedTextColor.GREEN
+      ));
+      ButtonWidget cancelButton = ButtonWidget.component(X, () -> {
+        this.confirmRemoval = false;
+        this.reInitialize();
+      });
+      cancelButton.setHoverComponent(Component.translatable(
+          "betterfriends.settings.advancedFriendlist.removal.cancel",
+          NamedTextColor.RED
+      ));
+      return List.of(removeConfirmationButton, cancelButton);
+    }
     ButtonWidget pinButton = ButtonWidget.icon(Textures.SpriteCommon.PIN, () -> {
       if (this.friend.isPinned()) {
         this.friend.unpin();
@@ -47,20 +69,23 @@ public class FriendlistFriendWidget extends FriendWidget {
     noteButton.setHoverComponent(Component.translatable(
         "labymod.activity.labyconnect.chat.action.note"
     ));
-    ButtonWidget removeButton = ButtonWidget.icon(Textures.SpriteCommon.X, () -> {
+    ButtonWidget removeButton = ButtonWidget.component(X, () -> {
       if (this.skipConfirmation) {
-        System.out.println("Removed " + this.friend.getName() + " without confirmation");
-//        this.friend.remove();
+        this.friend.remove();
       } else {
-        // TODO: show confirmation
-        System.out.println("Open friend remove confirmation for " + this.friend.getName());
+        this.confirmRemoval = true;
+        this.reInitialize();
       }
     }).addId("remove-button");
     removeButton.setHoverComponent(
-        Component.translatable("Remove friend", NamedTextColor.RED)
+        Component
+            .translatable(
+                "betterfriends.settings.advancedFriendlist.removal.label",
+                NamedTextColor.RED
+            )
             .append(Component.newline())
             .append(Component.translatable(
-                "(Hold shift to skip confirmation)",
+                "betterfriends.settings.advancedFriendlist.removal.skipConfirmation",
                 NamedTextColor.DARK_GRAY
             ))
     );

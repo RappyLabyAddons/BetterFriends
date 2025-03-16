@@ -32,7 +32,7 @@ import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 
 @Link("friend_list.lss")
 @AutoActivity
-public class FriendListActivity<T extends FriendWidget> extends SimpleActivity {
+public class FriendlistActivity<T extends FriendWidget> extends SimpleActivity {
 
   private final Function<Friend, T> friendWidgetConstructor;
   private final VerticalListWidget<T> entries = new VerticalListWidget<>()
@@ -42,7 +42,7 @@ public class FriendListActivity<T extends FriendWidget> extends SimpleActivity {
   private String filterQuery = "";
   private SortingStrategy sortingStrategy = SortingStrategy.ONLINE_STATUS;
 
-  public FriendListActivity(Function<Friend, T> friendWidgetConstructor) {
+  public FriendlistActivity(Function<Friend, T> friendWidgetConstructor) {
     this.friendWidgetConstructor = friendWidgetConstructor;
   }
 
@@ -172,7 +172,7 @@ public class FriendListActivity<T extends FriendWidget> extends SimpleActivity {
   public void onUserUpdateData(final UserUpdateDataEvent event) {
     if (event.phase() == Phase.POST) {
       this.labyAPI.minecraft().executeOnRenderThread(() ->
-          FriendListActivity.this.entries.reInitializeChildrenIf(
+          FriendlistActivity.this.entries.reInitializeChildrenIf(
               FriendWidget.class,
               widget -> widget.getFriend().getUniqueId().equals(
                   event.gameUser().getUniqueId()

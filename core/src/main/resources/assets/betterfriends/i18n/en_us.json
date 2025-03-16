@@ -24,6 +24,12 @@
       },
       "advancedFriendlist": {
         "name": "Advanced friend list",
+        "removal": {
+          "label": "Remove friend",
+          "skipConfirmation": "(Hold shift to skip confirmation)",
+          "confirm": "Confirm removal",
+          "cancel": "Cancel removal"
+        },
         "sorting": {
           "onlineStatus": "Online status",
           "role": "LabyMod role",

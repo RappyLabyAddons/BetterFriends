@@ -2,7 +2,7 @@ package com.rappytv.betterfriends.config;
 
 import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
 import com.rappytv.betterfriends.config.subconfig.PinIconConfig;
-import com.rappytv.betterfriends.ui.activities.config.FriendListActivity;
+import com.rappytv.betterfriends.ui.activities.config.FriendlistActivity;
 import com.rappytv.betterfriends.ui.widgets.FriendlistFriendWidget;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.activity.Activity;
@@ -33,7 +33,7 @@ public class BetterFriendsConfig extends AddonConfig {
   @MethodOrder(after = "prefixColor")
   @ActivitySetting
   public Activity advancedFriendlist() {
-    return new FriendListActivity<>(FriendlistFriendWidget::new);
+    return new FriendlistActivity<>(FriendlistFriendWidget::new);
   }
 
   @SpriteSlot(size = 8, x = 4)
