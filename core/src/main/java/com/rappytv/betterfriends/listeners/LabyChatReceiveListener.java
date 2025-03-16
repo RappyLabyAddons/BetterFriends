@@ -1,7 +1,7 @@
 package com.rappytv.betterfriends.listeners;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import com.rappytv.betterfriends.utils.NameHelper;
+import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.event.ClickEvent;
@@ -51,9 +51,9 @@ public class LabyChatReceiveListener {
 
     Component component = Component.empty()
         .append(BetterFriendsAddon.getPrefix())
-        .append(NameHelper.getColoredName(sender.getName(), sender.gameUser()))
+        .append(GroupHelper.getColoredName(sender.getName(), sender.gameUser()))
         .append(Component.text(" → ", NamedTextColor.DARK_GRAY))
-        .append(NameHelper.getColoredName(receiver.getName(), receiver.gameUser()))
+        .append(GroupHelper.getColoredName(receiver.getName(), receiver.gameUser()))
         .append(Component.text(" » ", NamedTextColor.DARK_GRAY))
         .append(Component.text(message.getMessage(), NamedTextColor.WHITE));
 

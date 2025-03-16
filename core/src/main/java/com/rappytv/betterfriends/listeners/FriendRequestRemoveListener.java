@@ -1,7 +1,7 @@
 package com.rappytv.betterfriends.listeners;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import com.rappytv.betterfriends.utils.NameHelper;
+import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.event.Subscribe;
@@ -34,7 +34,7 @@ public class FriendRequestRemoveListener {
         .title(Component.translatable("betterfriends.notifications.friendRequestRemoval.title"))
         .text(Component.translatable(
             "betterfriends.notifications.friendRequestRemoval.description",
-            NameHelper.getColoredName(event.request().getName(), event.request().gameUser())
+            GroupHelper.getColoredName(event.request().getName(), event.request().gameUser())
         ))
         .icon(Icon.head(event.request().getUniqueId(), true))
         .duration(15000)

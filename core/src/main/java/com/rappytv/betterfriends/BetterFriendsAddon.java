@@ -19,6 +19,7 @@ import com.rappytv.betterfriends.ui.hud.OnlineFriendCountHudWidget;
 import com.rappytv.betterfriends.ui.hud.UnreadChatCountWidget;
 import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
+import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
@@ -41,6 +42,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   protected void enable() {
     instance = this;
     this.registerSettingCategory();
+    GroupHelper.registerGroupIds();
 
     this.registerCommand(new BetterFriendsCommand());
 
