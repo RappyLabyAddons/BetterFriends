@@ -50,7 +50,7 @@ public abstract class FriendWidget extends HorizontalListWidget {
 
     IconWidget headWidget = new IconWidget(Icon.head(this.friend.getUniqueId()))
         .addId("player-head");
-    headWidget.setHoverComponent(Component.translatable("Open on laby.net"));
+    headWidget.setHoverComponent(Component.translatable("betterfriends.general.labynet"));
     headWidget.setPressable(() ->
         Laby.references().chatExecutor().openUrl("https://laby.net/@" + this.friend.getUniqueId())
     );
@@ -62,7 +62,7 @@ public abstract class FriendWidget extends HorizontalListWidget {
         ))
         .addId("username");
 
-    usernameWidget.setHoverComponent(Component.translatable("Click to copy UUID"));
+    usernameWidget.setHoverComponent(Component.translatable("betterfriends.general.copyUuid"));
     usernameWidget.setPressable(() ->
         Laby.references().chatExecutor().copyToClipboard(this.friend.getUniqueId().toString())
     );

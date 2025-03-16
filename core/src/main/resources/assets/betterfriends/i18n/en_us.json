@@ -136,7 +136,8 @@
       }
     },
     "general": {
-      "labynet": "Open on laby.net"
+      "labynet": "Open on laby.net",
+      "copyUuid": "Click to copy UUID"
     },
     "errors": {
       "notConnected": "You're not connected to the LabyChat!"
