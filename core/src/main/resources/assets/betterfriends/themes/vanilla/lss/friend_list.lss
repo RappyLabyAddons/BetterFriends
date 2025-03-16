@@ -23,6 +23,7 @@
 
    .error {
      font-size: 0.8;
+     text-color: red;
      width: fit-content;
      margin-top: 100;
      alignment-x: center;

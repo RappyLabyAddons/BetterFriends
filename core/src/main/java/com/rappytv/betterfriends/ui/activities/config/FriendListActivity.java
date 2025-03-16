@@ -1,17 +1,20 @@
 package com.rappytv.betterfriends.ui.activities.config;
 
 import com.rappytv.betterfriends.ui.widgets.FriendWidget;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import net.labymod.api.Laby;
-import net.labymod.api.client.component.format.NamedTextColor;
+import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.screen.Parent;
 import net.labymod.api.client.gui.screen.activity.AutoActivity;
 import net.labymod.api.client.gui.screen.activity.Link;
 import net.labymod.api.client.gui.screen.activity.types.SimpleActivity;
 import net.labymod.api.client.gui.screen.widget.widgets.ComponentWidget;
+import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.FlexibleContentWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.ScrollWidget;
+import net.labymod.api.client.gui.screen.widget.widgets.layout.list.HorizontalListWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.list.VerticalListWidget;
 import net.labymod.api.event.Phase;
 import net.labymod.api.event.Subscribe;
@@ -20,17 +23,20 @@ import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFrien
 import net.labymod.api.event.labymod.labyconnect.session.login.LabyConnectFriendAddBulkEvent;
 import net.labymod.api.event.labymod.user.UserUpdateDataEvent;
 import net.labymod.api.labyconnect.LabyConnectSession;
+import net.labymod.api.labyconnect.protocol.model.User;
 import net.labymod.api.labyconnect.protocol.model.chat.ChatMessage;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
-import net.labymod.api.util.ThreadSafe;
 
 @Link("friend_list.lss")
 @AutoActivity
 public class FriendListActivity<T extends FriendWidget> extends SimpleActivity {
 
+  private final Function<Friend, T> friendWidgetConstructor;
   private final VerticalListWidget<T> entries = new VerticalListWidget<>()
       .addId("friends");
-  private final Function<Friend, T> friendWidgetConstructor;
+  private final ComponentWidget error = ComponentWidget.empty().addId("error");
+  private ScrollWidget scroll;
+  private String filterQuery = "";
 
   public FriendListActivity(Function<Friend, T> friendWidgetConstructor) {
     this.friendWidgetConstructor = friendWidgetConstructor;
@@ -41,6 +47,16 @@ public class FriendListActivity<T extends FriendWidget> extends SimpleActivity {
     super.initialize(parent);
 
     FlexibleContentWidget container = new FlexibleContentWidget().addId("container");
+
+    HorizontalListWidget filterSettings = new HorizontalListWidget();
+
+    TextFieldWidget searchField = new TextFieldWidget();
+    searchField.addId("search-field");
+    searchField.placeholder(Component.translatable("labymod.ui.textfield.search"));
+    searchField.setText(this.filterQuery);
+    searchField.updateListener(this::applyFriendsFilter);
+
+    filterSettings.addEntry(searchField);
 
     this.entries.setComparator((f1, f2) -> {
       if (!(f1 instanceof FriendWidget friendWidget1 && f2 instanceof FriendWidget friendWidget2)) {
@@ -71,45 +87,59 @@ public class FriendListActivity<T extends FriendWidget> extends SimpleActivity {
         }
       }
     });
+    this.initializeFriendlist(false);
 
-    ScrollWidget scroll = new ScrollWidget(this.entries);
-    container.addFlexibleContent(scroll);
+    this.scroll = new ScrollWidget(this.entries);
+    container.addContent(filterSettings);
+    container.addFlexibleContent(this.scroll);
     this.document.addChild(container);
-
-    LabyConnectSession session = Laby.references().labyConnect().getSession();
-
-    if (session == null || !session.isAuthenticated()) {
-      Laby.labyAPI().minecraft().executeOnRenderThread(
-          () -> container.addContentInitialized(
-              ComponentWidget.text("You are not connected to the LabyChat!", NamedTextColor.RED)
-                  .addId("error")
-          )
-      );
-      scroll.setVisible(false);
-    } else {
-      this.initializeWithInfo(session.getFriends());
-    }
   }
 
-  private void initializeWithInfo(List<Friend> friends) {
-    if (ThreadSafe.isRenderThread()) {
-      this.initializeWithInfo(friends, false);
-    } else {
-      Laby.labyAPI().minecraft().executeOnRenderThread(
-          () -> this.initializeWithInfo(friends, true)
-      );
-    }
-  }
-
-  private void initializeWithInfo(List<Friend> friends, boolean initialized) {
+  private void initializeFriendlist(boolean initialized) {
     this.entries.getChildren().clear();
-    for (Friend friend : friends) {
-      if (initialized) {
-        this.entries.addChildInitialized(this.friendWidgetConstructor.apply(friend));
-      } else {
-        this.entries.addChild(this.friendWidgetConstructor.apply(friend));
+    LabyConnectSession session = Laby.references().labyConnect().getSession();
+    if (session == null || !session.isAuthenticated()) {
+      this.error.setComponent(Component.text("You are not connected to the LabyChat!"));
+      this.error.setVisible(true);
+      this.scroll.setVisible(false);
+      return;
+    }
+    this.error.setVisible(false);
+    this.scroll.setVisible(true);
+
+    List<T> children = new ArrayList<>();
+    int addedOfflineFriends = 0;
+
+    for (Friend friend : session.getFriends()) {
+      boolean offline = !friend.isOnline();
+      if ((!offline || addedOfflineFriends < 100 || friend.isPinned()) && this.isUserInFilter(
+          friend)) {
+        children.add(this.friendWidgetConstructor.apply(friend));
+        if (offline) {
+          addedOfflineFriends++;
+        }
       }
     }
+
+    if (initialized) {
+      this.entries.addChildrenInitialized(children, true);
+    } else {
+      this.entries.addChildren(children, true);
+    }
+  }
+
+  private void applyFriendsFilter(String query) {
+    this.filterQuery = query;
+    this.initializeFriendlist(true);
+  }
+
+  private boolean hasFilter() {
+    return this.filterQuery != null && !this.filterQuery.isEmpty();
+  }
+
+  private boolean isUserInFilter(User user) {
+    return !this.hasFilter() || user.getName().toLowerCase()
+        .contains(this.filterQuery.toLowerCase());
   }
 
   @Subscribe
