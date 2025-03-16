@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
-import com.rappytv.betterfriends.utils.NameHelper;
+import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.client.chat.command.Command;
 import net.labymod.api.client.chat.command.SubCommand;
@@ -99,7 +99,7 @@ public class BetterFriendsCommand extends Command {
                 .append(Component.translatable(
                     this.getTranslationKey("success.accept"),
                     NamedTextColor.GRAY,
-                    NameHelper.getColoredName(request.getName(), request.gameUser())
+                    GroupHelper.getColoredName(request.getName(), request.gameUser())
                 ))
         );
         return true;
@@ -160,7 +160,7 @@ public class BetterFriendsCommand extends Command {
                 .append(Component.translatable(
                     this.getTranslationKey("success.decline"),
                     NamedTextColor.GRAY,
-                    NameHelper.getColoredName(request.getName(), request.gameUser())
+                    GroupHelper.getColoredName(request.getName(), request.gameUser())
                 ))
         );
         return true;

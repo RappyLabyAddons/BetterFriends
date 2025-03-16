@@ -1,7 +1,7 @@
 package com.rappytv.betterfriends.listeners;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import com.rappytv.betterfriends.utils.NameHelper;
+import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.event.Subscribe;
@@ -39,7 +39,7 @@ public class FriendStatusUpdateListener {
             .append(BetterFriendsAddon.getPrefix())
             .append(Component.translatable(
                 "betterfriends.notifications.statusUpdate.message",
-                NameHelper.getColoredName(event.friend()),
+                GroupHelper.getColoredName(event.friend()),
                 stateComponent
             ))
             .color(NamedTextColor.GRAY)
