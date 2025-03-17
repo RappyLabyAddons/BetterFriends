@@ -1,6 +1,7 @@
 package com.rappytv.betterfriends.config;
 
 import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
+import com.rappytv.betterfriends.config.subconfig.FriendlistExpiryConfig;
 import com.rappytv.betterfriends.config.subconfig.PinIconConfig;
 import com.rappytv.betterfriends.ui.activities.config.FriendlistActivity;
 import com.rappytv.betterfriends.ui.widgets.FriendlistFriendWidget;
@@ -35,6 +36,8 @@ public class BetterFriendsConfig extends AddonConfig {
   public Activity advancedFriendlist() {
     return new FriendlistActivity<>(FriendlistFriendWidget::new);
   }
+
+  private final FriendlistExpiryConfig expiryConfig = new FriendlistExpiryConfig();
 
   @SpriteSlot(size = 8, x = 4)
   private final PinIconConfig pinIconConfig = new PinIconConfig();
@@ -92,6 +95,9 @@ public class BetterFriendsConfig extends AddonConfig {
   }
   public ConfigProperty<Color> prefixColor() {
     return this.prefixColor;
+  }
+  public FriendlistExpiryConfig expiryConfig() {
+    return this.expiryConfig;
   }
   public PinIconConfig pinIconConfig() {
     return this.pinIconConfig;
