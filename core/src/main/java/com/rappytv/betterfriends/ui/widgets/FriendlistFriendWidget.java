@@ -32,7 +32,6 @@ public class FriendlistFriendWidget extends FriendWidget {
       ButtonWidget removeConfirmationButton = ButtonWidget.icon(SpriteCommon.GREEN_CHECKED, () -> {
         this.friend.remove();
         this.confirmRemoval = false;
-        this.reInitialize();
       });
       removeConfirmationButton.setHoverComponent(Component.translatable(
           "betterfriends.settings.advancedFriendlist.removal.confirm",
@@ -54,7 +53,6 @@ public class FriendlistFriendWidget extends FriendWidget {
       } else {
         this.friend.pin();
       }
-      this.reInitialize();
     }).addId("pin-button");
     pinButton.setHoverComponent(
         Component.translatable(

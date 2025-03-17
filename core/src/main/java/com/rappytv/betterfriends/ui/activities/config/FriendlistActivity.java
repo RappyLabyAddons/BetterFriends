@@ -23,6 +23,7 @@ import net.labymod.api.event.Phase;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.labymod.labyconnect.LabyConnectStateUpdateEvent;
 import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendAddEvent;
+import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendPinUpdateEvent;
 import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendRemoveEvent;
 import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendStatusEvent;
 import net.labymod.api.event.labymod.labyconnect.session.login.LabyConnectFriendAddBulkEvent;
@@ -207,6 +208,14 @@ public class FriendlistActivity<T extends FriendWidget> extends SimpleActivity {
   @Subscribe
   public void onLabyConnectStateUpdate(LabyConnectStateUpdateEvent event) {
     this.initializeFriendlist(true);
+  }
+
+  @Subscribe
+  public void onLabyConnectStateUpdate(LabyConnectFriendPinUpdateEvent event) {
+    this.entries.reInitializeChildrenIf(
+        FriendWidget.class,
+        widget -> widget.getFriend().getUniqueId().equals(event.friend().getUniqueId())
+    );
   }
 
   @Subscribe
