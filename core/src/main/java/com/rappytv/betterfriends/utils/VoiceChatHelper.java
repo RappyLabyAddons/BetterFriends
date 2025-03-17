@@ -30,6 +30,10 @@ public class VoiceChatHelper {
         .referenceStorage()
         .voiceUserRegistry().get(uuid);
 
+    if (user == null) {
+      return -1;
+    }
+
     return user.isMuted() ? user.getMute().getTimeEnd() : -1;
   }
 
