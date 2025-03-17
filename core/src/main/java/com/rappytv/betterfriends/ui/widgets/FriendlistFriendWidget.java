@@ -1,6 +1,7 @@
 package com.rappytv.betterfriends.ui.widgets;
 
 import java.util.List;
+import com.rappytv.betterfriends.ui.activities.FriendlistExpirationActivity;
 import net.labymod.api.Laby;
 import net.labymod.api.Textures;
 import net.labymod.api.Textures.SpriteCommon;
@@ -69,6 +70,15 @@ public class FriendlistFriendWidget extends FriendWidget {
     noteButton.setHoverComponent(Component.translatable(
         "labymod.activity.labyconnect.chat.action.note"
     ));
+    ButtonWidget expirationButton = ButtonWidget.icon(
+        SpriteCommon.QUESTION_MARK, // TODO: Add real icon
+        () -> Laby.labyAPI().minecraft().minecraftWindow().displayScreen(
+            new FriendlistExpirationActivity(this.friend)
+        )
+    ).addId("expiration-button");
+    expirationButton.setHoverComponent(Component.translatable(
+        "betterfriends.settings.advancedFriendlist.expiration.label"
+    ));
     ButtonWidget removeButton = ButtonWidget.component(X, () -> {
       if (this.skipConfirmation) {
         this.friend.remove();
@@ -89,7 +99,7 @@ public class FriendlistFriendWidget extends FriendWidget {
                 NamedTextColor.DARK_GRAY
             ))
     );
-    return List.of(pinButton, noteButton, removeButton);
+    return List.of(pinButton, noteButton, expirationButton, removeButton);
   }
 
   @Subscribe
