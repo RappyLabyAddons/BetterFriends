@@ -2,6 +2,8 @@ package com.rappytv.betterfriends.utils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.util.ArrayList;
+import java.util.List;
 import net.labymod.api.Constants.LegacyUrls;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
@@ -9,14 +11,11 @@ import net.labymod.api.user.GameUser;
 import net.labymod.api.user.group.Group;
 import net.labymod.api.util.GsonUtil;
 import net.labymod.api.util.io.web.request.Request;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GroupHelper {
 
   private static final List<Integer> groupIds = new ArrayList<>();
 
-  @SuppressWarnings("deprecation")
   public static void registerGroupIds() {
     Request.ofGson(JsonElement.class)
         .url(LegacyUrls.GROUPS)
