@@ -1,5 +1,6 @@
 package com.rappytv.betterfriends;
 
+import com.rappytv.betterfriends.api.generated.ReferenceStorage;
 import com.rappytv.betterfriends.command.BetterFriendsCommand;
 import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import com.rappytv.betterfriends.interactions.FriendNoteEditorBullet;
@@ -35,7 +36,7 @@ import net.labymod.api.models.addon.annotation.AddonMain;
 @AddonMain
 public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
-  private final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
+  private static final LegacyComponentSerializer SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
   private static BetterFriendsAddon instance;
 
   @Override
@@ -77,7 +78,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
         "VoiceTag",
         "betterfriends_pin_icon",
         PositionType.RIGHT_TO_NAME,
-        new FriendPinIconTag(this)
+        new FriendPinIconTag()
     );
     Laby.references().badgeRegistry().registerBefore(
         "VoiceBadge",
@@ -92,6 +93,14 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     return BetterFriendsConfig.class;
   }
 
+  public static BetterFriendsConfig config() {
+    return instance.configuration();
+  }
+
+  public static ReferenceStorage references() {
+    return instance.referenceStorageAccessor();
+  }
+
   public static TextComponent getPrefix() {
     return Component.empty()
         .append(Component.text(
@@ -104,6 +113,6 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   }
 
   public LegacyComponentSerializer getSerializer() {
-    return this.serializer;
+    return SERIALIZER;
   }
 }
