@@ -4,18 +4,12 @@ import com.rappytv.betterfriends.ui.snapshot.BetterFriendsFriendSnapshot;
 import com.rappytv.betterfriends.ui.snapshot.BetterFriendsKeys;
 import net.labymod.api.Textures;
 import net.labymod.api.client.entity.player.tag.tags.IconTag;
-import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 
 public class FriendPinIconTag extends IconTag {
 
   public FriendPinIconTag() {
-    super(8);
-  }
-
-  @Override
-  public Icon getIcon() {
-    return Textures.SpriteCommon.PIN;
+    super(Textures.SpriteCommon.PIN, 8);
   }
 
   @Override

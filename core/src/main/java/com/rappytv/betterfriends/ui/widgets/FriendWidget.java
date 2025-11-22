@@ -34,7 +34,7 @@ public abstract class FriendWidget extends HorizontalListWidget {
     UserStatus userStatus = this.friend.userStatus();
     IconWidget indicatorWidget = new IconWidget(SpriteCommon.STATUS_INDICATOR);
     indicatorWidget.addId("indicator");
-    indicatorWidget.color().set(userStatus.getColor().getRGB());
+    indicatorWidget.color().set(userStatus.getColor().getValue());
     Component statusComponent = Component.translatable(
         userStatus.getLocalTranslationKey(),
         userStatus.textColor()
@@ -94,7 +94,7 @@ public abstract class FriendWidget extends HorizontalListWidget {
     return this.friend;
   }
 
-  // Without this the comparator just doesn't work for whatever reason
+  // Without this, the comparator just doesn't work for whatever reason
   @Override
   public int getSortingValue() {
     return 1;
