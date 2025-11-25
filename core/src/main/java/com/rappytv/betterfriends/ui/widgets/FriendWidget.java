@@ -9,7 +9,6 @@ import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.gui.lss.property.annotation.AutoWidget;
 import net.labymod.api.client.gui.screen.Parent;
-import net.labymod.api.client.gui.screen.activity.Link;
 import net.labymod.api.client.gui.screen.widget.widgets.ComponentWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.input.ButtonWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.layout.list.HorizontalListWidget;
@@ -17,7 +16,6 @@ import net.labymod.api.client.gui.screen.widget.widgets.renderer.IconWidget;
 import net.labymod.api.labyconnect.protocol.model.UserStatus;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 
-@Link("friend.lss")
 @AutoWidget
 public abstract class FriendWidget extends HorizontalListWidget {
 
