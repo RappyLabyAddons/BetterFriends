@@ -55,6 +55,17 @@ public class FriendNoteNameTag extends ComponentNameTag {
   }
 
   @Override
+  protected int getBackgroundColor(EntitySnapshot snapshot) {
+    BetterFriendsFriendSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.FRIEND);
+    if (friendSnapshot == null) {
+      return super.getBackgroundColor(snapshot);
+    }
+    return friendSnapshot.config().friendNoteTagConfig().hideBackground().get()
+        ? 0
+        : super.getBackgroundColor(snapshot);
+  }
+
+  @Override
   public float getScale() {
     return (float) this.addon.configuration().friendNoteTagConfig().size().get() / 10;
   }
