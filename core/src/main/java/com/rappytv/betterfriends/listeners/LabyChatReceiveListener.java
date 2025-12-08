@@ -2,20 +2,19 @@ package com.rappytv.betterfriends.listeners;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
 import com.rappytv.betterfriends.utils.GroupHelper;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.event.ClickEvent;
 import net.labymod.api.client.component.event.HoverEvent;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.event.Subscribe;
-
 import net.labymod.api.event.labymod.labyconnect.session.chat.LabyConnectChatMessageEvent;
 import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.User;
 import net.labymod.api.labyconnect.protocol.model.chat.TextChatMessage;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class LabyChatReceiveListener {
 
@@ -68,7 +67,8 @@ public class LabyChatReceiveListener {
           ));
     }
 
-    if(receiver.getName().equals(Laby.labyAPI().getName())) {
+    if (receiver.getName().equals(Laby.labyAPI().getName())
+        && this.addon.configuration().showInteractionButtons().get()) {
       component
           .append(Component
               .text(" ✔", NamedTextColor.GREEN)

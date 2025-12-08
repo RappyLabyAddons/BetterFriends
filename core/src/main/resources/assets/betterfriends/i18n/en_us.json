@@ -110,6 +110,10 @@
         "name": "Own LabyChat Messages",
         "description": "If you also want to see your own sent messages in chat."
       },
+      "showInteractionButtons": {
+        "name": "Show interaction buttons",
+        "description": "If you want to have LabyChat messages to have interactable buttons"
+      },
       "noteEditorBullet": {
         "name": "Show friend note editor bullet",
         "description": "Toggles the visibility of the interaction bullet which can open the note editor of a friend."
