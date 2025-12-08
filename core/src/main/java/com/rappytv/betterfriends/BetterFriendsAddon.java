@@ -45,7 +45,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   protected void preConfigurationLoad() {
     Laby.references().revisionRegistry().register(new SimpleRevision(
         "betterfriends",
-        new SemanticVersion("1.0.1"),
+        new SemanticVersion(1, 0, 1),
         "2025-12-10"
     ));
   }
