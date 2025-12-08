@@ -1,5 +1,3 @@
-import net.labymod.labygradle.common.extension.model.labymod.ReleaseChannels
-
 plugins {
     id("net.labymod.labygradle")
     id("net.labymod.labygradle.addon")
@@ -32,7 +30,6 @@ labyMod {
         version = rootProject.version.toString()
 
         addon("voicechat", true)
-        releaseChannel.set(ReleaseChannels.SNAPSHOT)
     }
 }
 
