@@ -47,8 +47,10 @@ public class ChatReceiveListener {
     }
 
     receiveEvent.setMessage(
-        this.addon.getSerializer()
-            .deserialize(this.addon.configuration().friendPrefix().get())
+        Component.empty()
+            .append(this.addon.getSerializer().deserialize(
+                this.addon.configuration().friendPrefix().get()
+            ))
             .append(Component.space())
             .append(message)
     );

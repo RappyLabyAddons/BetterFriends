@@ -22,6 +22,21 @@
         "name": "Prefix color",
         "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
       },
+      "advancedFriendlist": {
+        "name": "Advanced friend list",
+        "removal": {
+          "label": "Remove friend",
+          "skipConfirmation": "(Hold shift to skip confirmation)",
+          "confirm": "Confirm removal",
+          "cancel": "Cancel removal"
+        },
+        "sorting": {
+          "onlineStatus": "Online status",
+          "role": "LabyMod role",
+          "aToZ": "A-Z",
+          "zToA": "Z-A"
+        }
+      },
       "pinIconConfig": {
         "name": "Friend pin icon",
         "pinIcon": {
@@ -95,6 +110,10 @@
         "name": "Own LabyChat Messages",
         "description": "If you also want to see your own sent messages in chat."
       },
+      "showInteractionButtons": {
+        "name": "Show interaction buttons",
+        "description": "If you want to have LabyChat messages to have interactable buttons"
+      },
       "noteEditorBullet": {
         "name": "Show friend note editor bullet",
         "description": "Toggles the visibility of the interaction bullet which can open the note editor of a friend."
@@ -133,10 +152,12 @@
       }
     },
     "general": {
-      "labynet": "Open on laby.net"
+      "labynet": "Open on laby.net",
+      "copyUuid": "Click to copy UUID"
     },
     "errors": {
-      "notConnected": "You're not connected to the LabyChat!"
+      "notConnected": "You're not connected to the LabyChat!",
+      "emptyList": "Your friend list is empty!"
     },
     "command": {
       "usage": "Usage: %s",

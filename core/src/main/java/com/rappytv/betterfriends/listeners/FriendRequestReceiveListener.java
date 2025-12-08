@@ -1,7 +1,7 @@
 package com.rappytv.betterfriends.listeners;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import com.rappytv.betterfriends.utils.NameHelper;
+import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.event.ClickEvent;
@@ -25,7 +25,7 @@ public class FriendRequestReceiveListener {
       return;
     }
     IncomingFriendRequest request = event.request();
-    Component sender = NameHelper.getColoredName(request.getName(), request.gameUser())
+    Component sender = GroupHelper.getColoredName(request.getName(), request.gameUser())
         .hoverEvent(HoverEvent.showText(Component.translatable(
             "betterfriends.general.labynet",
             NamedTextColor.DARK_PURPLE

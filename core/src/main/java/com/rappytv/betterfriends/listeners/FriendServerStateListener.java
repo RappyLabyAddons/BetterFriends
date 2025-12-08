@@ -1,7 +1,7 @@
 package com.rappytv.betterfriends.listeners;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import com.rappytv.betterfriends.utils.NameHelper;
+import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.event.ClickEvent;
 import net.labymod.api.client.component.event.HoverEvent;
@@ -68,7 +68,7 @@ public class FriendServerStateListener {
     this.addon.displayMessage(
         Component.empty()
             .append(BetterFriendsAddon.getPrefix())
-            .append(NameHelper.getColoredName(friend))
+            .append(GroupHelper.getColoredName(friend))
             .append(Component.space())
             .append(text)
             .color(NamedTextColor.GRAY)
