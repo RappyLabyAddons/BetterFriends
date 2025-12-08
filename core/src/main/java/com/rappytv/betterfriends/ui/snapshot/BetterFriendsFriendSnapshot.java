@@ -13,10 +13,10 @@ public class BetterFriendsFriendSnapshot extends AbstractLabySnapshot {
   private final Friend friend;
   private final BetterFriendsConfig config;
 
-  public BetterFriendsFriendSnapshot(Player player, Extras extras) {
+  public BetterFriendsFriendSnapshot(Player player, Extras extras, BetterFriendsAddon addon) {
     super(extras);
     this.friend = BetterFriendsAddon.references().friendHelper().getFriend(player.profile());
-    this.config = BetterFriendsAddon.config();
+    this.config = addon.configuration();
   }
 
   @Nullable

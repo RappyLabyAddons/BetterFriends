@@ -93,10 +93,6 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     return BetterFriendsConfig.class;
   }
 
-  public static BetterFriendsConfig config() {
-    return instance.configuration();
-  }
-
   public static ReferenceStorage references() {
     return instance.referenceStorageAccessor();
   }
