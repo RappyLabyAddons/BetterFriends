@@ -1,20 +1,19 @@
 package com.rappytv.betterfriends.ui.tags;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import java.awt.*;
-import net.labymod.api.Laby;
-import net.labymod.api.client.entity.player.Player;
+import com.rappytv.betterfriends.ui.snapshot.BetterFriendsFriendSnapshot;
+import com.rappytv.betterfriends.ui.snapshot.BetterFriendsKeys;
+import java.util.Collections;
+import java.util.List;
+import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.tag.PositionType;
-import net.labymod.api.client.entity.player.tag.tags.NameTag;
-import net.labymod.api.client.entity.player.tag.tags.NameTagBackground;
-import net.labymod.api.client.render.font.RenderableComponent;
-import net.labymod.api.labyconnect.LabyConnectSession;
+import net.labymod.api.client.entity.player.tag.tags.ComponentNameTag;
+import net.labymod.api.client.render.state.entity.EntitySnapshot;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
-public class FriendNoteNameTag extends NameTag {
+public class FriendNoteNameTag extends ComponentNameTag {
 
-  private static final int gray = new Color(0, 0, 0, 70).getRGB();
   private final BetterFriendsAddon addon;
   private final PositionType position;
 
@@ -24,57 +23,50 @@ public class FriendNoteNameTag extends NameTag {
   }
 
   @Override
-  protected @Nullable RenderableComponent getRenderableComponent() {
-    if (this.entity == null || !(this.entity instanceof Player)) {
-      return null;
+  protected @NotNull List<Component> buildComponents(EntitySnapshot snapshot) {
+    if (this.snapshot.isDiscrete()
+        || this.snapshot.isInvisible()
+        || !this.snapshot.has(BetterFriendsKeys.FRIEND)) {
+      return super.buildComponents(snapshot);
+    }
+    BetterFriendsFriendSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.FRIEND);
+
+    boolean condition = friendSnapshot.config().enabled().get()
+        && friendSnapshot.config().friendNoteTagConfig().enabled().get()
+        && friendSnapshot.config().friendNoteTagConfig().position().get() == this.position;
+
+    if (!condition) {
+      return super.buildComponents(snapshot);
     }
 
-    LabyConnectSession session = Laby.references().labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) {
-      return null;
-    }
-
-    Friend friend = session.getFriend(this.entity.getUniqueId());
+    Friend friend = friendSnapshot.friend();
     if (friend == null) {
-      return null;
+      return super.buildComponents(snapshot);
     }
-
     String note = friend.getNote();
     if (note != null && !note.isBlank()) {
-      return RenderableComponent.of(this.addon.getSerializer().deserialize(note));
-    } else {
-      String defaultTag = this.addon.configuration().friendNoteTagConfig().defaultTag().get();
-      if (defaultTag.isBlank()) {
-        return null;
-      }
-      return RenderableComponent.of(this.addon.getSerializer().deserialize(defaultTag));
+      return Collections.singletonList(this.addon.getSerializer().deserialize(note));
     }
+    String defaultTag = friendSnapshot.config().friendNoteTagConfig().defaultTag().get();
+    if (defaultTag.isBlank()) {
+      return super.buildComponents(snapshot);
+    }
+    return Collections.singletonList(this.addon.getSerializer().deserialize(defaultTag));
+  }
+
+  @Override
+  protected int getBackgroundColor(EntitySnapshot snapshot) {
+    BetterFriendsFriendSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.FRIEND);
+    if (friendSnapshot == null) {
+      return super.getBackgroundColor(snapshot);
+    }
+    return friendSnapshot.config().friendNoteTagConfig().hideBackground().get()
+        ? 0
+        : super.getBackgroundColor(snapshot);
   }
 
   @Override
   public float getScale() {
     return (float) this.addon.configuration().friendNoteTagConfig().size().get() / 10;
-  }
-
-  @Override
-  protected NameTagBackground getCustomBackground() {
-    boolean enabled = !this.addon.configuration().friendNoteTagConfig().hideBackground().get();
-    NameTagBackground background = super.getCustomBackground();
-
-    if (background == null) {
-      background = NameTagBackground.custom(enabled, gray);
-    }
-
-    background.setEnabled(enabled);
-    return background;
-  }
-
-  @Override
-  public boolean isVisible() {
-    return this.addon.configuration().enabled().get()
-        && this.addon.configuration().friendNoteTagConfig().enabled().get()
-        && this.addon.configuration().friendNoteTagConfig().position().get() == this.position
-        && !this.entity.isCrouching()
-        && super.isVisible();
   }
 }

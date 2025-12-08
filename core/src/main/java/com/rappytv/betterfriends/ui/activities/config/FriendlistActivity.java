@@ -1,16 +1,17 @@
 package com.rappytv.betterfriends.ui.activities.config;
 
 import com.rappytv.betterfriends.ui.widgets.FriendWidget;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import com.rappytv.betterfriends.utils.GroupHelper;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Function;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.screen.Parent;
 import net.labymod.api.client.gui.screen.activity.AutoActivity;
 import net.labymod.api.client.gui.screen.activity.Link;
+import net.labymod.api.client.gui.screen.activity.Links;
 import net.labymod.api.client.gui.screen.activity.types.SimpleActivity;
 import net.labymod.api.client.gui.screen.widget.widgets.ComponentWidget;
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget;
@@ -30,7 +31,7 @@ import net.labymod.api.labyconnect.protocol.model.User;
 import net.labymod.api.labyconnect.protocol.model.chat.ChatMessage;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 
-@Link("friend_list.lss")
+@Links({@Link("friend_list.lss"), @Link("friend.lss")})
 @AutoActivity
 public class FriendlistActivity<T extends FriendWidget> extends SimpleActivity {
 
@@ -123,16 +124,10 @@ public class FriendlistActivity<T extends FriendWidget> extends SimpleActivity {
     this.scroll.setVisible(true);
 
     List<T> children = new ArrayList<>();
-    int addedOfflineFriends = 0;
 
     for (Friend friend : session.getFriends()) {
-      boolean offline = !friend.isOnline();
-      if ((!offline || addedOfflineFriends < 100 || friend.isPinned()) && this.isUserInFilter(
-          friend)) {
+      if (this.isUserInFilter(friend)) {
         children.add(this.friendWidgetConstructor.apply(friend));
-        if (offline) {
-          addedOfflineFriends++;
-        }
       }
     }
 
@@ -204,21 +199,20 @@ public class FriendlistActivity<T extends FriendWidget> extends SimpleActivity {
 
   private enum SortingStrategy {
     ONLINE_STATUS((a, b) -> Boolean.compare(b.isOnline(), a.isOnline())),
-    ROLE((a, b) -> Integer.compare(
-        GroupHelper.getGroupIndex(a.gameUser().visibleGroup().getIdentifier()),
-        GroupHelper.getGroupIndex(b.gameUser().visibleGroup().getIdentifier())
+    ROLE(Comparator.comparingInt(a ->
+        GroupHelper.getGroupIndex(a.gameUser().visibleGroup().getIdentifier())
     )),
     A_TO_Z((a, b) -> a.getName().compareToIgnoreCase(b.getName())),
     Z_TO_A((a, b) -> b.getName().compareToIgnoreCase(a.getName()));
 
-    private final BiFunction<Friend, Friend, Integer> sortingFunction;
+    private final Comparator<Friend> sortingFunction;
 
-    SortingStrategy(BiFunction<Friend, Friend, Integer> sortingFunction) {
-      this.sortingFunction = sortingFunction;
+    SortingStrategy(Comparator<Friend> comparator) {
+      this.sortingFunction = comparator;
     }
 
     public int compare(Friend f1, Friend f2) {
-      return this.sortingFunction.apply(f1, f2);
+      return this.sortingFunction.compare(f1, f2);
     }
   }
 }
