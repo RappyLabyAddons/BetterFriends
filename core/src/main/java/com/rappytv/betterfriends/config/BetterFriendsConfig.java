@@ -11,6 +11,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.Switc
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
+import net.labymod.api.configuration.loader.annotation.IntroducedIn;
 import net.labymod.api.configuration.loader.annotation.SpriteSlot;
 import net.labymod.api.configuration.loader.annotation.SpriteTexture;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
@@ -84,6 +85,7 @@ public class BetterFriendsConfig extends AddonConfig {
   private final ConfigProperty<Boolean> ownLabyChatMessages = new ConfigProperty<>(true);
 
   @SettingRequires("labyChatMessageNotifications")
+  @IntroducedIn(namespace = "betterfriends", value = "1.0.1")
   @SwitchSetting
   private final ConfigProperty<Boolean> showInteractionButtons = new ConfigProperty<>(true);
 

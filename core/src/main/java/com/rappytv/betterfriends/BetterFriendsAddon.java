@@ -32,12 +32,23 @@ import net.labymod.api.client.component.serializer.legacy.LegacyComponentSeriali
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.models.addon.annotation.AddonMain;
+import net.labymod.api.revision.SimpleRevision;
+import net.labymod.api.util.version.SemanticVersion;
 
 @AddonMain
 public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
   private static final LegacyComponentSerializer SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
   private static BetterFriendsAddon instance;
+
+  @Override
+  protected void preConfigurationLoad() {
+    Laby.references().revisionRegistry().register(new SimpleRevision(
+        "betterfriends",
+        new SemanticVersion("1.0.1"),
+        "2025-12-10"
+    ));
+  }
 
   @Override
   protected void enable() {
