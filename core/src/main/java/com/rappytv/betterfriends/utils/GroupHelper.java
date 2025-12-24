@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
-import net.labymod.api.Constants.LegacyUrls;
+import net.labymod.api.Constants.Urls;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 import net.labymod.api.user.GameUser;
@@ -18,7 +18,7 @@ public class GroupHelper {
 
   public static void registerGroupIds() {
     Request.ofGson(JsonElement.class)
-        .url(LegacyUrls.GROUPS)
+        .url(Urls.LABYNET_GROUPS)
         .execute(response -> {
           if (response.hasException()) {
             return;
