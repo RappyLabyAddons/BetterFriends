@@ -4,6 +4,9 @@ import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
 import com.rappytv.betterfriends.config.subconfig.PinIconConfig;
 import com.rappytv.betterfriends.ui.activities.config.FriendlistActivity;
 import com.rappytv.betterfriends.ui.widgets.FriendlistFriendWidget;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.activity.Activity;
 import net.labymod.api.client.gui.screen.widget.widgets.activity.settings.ActivitySettingWidget.ActivitySetting;
@@ -11,6 +14,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.Switc
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
+import net.labymod.api.configuration.loader.annotation.Exclude;
 import net.labymod.api.configuration.loader.annotation.IntroducedIn;
 import net.labymod.api.configuration.loader.annotation.SpriteSlot;
 import net.labymod.api.configuration.loader.annotation.SpriteTexture;
@@ -27,7 +31,6 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot
   @SwitchSetting
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
-
   @SpriteSlot(x = 1)
   @ColorPickerSetting
   private final ConfigProperty<Color> prefixColor = new ConfigProperty<>(Color.ofRGB(255, 102, 0));
@@ -40,10 +43,8 @@ public class BetterFriendsConfig extends AddonConfig {
 
   @SpriteSlot(size = 8, x = 4)
   private final PinIconConfig pinIconConfig = new PinIconConfig();
-
   @SpriteSlot(x = 3)
   private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
-
   @SpriteSlot(x = 4)
   @TextFieldSetting
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
@@ -52,33 +53,26 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot(x = 5)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestNotifications = new ConfigProperty<>(true);
-
   @SettingRequires("friendRequestNotifications")
   @SpriteSlot(x = 6)
   @DropdownSetting
   private final ConfigProperty<FriendRequestReaction> automaticFriendRequestReaction = new ConfigProperty<>(
       FriendRequestReaction.NONE);
-
   @SpriteSlot(x = 7)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendServerSwitchNotifications = new ConfigProperty<>(true);
-
   @SpriteSlot(y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendStatusUpdateNotifications = new ConfigProperty<>(true);
-
   @SpriteSlot(x = 1, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRemovalNotifications = new ConfigProperty<>(true);
-
   @SpriteSlot(x = 2, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestRemovalNotifications = new ConfigProperty<>(true);
-
   @SpriteSlot(x = 3, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> labyChatMessageNotifications = new ConfigProperty<>(true);
-
   @SettingRequires("labyChatMessageNotifications")
   @SpriteSlot(x = 4, y = 1)
   @SwitchSetting
@@ -96,28 +90,36 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot(size = 8, x = 4)
   @SwitchSetting
   private final ConfigProperty<Boolean> togglePinBullet = new ConfigProperty<>(true);
+  @SwitchSetting
+  private final ConfigProperty<Boolean> removeFriendBullet = new ConfigProperty<>(true);
+  @SwitchSetting
+  private final ConfigProperty<Boolean> voiceFocusBullet = new ConfigProperty<>(true);
 
   @SettingSection(value = "voicechat", center = true)
   @SpriteSlot(x = 6, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> restartWhenMuted = new ConfigProperty<>(true);
 
+  @Exclude
+  private final List<UUID> temporaryPined = new ArrayList<>();
+
+  public List<UUID> temporaryPined() {
+    return this.temporaryPined;
+  }
+
   @Override
   public ConfigProperty<Boolean> enabled() {
     return this.enabled;
   }
-
   public ConfigProperty<Color> prefixColor() {
     return this.prefixColor;
   }
-
   public PinIconConfig pinIconConfig() {
     return this.pinIconConfig;
   }
   public FriendNoteTagConfig friendNoteTagConfig() {
     return this.friendNoteTagConfig;
   }
-
   public ConfigProperty<String> friendPrefix() {
     return this.friendPrefix;
   }
@@ -125,31 +127,24 @@ public class BetterFriendsConfig extends AddonConfig {
   public ConfigProperty<Boolean> friendRequestNotifications() {
     return this.friendRequestNotifications;
   }
-
   public ConfigProperty<FriendRequestReaction> automaticFriendRequestReaction() {
     return this.automaticFriendRequestReaction;
   }
-
   public ConfigProperty<Boolean> friendServerSwitchNotifications() {
     return this.friendServerSwitchNotifications;
   }
-
   public ConfigProperty<Boolean> friendStatusUpdateNotifications() {
     return this.friendStatusUpdateNotifications;
   }
-
   public ConfigProperty<Boolean> friendRemovalNotifications() {
     return this.friendRemovalNotifications;
   }
-
   public ConfigProperty<Boolean> friendRequestRemovalNotifications() {
     return this.friendRequestRemovalNotifications;
   }
-
   public ConfigProperty<Boolean> labyChatMessageNotifications() {
     return this.labyChatMessageNotifications;
   }
-
   public ConfigProperty<Boolean> ownLabyChatMessages() {
     return this.ownLabyChatMessages;
   }
@@ -158,13 +153,21 @@ public class BetterFriendsConfig extends AddonConfig {
     return this.showInteractionButtons;
   }
 
-//  public ConfigProperty<Boolean> noteEditorBullet() {
+  public ConfigProperty<Boolean> removeFriendBullet() {
+    return this.removeFriendBullet;
+  }
+
+  public ConfigProperty<Boolean> voiceFocusBullet() {
+    return this.voiceFocusBullet;
+  }
+
+
+  //  public ConfigProperty<Boolean> noteEditorBullet() {
 //    return this.noteEditorBullet;
 //  }
   public ConfigProperty<Boolean> togglePinBullet() {
     return this.togglePinBullet;
   }
-
   public ConfigProperty<Boolean> restartWhenMuted() {
     return this.restartWhenMuted;
   }
