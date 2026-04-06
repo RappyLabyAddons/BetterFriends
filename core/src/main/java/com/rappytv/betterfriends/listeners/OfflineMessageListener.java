@@ -1,7 +1,7 @@
 package com.rappytv.betterfriends.listeners;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.rappytv.betterfriends.BetterFriendsAddon;
+import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import java.util.UUID;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.labymod.labyconnect.LabyConnectEvent;
@@ -14,10 +14,10 @@ import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 
 public class OfflineMessageListener {
 
-  private final List<UUID> temporaryPined;
+  private final BetterFriendsConfig config;
 
-  public OfflineMessageListener() {
-    this.temporaryPined = new ArrayList<>();
+  public OfflineMessageListener(BetterFriendsAddon addon) {
+    this.config = addon.configuration();
   }
 
   @Subscribe
@@ -32,13 +32,23 @@ public class OfflineMessageListener {
       return;
     }
 
+    for (UUID uuids : this.config.temporaryPined()) {
+      Friend friend = session.getFriend(uuids);
+      if (friend == null || !friend.isPinned()) {
+        continue;
+      }
+
+      friend.unpin();
+    }
+    this.config.temporaryPined().clear();
+
     for (Friend friend : session.getFriends()) {
       for (ChatMessage message : friend.chat().getMessages()) {
         if (message.isRead() || friend.isPinned()) {
           continue;
         }
 
-        this.temporaryPined.add(friend.getUniqueId());
+        this.config.temporaryPined().add(friend.getUniqueId());
         friend.pin();
       }
     }
@@ -57,18 +67,18 @@ public class OfflineMessageListener {
       return;
     }
 
-    this.temporaryPined.add(uniqueId);
+    this.config.temporaryPined().add(uniqueId);
     friend.pin();
   }
 
   @Subscribe
   public void onLabyConnectChatMessageRead(LabyConnectChatMessageReadEvent readEvent) {
-    if (this.temporaryPined.isEmpty()) {
+    if (this.config.temporaryPined().isEmpty()) {
       return;
     }
 
     UUID uniqueId = readEvent.message().sender().getUniqueId();
-    if (!this.temporaryPined.contains(uniqueId)) {
+    if (!this.config.temporaryPined().contains(uniqueId)) {
       return;
     }
 
@@ -82,7 +92,7 @@ public class OfflineMessageListener {
       return;
     }
 
-    this.temporaryPined.remove(uniqueId);
+    this.config.temporaryPined().remove(uniqueId);
     friend.unpin();
   }
 }
