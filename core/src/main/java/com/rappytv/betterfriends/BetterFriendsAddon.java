@@ -21,7 +21,6 @@ import com.rappytv.betterfriends.ui.hud.OnlineFriendCountHudWidget;
 import com.rappytv.betterfriends.ui.hud.UnreadChatCountWidget;
 import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
-import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
@@ -29,7 +28,6 @@ import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.client.component.format.TextDecoration;
-import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.models.addon.annotation.AddonMain;
@@ -39,8 +37,7 @@ import net.labymod.api.util.version.SemanticVersion;
 @AddonMain
 public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
-  private static final LegacyComponentSerializer SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
-  private static BetterFriendsAddon instance;
+  private static BetterFriendsAddon INSTANCE;
 
   @Override
   protected void preConfigurationLoad() {
@@ -53,9 +50,8 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
   @Override
   protected void enable() {
-    instance = this;
+    INSTANCE = this;
     this.registerSettingCategory();
-    GroupHelper.registerGroupIds();
 
     this.registerCommand(new BetterFriendsCommand());
 
@@ -107,21 +103,17 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   }
 
   public static ReferenceStorage references() {
-    return instance.referenceStorageAccessor();
+    return INSTANCE.referenceStorageAccessor();
   }
 
   public static TextComponent getPrefix() {
     return Component.empty()
         .append(Component.text(
             "BF",
-            TextColor.color(instance.configuration().prefixColor().get().get())
+            TextColor.color(INSTANCE.configuration().prefixColor().get().get())
         ).decorate(TextDecoration.BOLD))
         .append(Component.space())
         .append(Component.text("»", NamedTextColor.DARK_GRAY))
         .append(Component.space());
-  }
-
-  public LegacyComponentSerializer getSerializer() {
-    return SERIALIZER;
   }
 }

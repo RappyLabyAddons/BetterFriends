@@ -26,21 +26,6 @@
         "name": "Temporarily pin friends on chat message",
         "description": "This will pin friends to the top of your friend list when they send you a text message. The friend will be unpinned as soon as you read the message or mark it as read. This will also work when receiving messages while offline."
       },
-      "advancedFriendlist": {
-        "name": "Advanced friend list",
-        "removal": {
-          "label": "Remove friend",
-          "skipConfirmation": "(Hold shift to skip confirmation)",
-          "confirm": "Confirm removal",
-          "cancel": "Cancel removal"
-        },
-        "sorting": {
-          "onlineStatus": "Online status",
-          "role": "LabyMod role",
-          "aToZ": "A-Z",
-          "zToA": "Z-A"
-        }
-      },
       "pinIconConfig": {
         "name": "Friend pin icon",
         "pinIcon": {

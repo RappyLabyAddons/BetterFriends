@@ -5,6 +5,7 @@ import java.util.UUID;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
+import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.chat.ChatReceiveEvent;
 import net.labymod.api.labyconnect.LabyConnectSession;
@@ -48,7 +49,7 @@ public class ChatReceiveListener {
 
     receiveEvent.setMessage(
         Component.empty()
-            .append(this.addon.getSerializer().deserialize(
+            .append(LegacyComponentSerializer.legacyAmpersand().deserialize(
                 this.addon.configuration().friendPrefix().get()
             ))
             .append(Component.space())
