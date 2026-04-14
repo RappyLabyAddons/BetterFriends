@@ -1,12 +1,14 @@
 package com.rappytv.betterfriends.listeners;
 
 import com.rappytv.betterfriends.BetterFriendsAddon;
-import net.labymod.addons.voicechat.api.audio.stream.AudioStreamState;
-import net.labymod.addons.voicechat.api.client.VoiceConnector;
-import net.labymod.addons.voicechat.core.VoiceChatAddon;
+import com.rappytv.betterfriends.ui.activities.FriendlistExpirationActivity;
 import net.labymod.api.Laby;
+import net.labymod.api.client.component.Component;
+import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendAddEvent;
+import net.labymod.api.notification.Notification;
+import net.labymod.api.notification.Notification.NotificationButton;
 
 public class FriendAddListener {
 
@@ -18,28 +20,28 @@ public class FriendAddListener {
 
   @Subscribe
   public void onFriendAdd(LabyConnectFriendAddEvent event) {
+    if(this.addon.configuration().expiryConfig().sendNotifications().get()) {
+      Notification.builder()
+          .title(Component.translatable("betterfriends.notifications.friendshipExpiration.set.title"))
+          .text(Component.translatable("betterfriends.notifications.friendshipExpiration.set.description"))
+          .icon(Icon.head(event.friend().getUniqueId(), true))
+          .addButton(NotificationButton.of(
+              Component.translatable("betterfriends.notifications.friendshipExpiration.set.button"),
+              () -> Laby.labyAPI().minecraft().minecraftWindow().displayScreen(
+                  new FriendlistExpirationActivity(event.friend())
+              )
+          ))
+          .duration(20000)
+          .buildAndPush();
+    }
+
     if (!this.addon.configuration().restartWhenMuted().get()) {
       return;
     }
-
-    if (!Laby.labyAPI().addonService().isEnabled("voicechat")) {
+    if (!this.addon.getVoiceChatHelper().isEnabled()) {
       return;
     }
 
-    VoiceConnector client = VoiceChatAddon.INSTANCE.client();
-    if (!client.isAuthenticated() || !this.isSelfMuted()) {
-      return;
-    }
-
-    client.disconnect();
-    client.connect();
+    this.addon.getVoiceChatHelper().reconnect();
   }
-
-  private boolean isSelfMuted() {
-    return VoiceChatAddon.INSTANCE
-        .referenceStorage()
-        .audioStreamRegistry()
-        .getState(Laby.labyAPI().getUniqueId(), false) == AudioStreamState.INPUT_GLOBAL_MUTED;
-  }
-
 }

@@ -24,17 +24,41 @@
       },
       "advancedFriendlist": {
         "name": "Advanced friend list",
-        "removal": {
-          "label": "Remove friend",
-          "skipConfirmation": "(Hold shift to skip confirmation)",
-          "confirm": "Confirm removal",
-          "cancel": "Cancel removal"
-        },
         "sorting": {
           "onlineStatus": "Online status",
           "role": "LabyMod role",
           "aToZ": "A-Z",
           "zToA": "Z-A"
+        },
+        "expiration": {
+          "label": "Add expiration date",
+          "title": "Set expiration date for %s",
+          "forExample": "e. g.",
+          "button": "Set expiration",
+          "types": {
+            "onServerLeave": "On disconnect",
+            "onMuteExpiration": "When VoiceMute expires",
+            "customDate": "Custom date"
+          },
+          "success": "The expiration date was successfully set! You can cancel the expiration in the addon settings."
+        },
+        "removal": {
+          "label": "Remove friend",
+          "skipConfirmation": "(Hold shift to skip confirmation)",
+          "confirm": "Confirm removal",
+          "cancel": "Cancel removal"
+        }
+      },
+      "expiryConfig": {
+        "name": "Temporary friendships",
+        "sendNotifications": {
+          "name": "Ask if frienship should be temporary when adding new friend"
+        },
+        "notifyOnExpiration": {
+          "name": "Notify when temporary friendship expires"
+        },
+        "manageExpirationDates": {
+          "name": "Manage expiring friendships"
         }
       },
       "pinIconConfig": {
@@ -203,6 +227,19 @@
       "friendRequestRemoval": {
         "title": "Request removed",
         "description": "%s has declined your friend request. (Or you removed it)"
+      },
+      "friendshipExpiration": {
+        "set": {
+          "title": "New friend added",
+          "description": "Do you want to set an expiration date for the friendship?",
+          "button": "Add expiration date"
+        },
+        "expired": {
+          "title": "Friendship expired!",
+          "description": "Your friendship with %s has expired.",
+          "disconnectDescription": "Your friendship with %s has expired because you left the server.",
+          "unknown": "Unknown"
+        }
       },
       "statusUpdate": {
         "message": "%1$s is now %2$s!",

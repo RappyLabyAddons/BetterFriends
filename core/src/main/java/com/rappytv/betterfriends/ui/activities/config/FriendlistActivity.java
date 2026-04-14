@@ -22,8 +22,11 @@ import net.labymod.api.client.gui.screen.widget.widgets.layout.list.HorizontalLi
 import net.labymod.api.client.gui.screen.widget.widgets.layout.list.VerticalListWidget;
 import net.labymod.api.event.Phase;
 import net.labymod.api.event.Subscribe;
+import net.labymod.api.event.labymod.labyconnect.LabyConnectStateUpdateEvent;
 import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendAddEvent;
+import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendPinUpdateEvent;
 import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendRemoveEvent;
+import net.labymod.api.event.labymod.labyconnect.session.friend.LabyConnectFriendStatusEvent;
 import net.labymod.api.event.labymod.labyconnect.session.login.LabyConnectFriendAddBulkEvent;
 import net.labymod.api.event.labymod.user.UserUpdateDataEvent;
 import net.labymod.api.labyconnect.LabyConnectSession;
@@ -192,6 +195,27 @@ public class FriendlistActivity<T extends FriendWidget> extends SimpleActivity {
   @Subscribe
   public void onLabyConnectFriendRemove(LabyConnectFriendRemoveEvent event) {
     this.entries.removeChildIf(
+        FriendWidget.class,
+        widget -> widget.getFriend().getUniqueId().equals(event.friend().getUniqueId())
+    );
+  }
+
+  @Subscribe
+  public void onLabyConnectStateUpdate(LabyConnectStateUpdateEvent event) {
+    this.initializeFriendlist(true);
+  }
+
+  @Subscribe
+  public void onLabyConnectStateUpdate(LabyConnectFriendPinUpdateEvent event) {
+    this.entries.reInitializeChildrenIf(
+        FriendWidget.class,
+        widget -> widget.getFriend().getUniqueId().equals(event.friend().getUniqueId())
+    );
+  }
+
+  @Subscribe
+  public void onLabyConnectFriendStatus(LabyConnectFriendStatusEvent event) {
+    this.entries.reInitializeChildrenIf(
         FriendWidget.class,
         widget -> widget.getFriend().getUniqueId().equals(event.friend().getUniqueId())
     );

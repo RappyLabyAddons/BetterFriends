@@ -1,6 +1,7 @@
 package com.rappytv.betterfriends.ui.widgets;
 
 import java.util.List;
+import com.rappytv.betterfriends.ui.activities.FriendlistExpirationActivity;
 import net.labymod.api.Laby;
 import net.labymod.api.Textures;
 import net.labymod.api.Textures.SpriteCommon;
@@ -31,7 +32,6 @@ public class FriendlistFriendWidget extends FriendWidget {
       ButtonWidget removeConfirmationButton = ButtonWidget.icon(SpriteCommon.GREEN_CHECKED, () -> {
         this.friend.remove();
         this.confirmRemoval = false;
-        this.reInitialize();
       });
       removeConfirmationButton.setHoverComponent(Component.translatable(
           "betterfriends.settings.advancedFriendlist.removal.confirm",
@@ -53,7 +53,6 @@ public class FriendlistFriendWidget extends FriendWidget {
       } else {
         this.friend.pin();
       }
-      this.reInitialize();
     }).addId("pin-button");
     pinButton.setHoverComponent(
         Component.translatable(
@@ -68,6 +67,15 @@ public class FriendlistFriendWidget extends FriendWidget {
     ).addId("note-button");
     noteButton.setHoverComponent(Component.translatable(
         "labymod.activity.labyconnect.chat.action.note"
+    ));
+    ButtonWidget expirationButton = ButtonWidget.icon(
+        SpriteCommon.QUESTION_MARK, // TODO: Add real icon
+        () -> Laby.labyAPI().minecraft().minecraftWindow().displayScreen(
+            new FriendlistExpirationActivity(this.friend)
+        )
+    ).addId("expiration-button");
+    expirationButton.setHoverComponent(Component.translatable(
+        "betterfriends.settings.advancedFriendlist.expiration.label"
     ));
     ButtonWidget removeButton = ButtonWidget.component(X, () -> {
       if (this.skipConfirmation) {
@@ -89,7 +97,7 @@ public class FriendlistFriendWidget extends FriendWidget {
                 NamedTextColor.DARK_GRAY
             ))
     );
-    return List.of(pinButton, noteButton, removeButton);
+    return List.of(pinButton, noteButton, expirationButton, removeButton);
   }
 
   @Subscribe

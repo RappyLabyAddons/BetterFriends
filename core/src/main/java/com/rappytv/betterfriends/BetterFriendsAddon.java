@@ -20,7 +20,9 @@ import com.rappytv.betterfriends.ui.hud.OnlineFriendCountHudWidget;
 import com.rappytv.betterfriends.ui.hud.UnreadChatCountWidget;
 import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
+import com.rappytv.betterfriends.utils.FriendshipExpirationHandler;
 import com.rappytv.betterfriends.utils.GroupHelper;
+import com.rappytv.betterfriends.utils.VoiceChatHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
@@ -40,6 +42,8 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
   private static final LegacyComponentSerializer SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
   private static BetterFriendsAddon instance;
+  private final VoiceChatHelper voiceChatHelper = new VoiceChatHelper();
+  private FriendshipExpirationHandler expirationHandler;
 
   @Override
   protected void preConfigurationLoad() {
@@ -55,10 +59,12 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     instance = this;
     this.registerSettingCategory();
     GroupHelper.registerGroupIds();
+    this.expirationHandler = new FriendshipExpirationHandler(this);
 
     this.registerCommand(new BetterFriendsCommand());
 
     this.registerListener(new ChatReceiveListener(this));
+    this.registerListener(this.expirationHandler);
     this.registerListener(new FriendAddListener(this));
     this.registerListener(new FriendRemoveListener(this));
     this.registerListener(new FriendRequestReceiveListener(this));
@@ -117,6 +123,18 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
         .append(Component.space())
         .append(Component.text("»", NamedTextColor.DARK_GRAY))
         .append(Component.space());
+  }
+
+  public static BetterFriendsAddon getInstance() {
+    return instance;
+  }
+
+  public FriendshipExpirationHandler getExpirationHandler() {
+    return this.expirationHandler;
+  }
+
+  public VoiceChatHelper getVoiceChatHelper() {
+    return this.voiceChatHelper;
   }
 
   public LegacyComponentSerializer getSerializer() {
