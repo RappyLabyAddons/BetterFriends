@@ -212,7 +212,8 @@
         "hover": "Click to join"
       },
       "chats": {
-        "attachments": "[%s Attachments]",
+        "attachments": "%s Attachments",
+        "attachment": "%s Attachment",
         "read": "Mark chat as read",
         "reply": "Reply to %s"
       }

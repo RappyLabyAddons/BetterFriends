@@ -48,23 +48,34 @@ public class LabyChatReceiveListener {
       return;
     }
 
+    boolean hasContent = !message.getMessage().isEmpty();
+
     Component component = Component.empty()
         .append(BetterFriendsAddon.getPrefix())
         .append(GroupHelper.getColoredName(sender.getName(), sender.gameUser()))
         .append(Component.text(" → ", NamedTextColor.DARK_GRAY))
         .append(GroupHelper.getColoredName(receiver.getName(), receiver.gameUser()))
-        .append(Component.text(" » ", NamedTextColor.DARK_GRAY))
-        .append(Component.text(message.getMessage(), NamedTextColor.WHITE));
+        .append(Component.text(" » ", NamedTextColor.DARK_GRAY));
+
+    if (hasContent) {
+      component.append(Component.text(message.getMessage(), NamedTextColor.WHITE));
+    }
 
     int attachments = message.getAttachments().size();
     if(attachments > 0) {
-      component
-          .append(Component.space())
-          .append(Component.translatable(
-              "betterfriends.notifications.chats.attachments",
-              NamedTextColor.AQUA,
-              Component.text(attachments)
-          ));
+      Component attachmentComponent = Component.empty().color(NamedTextColor.AQUA);
+      if (hasContent) {
+        attachmentComponent.append(Component.text("["));
+      }
+      attachmentComponent.append(Component.translatable(
+          "betterfriends.notifications.chats.attachment" + (attachments == 1 ? "" : "s"),
+          Component.text(attachments)
+      ));
+      if (hasContent) {
+        attachmentComponent.append(Component.text("]"));
+        component.append(Component.space());
+      }
+      component.append(attachmentComponent);
     }
 
     if (receiver.getName().equals(Laby.labyAPI().getName())
