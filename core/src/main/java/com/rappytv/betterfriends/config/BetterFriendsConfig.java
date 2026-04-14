@@ -34,6 +34,7 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> temporaryPinsEnabled = new ConfigProperty<>(false);
 
+  @SettingSection(value = "indicators", center = true)
   @SpriteSlot(size = 8, x = 4)
   private final PinIconConfig pinIconConfig = new PinIconConfig();
 
