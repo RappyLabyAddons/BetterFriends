@@ -4,6 +4,9 @@ import com.rappytv.betterfriends.config.subconfig.FriendNoteTagConfig;
 import com.rappytv.betterfriends.config.subconfig.PinIconConfig;
 import com.rappytv.betterfriends.ui.activities.config.FriendlistActivity;
 import com.rappytv.betterfriends.ui.widgets.FriendlistFriendWidget;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.activity.Activity;
 import net.labymod.api.client.gui.screen.widget.widgets.activity.settings.ActivitySettingWidget.ActivitySetting;
@@ -11,6 +14,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.Switc
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
+import net.labymod.api.configuration.loader.annotation.Exclude;
 import net.labymod.api.configuration.loader.annotation.IntroducedIn;
 import net.labymod.api.configuration.loader.annotation.SpriteSlot;
 import net.labymod.api.configuration.loader.annotation.SpriteTexture;
@@ -37,6 +41,9 @@ public class BetterFriendsConfig extends AddonConfig {
   public Activity advancedFriendlist() {
     return new FriendlistActivity<>(FriendlistFriendWidget::new);
   }
+
+  @SwitchSetting
+  private final ConfigProperty<Boolean> temporaryPinsEnabled = new ConfigProperty<>(false);
 
   @SpriteSlot(size = 8, x = 4)
   private final PinIconConfig pinIconConfig = new PinIconConfig();
@@ -93,6 +100,7 @@ public class BetterFriendsConfig extends AddonConfig {
 //  @SpriteSlot(x = 5, y = 1)
 //  @SwitchSetting
 //  private final ConfigProperty<Boolean> noteEditorBullet = new ConfigProperty<>(true);
+
   @SpriteSlot(size = 8, x = 4)
   @SwitchSetting
   private final ConfigProperty<Boolean> togglePinBullet = new ConfigProperty<>(true);
@@ -101,6 +109,9 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot(x = 6, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> restartWhenMuted = new ConfigProperty<>(true);
+
+  @Exclude
+  private final List<UUID> temporaryPins = new ArrayList<>();
 
   @Override
   public ConfigProperty<Boolean> enabled() {
@@ -111,9 +122,14 @@ public class BetterFriendsConfig extends AddonConfig {
     return this.prefixColor;
   }
 
+  public ConfigProperty<Boolean> temporaryPinsEnabled() {
+    return this.temporaryPinsEnabled;
+  }
+
   public PinIconConfig pinIconConfig() {
     return this.pinIconConfig;
   }
+
   public FriendNoteTagConfig friendNoteTagConfig() {
     return this.friendNoteTagConfig;
   }
@@ -161,12 +177,17 @@ public class BetterFriendsConfig extends AddonConfig {
 //  public ConfigProperty<Boolean> noteEditorBullet() {
 //    return this.noteEditorBullet;
 //  }
+
   public ConfigProperty<Boolean> togglePinBullet() {
     return this.togglePinBullet;
   }
 
   public ConfigProperty<Boolean> restartWhenMuted() {
     return this.restartWhenMuted;
+  }
+
+  public List<UUID> temporaryPins() {
+    return this.temporaryPins;
   }
 
   public enum FriendRequestReaction {

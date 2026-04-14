@@ -13,6 +13,7 @@ import com.rappytv.betterfriends.listeners.FriendRequestRemoveListener;
 import com.rappytv.betterfriends.listeners.FriendServerStateListener;
 import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
+import com.rappytv.betterfriends.listeners.TemporaryPinListener;
 import com.rappytv.betterfriends.ui.badge.FriendPinBadge;
 import com.rappytv.betterfriends.ui.hud.FriendCountHudWidget;
 import com.rappytv.betterfriends.ui.hud.IncomingFriendRequestCountHudWidget;
@@ -66,6 +67,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     this.registerListener(new FriendServerStateListener(this));
     this.registerListener(new FriendStatusUpdateListener(this));
     this.registerListener(new LabyChatReceiveListener(this));
+    this.registerListener(new TemporaryPinListener(this));
 
     this.labyAPI().interactionMenuRegistry().register(new FriendNoteEditorBullet(this));
     this.labyAPI().interactionMenuRegistry().register(new FriendTogglePinBullet(this));
