@@ -26,9 +26,11 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
 
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @SpriteSlot(x = 1)
   private final PrefixCustomizationConfig prefixCustomizationConfig = new PrefixCustomizationConfig();
 
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @SpriteSlot(size = 8, x = 4)
   @SwitchSetting
   private final ConfigProperty<Boolean> temporaryPinsEnabled = new ConfigProperty<>(false);

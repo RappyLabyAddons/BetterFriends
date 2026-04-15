@@ -10,6 +10,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.Switc
 import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.TextFieldSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
 import net.labymod.api.configuration.loader.Config;
+import net.labymod.api.configuration.loader.annotation.IntroducedIn;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.CustomTranslation;
 import net.labymod.api.configuration.settings.annotation.SettingRequires;
@@ -22,22 +23,27 @@ public class PrefixCustomizationConfig extends Config {
       "betterfriends.settings.prefixCustomizationConfig.contentPlaceholder"
   );
 
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @PrefixPreviewSetting
   private final ConfigProperty<Boolean> preview = new ConfigProperty<>(false);
 
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @SwitchSetting
   private final ConfigProperty<Boolean> enableManualPrefix = new ConfigProperty<>(false);
 
   @SettingSection(value = "options", center = true)
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @CustomTranslation("betterfriends.settings.prefixCustomizationConfig.prefix")
   @TextFieldSetting
   private final ConfigProperty<String> manualPrefix = new ConfigProperty<>("&6&lBF&8 » ")
       .visibilitySupplier(this.enableManualPrefix::get);
 
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @TextFieldSetting
   private final ConfigProperty<String> prefix = new ConfigProperty<>("BF")
       .visibilitySupplier(() -> !this.enableManualPrefix.get());
 
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @SettingRequires(value = "prefix", required = "", invert = true)
   @ColorPickerSetting
   private final ConfigProperty<Color> prefixColor = new ConfigProperty<>(Color.ofRGB(255, 102, 0))
