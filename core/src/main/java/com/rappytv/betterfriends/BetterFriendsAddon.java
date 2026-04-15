@@ -6,6 +6,7 @@ import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import com.rappytv.betterfriends.interactions.FriendNoteEditorBullet;
 import com.rappytv.betterfriends.interactions.FriendTogglePinBullet;
 import com.rappytv.betterfriends.listeners.ChatReceiveListener;
+import com.rappytv.betterfriends.listeners.ConfigVersionListener;
 import com.rappytv.betterfriends.listeners.FriendAddListener;
 import com.rappytv.betterfriends.listeners.FriendRemoveListener;
 import com.rappytv.betterfriends.listeners.FriendRequestReceiveListener;
@@ -37,6 +38,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
   @Override
   protected void preConfigurationLoad() {
+    this.registerListener(new ConfigVersionListener());
     Laby.references().revisionRegistry().register(new SimpleRevision(
         "betterfriends",
         new SemanticVersion(1, 0, 1),

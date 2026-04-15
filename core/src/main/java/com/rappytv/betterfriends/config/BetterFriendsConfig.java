@@ -29,15 +29,16 @@ public class BetterFriendsConfig extends AddonConfig {
   @SpriteSlot(x = 1)
   private final PrefixCustomizationConfig prefixCustomizationConfig = new PrefixCustomizationConfig();
 
+  @SpriteSlot(size = 8, x = 4)
   @SwitchSetting
   private final ConfigProperty<Boolean> temporaryPinsEnabled = new ConfigProperty<>(false);
 
   @SettingSection(value = "indicators", center = true)
-  @SpriteSlot(size = 8, x = 4)
-  private final PinIconConfig pinIconConfig = new PinIconConfig();
-
   @SpriteSlot(x = 3)
   private final FriendNoteTagConfig friendNoteTagConfig = new FriendNoteTagConfig();
+
+  @SpriteSlot(size = 8, x = 4)
+  private final PinIconConfig pinIconConfig = new PinIconConfig();
 
   @SpriteSlot(x = 4)
   @TextFieldSetting
@@ -114,12 +115,12 @@ public class BetterFriendsConfig extends AddonConfig {
     return this.temporaryPinsEnabled;
   }
 
-  public PinIconConfig pinIconConfig() {
-    return this.pinIconConfig;
-  }
-
   public FriendNoteTagConfig friendNoteTagConfig() {
     return this.friendNoteTagConfig;
+  }
+
+  public PinIconConfig pinIconConfig() {
+    return this.pinIconConfig;
   }
 
   public ConfigProperty<String> friendPrefix() {
@@ -180,5 +181,10 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public enum FriendRequestReaction {
     NONE, ACCEPT, DECLINE
+  }
+
+  @Override
+  public int getConfigVersion() {
+    return 2;
   }
 }
