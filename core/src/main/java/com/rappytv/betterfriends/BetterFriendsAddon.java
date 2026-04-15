@@ -24,10 +24,6 @@ import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.component.TextComponent;
-import net.labymod.api.client.component.format.NamedTextColor;
-import net.labymod.api.client.component.format.TextColor;
-import net.labymod.api.client.component.format.TextDecoration;
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.models.addon.annotation.AddonMain;
@@ -106,14 +102,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     return INSTANCE.referenceStorageAccessor();
   }
 
-  public static TextComponent getPrefix() {
-    return Component.empty()
-        .append(Component.text(
-            "BF",
-            TextColor.color(INSTANCE.configuration().prefixColor().get().get())
-        ).decorate(TextDecoration.BOLD))
-        .append(Component.space())
-        .append(Component.text("»", NamedTextColor.DARK_GRAY))
-        .append(Component.space());
+  public static Component getPrefix() {
+    return INSTANCE.configuration().prefixCustomizationConfig().buildPrefix();
   }
 }

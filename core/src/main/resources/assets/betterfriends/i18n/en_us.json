@@ -25,6 +25,27 @@
         "name": "Prefix color",
         "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
       },
+      "prefixCustomizationConfig": {
+        "header": {
+          "options": {
+            "name": "Options"
+          }
+        },
+        "name": "Prefix customization",
+        "contentPlaceholder": "Message content",
+        "preview": {
+          "name": "Preview"
+        },
+        "enableManualPrefix": {
+          "name": "Enter prefix manually"
+        },
+        "prefix": {
+          "name": "Prefix"
+        },
+        "prefixColor": {
+          "name": "Prefix color"
+        }
+      },
       "temporaryPinsEnabled": {
         "name": "Temporarily pin friends on chat message",
         "description": "This will pin friends to the top of your friend list when they send you a text message. The friend will be unpinned as soon as you read the message or mark it as read. This will also work when receiving messages while offline."
