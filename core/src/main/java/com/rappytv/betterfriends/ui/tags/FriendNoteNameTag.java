@@ -6,6 +6,7 @@ import com.rappytv.betterfriends.ui.snapshot.BetterFriendsKeys;
 import java.util.Collections;
 import java.util.List;
 import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.client.entity.player.tag.tags.ComponentNameTag;
 import net.labymod.api.client.render.state.entity.EntitySnapshot;
@@ -16,6 +17,7 @@ public class FriendNoteNameTag extends ComponentNameTag {
 
   private final BetterFriendsAddon addon;
   private final PositionType position;
+  private final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
 
   public FriendNoteNameTag(BetterFriendsAddon addon, PositionType position) {
     this.addon = addon;
@@ -45,13 +47,13 @@ public class FriendNoteNameTag extends ComponentNameTag {
     }
     String note = friend.getNote();
     if (note != null && !note.isBlank()) {
-      return Collections.singletonList(this.addon.getSerializer().deserialize(note));
+      return Collections.singletonList(this.serializer.deserialize(note));
     }
     String defaultTag = friendSnapshot.config().friendNoteTagConfig().defaultTag().get();
     if (defaultTag.isBlank()) {
       return super.buildComponents(snapshot);
     }
-    return Collections.singletonList(this.addon.getSerializer().deserialize(defaultTag));
+    return Collections.singletonList(this.serializer.deserialize(defaultTag));
   }
 
   @Override

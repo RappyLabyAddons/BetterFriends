@@ -7,15 +7,19 @@ import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.event.ClickEvent;
 import net.labymod.api.client.component.event.HoverEvent;
 import net.labymod.api.client.component.format.NamedTextColor;
+import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.labymod.labyconnect.session.request.LabyConnectIncomingFriendRequestAddEvent;
+import net.labymod.api.event.labymod.labyconnect.session.request.LabyConnectOutgoingFriendRequestRemoveEvent;
+import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.request.IncomingFriendRequest;
+import net.labymod.api.notification.Notification;
 
-public class FriendRequestReceiveListener {
+public class FriendRequestListener {
 
   private final BetterFriendsAddon addon;
 
-  public FriendRequestReceiveListener(BetterFriendsAddon addon) {
+  public FriendRequestListener(BetterFriendsAddon addon) {
     this.addon = addon;
   }
 
@@ -98,6 +102,30 @@ public class FriendRequestReceiveListener {
                     ))
             )
     );
+  }
+
+  @Subscribe
+  public void onFriendRequestRemove(LabyConnectOutgoingFriendRequestRemoveEvent event) {
+    if (!this.addon.configuration().friendRequestRemovalNotifications().get()) {
+      return;
+    }
+    LabyConnectSession session = event.labyConnect().getSession();
+    if (session == null || !session.isAuthenticated()) {
+      return;
+    }
+    if (session.getFriend(event.request().getUniqueId()) != null) {
+      return;
+    }
+
+    Notification.builder()
+        .title(Component.translatable("betterfriends.notifications.friendRequestRemoval.title"))
+        .text(Component.translatable(
+            "betterfriends.notifications.friendRequestRemoval.description",
+            GroupHelper.getColoredName(event.request().getName(), event.request().gameUser())
+        ))
+        .icon(Icon.head(event.request().getUniqueId(), true))
+        .duration(15000)
+        .buildAndPush();
   }
 
 }

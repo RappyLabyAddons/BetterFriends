@@ -5,6 +5,9 @@
         "general": {
           "name": "General"
         },
+        "indicators": {
+          "name": "Friend indicators"
+        },
         "notifications": {
           "name": "Notifications"
         },
@@ -22,23 +25,33 @@
         "name": "Prefix color",
         "description": "This option changes the color theme of the \"BF »\" prefix which is prepended to addon messages."
       },
-      "advancedFriendlist": {
-        "name": "Advanced friend list",
-        "removal": {
-          "label": "Remove friend",
-          "skipConfirmation": "(Hold shift to skip confirmation)",
-          "confirm": "Confirm removal",
-          "cancel": "Cancel removal"
+      "prefixCustomizationConfig": {
+        "header": {
+          "options": {
+            "name": "Options"
+          }
         },
-        "sorting": {
-          "onlineStatus": "Online status",
-          "role": "LabyMod role",
-          "aToZ": "A-Z",
-          "zToA": "Z-A"
+        "name": "Prefix customization",
+        "contentPlaceholder": "Message content",
+        "preview": {
+          "name": "Preview"
+        },
+        "enableManualPrefix": {
+          "name": "Enter prefix manually"
+        },
+        "prefix": {
+          "name": "Prefix"
+        },
+        "prefixColor": {
+          "name": "Prefix color"
         }
       },
+      "temporaryPinsEnabled": {
+        "name": "Temporarily pin friends on chat message",
+        "description": "This will pin friends to the top of your friend list when they send you a text message. The friend will be unpinned as soon as you read the message or mark it as read. This will also work when receiving messages while offline."
+      },
       "pinIconConfig": {
-        "name": "Friend pin icon",
+        "name": "Pinned friend badge",
         "pinIcon": {
           "name": "Nametag icon"
         },
@@ -212,7 +225,8 @@
         "hover": "Click to join"
       },
       "chats": {
-        "attachments": "[%s Attachments]",
+        "attachments": "%s Attachments",
+        "attachment": "%s Attachment",
         "read": "Mark chat as read",
         "reply": "Reply to %s"
       }

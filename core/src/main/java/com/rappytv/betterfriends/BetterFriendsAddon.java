@@ -6,13 +6,11 @@ import com.rappytv.betterfriends.config.BetterFriendsConfig;
 import com.rappytv.betterfriends.interactions.FriendNoteEditorBullet;
 import com.rappytv.betterfriends.interactions.FriendTogglePinBullet;
 import com.rappytv.betterfriends.listeners.ChatReceiveListener;
-import com.rappytv.betterfriends.listeners.FriendAddListener;
-import com.rappytv.betterfriends.listeners.FriendRemoveListener;
-import com.rappytv.betterfriends.listeners.FriendRequestReceiveListener;
-import com.rappytv.betterfriends.listeners.FriendRequestRemoveListener;
-import com.rappytv.betterfriends.listeners.FriendServerStateListener;
-import com.rappytv.betterfriends.listeners.FriendStatusUpdateListener;
+import com.rappytv.betterfriends.listeners.ConfigVersionListener;
+import com.rappytv.betterfriends.listeners.FriendListener;
+import com.rappytv.betterfriends.listeners.FriendRequestListener;
 import com.rappytv.betterfriends.listeners.LabyChatReceiveListener;
+import com.rappytv.betterfriends.listeners.TemporaryPinListener;
 import com.rappytv.betterfriends.ui.badge.FriendPinBadge;
 import com.rappytv.betterfriends.ui.hud.FriendCountHudWidget;
 import com.rappytv.betterfriends.ui.hud.IncomingFriendRequestCountHudWidget;
@@ -20,15 +18,9 @@ import com.rappytv.betterfriends.ui.hud.OnlineFriendCountHudWidget;
 import com.rappytv.betterfriends.ui.hud.UnreadChatCountWidget;
 import com.rappytv.betterfriends.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.ui.tags.FriendPinIconTag;
-import com.rappytv.betterfriends.utils.GroupHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.component.TextComponent;
-import net.labymod.api.client.component.format.NamedTextColor;
-import net.labymod.api.client.component.format.TextColor;
-import net.labymod.api.client.component.format.TextDecoration;
-import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.models.addon.annotation.AddonMain;
@@ -38,34 +30,35 @@ import net.labymod.api.util.version.SemanticVersion;
 @AddonMain
 public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
 
-  private static final LegacyComponentSerializer SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
-  private static BetterFriendsAddon instance;
+  private static BetterFriendsAddon INSTANCE;
 
   @Override
   protected void preConfigurationLoad() {
+    this.registerListener(new ConfigVersionListener());
     Laby.references().revisionRegistry().register(new SimpleRevision(
         "betterfriends",
         new SemanticVersion(1, 0, 1),
         "2025-12-10"
     ));
+    Laby.references().revisionRegistry().register(new SimpleRevision(
+        "betterfriends",
+        new SemanticVersion(1, 1, 0),
+        "2026-04-30"
+    ));
   }
 
   @Override
   protected void enable() {
-    instance = this;
+    INSTANCE = this;
     this.registerSettingCategory();
-    GroupHelper.registerGroupIds();
 
     this.registerCommand(new BetterFriendsCommand());
 
     this.registerListener(new ChatReceiveListener(this));
-    this.registerListener(new FriendAddListener(this));
-    this.registerListener(new FriendRemoveListener(this));
-    this.registerListener(new FriendRequestReceiveListener(this));
-    this.registerListener(new FriendRequestRemoveListener(this));
-    this.registerListener(new FriendServerStateListener(this));
-    this.registerListener(new FriendStatusUpdateListener(this));
+    this.registerListener(new FriendListener(this));
+    this.registerListener(new FriendRequestListener(this));
     this.registerListener(new LabyChatReceiveListener(this));
+    this.registerListener(new TemporaryPinListener(this));
 
     this.labyAPI().interactionMenuRegistry().register(new FriendNoteEditorBullet(this));
     this.labyAPI().interactionMenuRegistry().register(new FriendTogglePinBullet(this));
@@ -105,21 +98,10 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
   }
 
   public static ReferenceStorage references() {
-    return instance.referenceStorageAccessor();
+    return INSTANCE.referenceStorageAccessor();
   }
 
-  public static TextComponent getPrefix() {
-    return Component.empty()
-        .append(Component.text(
-            "BF",
-            TextColor.color(instance.configuration().prefixColor().get().get())
-        ).decorate(TextDecoration.BOLD))
-        .append(Component.space())
-        .append(Component.text("»", NamedTextColor.DARK_GRAY))
-        .append(Component.space());
-  }
-
-  public LegacyComponentSerializer getSerializer() {
-    return SERIALIZER;
+  public static Component getPrefix() {
+    return INSTANCE.configuration().prefixCustomizationConfig().buildPrefix();
   }
 }
