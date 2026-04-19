@@ -19,10 +19,6 @@ import net.labymod.api.util.Color;
 
 public class PrefixCustomizationConfig extends Config {
 
-  private final static Component CONTENT_PLACEHOLDER = Component.translatable(
-      "betterfriends.settings.prefixCustomizationConfig.contentPlaceholder"
-  );
-
   @IntroducedIn(namespace = "betterfriends", value = "1.1.0")
   @PrefixPreviewSetting
   private final ConfigProperty<Boolean> preview = new ConfigProperty<>(false);
@@ -68,8 +64,7 @@ public class PrefixCustomizationConfig extends Config {
   public Component buildPrefix() {
     if (this.enableManualPrefix.get()) {
       return LegacyComponentSerializer.legacyAmpersand()
-          .deserialize(this.manualPrefix.get())
-          .append(CONTENT_PLACEHOLDER);
+          .deserialize(this.manualPrefix.get());
     }
     Component component = Component.empty();
 
@@ -86,7 +81,6 @@ public class PrefixCustomizationConfig extends Config {
           .append(Component.text("»", NamedTextColor.DARK_GRAY))
           .append(Component.space());
     }
-    component.append(CONTENT_PLACEHOLDER);
     return component;
   }
 }

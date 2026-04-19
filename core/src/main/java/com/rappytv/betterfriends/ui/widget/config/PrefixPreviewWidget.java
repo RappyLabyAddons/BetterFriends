@@ -5,6 +5,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import net.labymod.api.client.component.Component;
+import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.gui.lss.property.annotation.AutoWidget;
 import net.labymod.api.client.gui.screen.Parent;
 import net.labymod.api.client.gui.screen.activity.Link;
@@ -22,6 +24,11 @@ import net.labymod.api.configuration.settings.widget.WidgetFactory;
 @SettingWidget
 public class PrefixPreviewWidget extends HorizontalListWidget {
 
+  private final static Component CONTENT_PLACEHOLDER = Component.translatable(
+      "betterfriends.settings.prefixCustomizationConfig.contentPlaceholder",
+      NamedTextColor.GRAY
+  );
+
   private final PrefixCustomizationConfig config;
 
   private ComponentWidget prefixWidget;
@@ -37,11 +44,12 @@ public class PrefixPreviewWidget extends HorizontalListWidget {
   @Override
   public void initialize(Parent parent) {
     super.initialize(parent);
-    this.addEntry(this.prefixWidget = ComponentWidget.component(this.config.buildPrefix()));
+    this.addEntry(this.prefixWidget = ComponentWidget.empty());
+    this.update();
   }
 
   private void update() {
-    this.prefixWidget.setComponent(this.config.buildPrefix());
+    this.prefixWidget.setComponent(this.config.buildPrefix().append(CONTENT_PLACEHOLDER));
   }
 
   @Retention(RetentionPolicy.RUNTIME)
