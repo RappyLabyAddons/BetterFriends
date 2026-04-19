@@ -43,7 +43,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
     Laby.references().revisionRegistry().register(new SimpleRevision(
         "betterfriends",
         new SemanticVersion(1, 1, 0),
-        "2026-04-25"
+        "2026-04-30"
     ));
   }
 
