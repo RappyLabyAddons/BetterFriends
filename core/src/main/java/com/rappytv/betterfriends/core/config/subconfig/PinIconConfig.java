@@ -10,6 +10,7 @@ public class PinIconConfig extends Config {
   @SpriteSlot(x = 3)
   @SwitchSetting
   private final ConfigProperty<Boolean> pinIcon = new ConfigProperty<>(true);
+
   @SpriteSlot(y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> pinBadge = new ConfigProperty<>(true);
@@ -17,6 +18,7 @@ public class PinIconConfig extends Config {
   public ConfigProperty<Boolean> pinIcon() {
     return this.pinIcon;
   }
+
   public ConfigProperty<Boolean> pinBadge() {
     return this.pinBadge;
   }

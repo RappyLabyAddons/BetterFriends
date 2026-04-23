@@ -15,16 +15,20 @@ public class FriendNoteTagConfig extends Config {
   @ShowSettingInParent
   @SwitchSetting
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+
   @SpriteSlot(x = 7, y = 1)
   @SliderSetting(min = 5, max = 10)
   private final ConfigProperty<Integer> size = new ConfigProperty<>(10);
+
   @SpriteSlot(y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> hideBackground = new ConfigProperty<>(false);
+
   @SpriteSlot(x = 1, y = 2)
   @DropdownSetting
   private final ConfigProperty<PositionType> position = new ConfigProperty<>(
       PositionType.BELOW_NAME);
+
   @SpriteSlot(x = 3)
   @TextFieldSetting
   private final ConfigProperty<String> defaultTag = new ConfigProperty<>("");
@@ -32,15 +36,19 @@ public class FriendNoteTagConfig extends Config {
   public ConfigProperty<Boolean> enabled() {
     return this.enabled;
   }
+
   public ConfigProperty<Integer> size() {
     return this.size;
   }
+
   public ConfigProperty<Boolean> hideBackground() {
     return this.hideBackground;
   }
+
   public ConfigProperty<PositionType> position() {
     return this.position;
   }
+
   public ConfigProperty<String> defaultTag() {
     return this.defaultTag;
   }
