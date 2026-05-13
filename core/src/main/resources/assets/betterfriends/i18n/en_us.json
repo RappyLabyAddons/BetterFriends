@@ -182,6 +182,11 @@
           "decline": "You declined %s's friend request."
         }
       },
+      "sendRequest": {
+        "enterUsername": "Please provide a valid username!",
+        "requested": "The request has been sent!",
+        "alreadyRequested": "You have already sent a friend request to %s"
+      },
       "join": {
         "enterAddress": "Please provide a valid server address!",
         "connecting": "Connecting..."
