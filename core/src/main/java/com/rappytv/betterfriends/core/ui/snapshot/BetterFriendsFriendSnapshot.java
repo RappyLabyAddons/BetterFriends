@@ -15,7 +15,7 @@ public class BetterFriendsFriendSnapshot extends AbstractLabySnapshot {
 
   public BetterFriendsFriendSnapshot(Player player, Extras extras, BetterFriendsAddon addon) {
     super(extras);
-    this.friend = BetterFriendsAddon.references().friendHelper().getFriend(player.profile());
+    this.friend = BetterFriendsAddon.references().sessionHelper().getFriend(player.profile());
     this.config = addon.configuration();
   }
 

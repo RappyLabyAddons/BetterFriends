@@ -36,7 +36,7 @@ public class FriendListener {
       return;
     }
 
-    if (!Laby.labyAPI().addonService().isEnabled("voicechat")) {
+    if (!BetterFriendsAddon.isVoiceChatEnabled()) {
       return;
     }
 

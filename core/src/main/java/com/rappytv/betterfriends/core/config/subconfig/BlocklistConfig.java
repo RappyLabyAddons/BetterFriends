@@ -1,0 +1,68 @@
+package com.rappytv.betterfriends.core.config.subconfig;
+
+import com.rappytv.betterfriends.api.blocklist.BlockedPlayer;
+import com.rappytv.betterfriends.core.ui.activity.config.BlocklistActivity;
+import java.util.ArrayList;
+import java.util.List;
+import net.labymod.api.client.gui.screen.activity.Activity;
+import net.labymod.api.client.gui.screen.widget.widgets.activity.settings.ActivitySettingWidget.ActivitySetting;
+import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
+import net.labymod.api.configuration.loader.Config;
+import net.labymod.api.configuration.loader.annotation.Exclude;
+import net.labymod.api.configuration.loader.property.ConfigProperty;
+import net.labymod.api.configuration.settings.annotation.SettingRequires;
+import net.labymod.api.configuration.settings.annotation.SettingSection;
+import net.labymod.api.util.MethodOrder;
+
+public class BlocklistConfig extends Config {
+
+  @Exclude
+  private final List<BlockedPlayer> blockedPlayers = new ArrayList<>();
+
+  @MethodOrder(after = "blockedPlayers")
+  @ActivitySetting
+  public Activity menu() {
+    return new BlocklistActivity();
+  }
+
+  @SwitchSetting
+  private final ConfigProperty<Boolean> showInteractionBullets = new ConfigProperty<>(true);
+
+  @SettingSection(value = "behavior", center = true)
+  @SwitchSetting
+  private final ConfigProperty<Boolean> unfriendBlockedPlayers = new ConfigProperty<>(true);
+
+  @SwitchSetting
+  private final ConfigProperty<Boolean> muteInVoiceChat = new ConfigProperty<>(true);
+
+  @SwitchSetting
+  private final ConfigProperty<Boolean> declineFriendRequests = new ConfigProperty<>(true);
+
+  @SettingRequires("declineFriendRequests")
+  @SwitchSetting
+  private final ConfigProperty<Boolean> notifyOnFriendRequest = new ConfigProperty<>(false);
+
+  public List<BlockedPlayer> blockedPlayers() {
+    return this.blockedPlayers;
+  }
+
+  public ConfigProperty<Boolean> showInteractionBullets() {
+    return this.showInteractionBullets;
+  }
+
+  public ConfigProperty<Boolean> unfriendBlockedPlayers() {
+    return this.unfriendBlockedPlayers;
+  }
+
+  public ConfigProperty<Boolean> muteInVoiceChat() {
+    return this.muteInVoiceChat;
+  }
+
+  public ConfigProperty<Boolean> declineFriendRequests() {
+    return this.declineFriendRequests;
+  }
+
+  public ConfigProperty<Boolean> notifyOnFriendRequest() {
+    return this.notifyOnFriendRequest;
+  }
+}

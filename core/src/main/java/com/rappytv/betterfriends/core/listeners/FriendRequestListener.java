@@ -1,6 +1,8 @@
 package com.rappytv.betterfriends.core.listeners;
 
+import com.rappytv.betterfriends.api.blocklist.BlocklistManager;
 import com.rappytv.betterfriends.core.BetterFriendsAddon;
+import com.rappytv.betterfriends.core.config.subconfig.BlocklistConfig;
 import com.rappytv.betterfriends.core.utils.GroupHelper;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
@@ -11,7 +13,6 @@ import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.labymod.labyconnect.session.request.LabyConnectIncomingFriendRequestAddEvent;
 import net.labymod.api.event.labymod.labyconnect.session.request.LabyConnectOutgoingFriendRequestRemoveEvent;
-import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.request.IncomingFriendRequest;
 import net.labymod.api.notification.Notification;
 
@@ -25,9 +26,6 @@ public class FriendRequestListener {
 
   @Subscribe
   public void onFriendRequestReceive(LabyConnectIncomingFriendRequestAddEvent event) {
-    if(!this.addon.configuration().friendRequestNotifications().get()) {
-      return;
-    }
     IncomingFriendRequest request = event.request();
     Component sender = GroupHelper.getColoredName(request.getName(), request.gameUser())
         .hoverEvent(HoverEvent.showText(Component.translatable(
@@ -38,30 +36,49 @@ public class FriendRequestListener {
             "https://laby.net/@" + request.getName()
         ));
 
+    BlocklistManager blocklistManager = BetterFriendsAddon.references().blocklistManager();
+    BlocklistConfig blocklistConfig = this.addon.configuration().blocklist();
+    if (blocklistConfig.declineFriendRequests().get()
+        && blocklistManager.isBlocked(request.getUniqueId())) {
+      request.decline();
+      if (blocklistConfig.notifyOnFriendRequest().get()) {
+        BetterFriendsAddon.displayNotifications(
+            "betterfriends.blocklist.title",
+            Component.translatable(
+                "betterfriends.blocklist.blockedFriendRequest",
+                NamedTextColor.GRAY,
+                sender
+            )
+        );
+      }
+      return;
+    }
+    if (!this.addon.configuration().friendRequestNotifications().get()) {
+      return;
+    }
+
     switch (this.addon.configuration().automaticFriendRequestReaction().get()) {
       case ACCEPT -> {
         request.accept();
-        Laby.references().chatExecutor().displayClientMessage(
-            Component.empty()
-                .append(BetterFriendsAddon.getPrefix())
-                .append(Component.translatable(
-                    "betterfriends.notifications.friendRequest.automatedAction.accepted",
-                    NamedTextColor.GREEN,
-                    sender
-                ))
+        BetterFriendsAddon.displayNotifications(
+            "betterfriends.settings.automaticFriendRequestReaction.title",
+            Component.translatable(
+                "betterfriends.notifications.friendRequest.automatedAction.accepted",
+                NamedTextColor.GREEN,
+                sender
+            )
         );
         return;
       }
       case DECLINE -> {
         request.decline();
-        Laby.references().chatExecutor().displayClientMessage(
-            Component.empty()
-                .append(BetterFriendsAddon.getPrefix())
-                .append(Component.translatable(
-                    "betterfriends.notifications.friendRequest.automatedAction.declined",
-                    NamedTextColor.RED,
-                    sender
-                ))
+        BetterFriendsAddon.displayNotifications(
+            "betterfriends.settings.automaticFriendRequestReaction.title",
+            Component.translatable(
+                "betterfriends.notifications.friendRequest.automatedAction.declined",
+                NamedTextColor.RED,
+                sender
+            )
         );
         return;
       }
@@ -109,11 +126,10 @@ public class FriendRequestListener {
     if (!this.addon.configuration().friendRequestRemovalNotifications().get()) {
       return;
     }
-    LabyConnectSession session = event.labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) {
-      return;
-    }
-    if (session.getFriend(event.request().getUniqueId()) != null) {
+    boolean isFriend = BetterFriendsAddon.references()
+        .sessionHelper()
+        .getFriend(event.request().getUniqueId()) != null;
+    if (isFriend) {
       return;
     }
 
@@ -127,5 +143,4 @@ public class FriendRequestListener {
         .duration(15000)
         .buildAndPush();
   }
-
 }

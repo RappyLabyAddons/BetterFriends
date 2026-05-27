@@ -27,8 +27,8 @@ public class TemporaryPinListener {
       return;
     }
 
-    LabyConnectSession session = connect.getSession();
-    if (session == null || !session.isAuthenticated()) {
+    LabyConnectSession session = BetterFriendsAddon.references().sessionHelper().getValidSession();
+    if (session == null) {
       return;
     }
 
@@ -63,13 +63,9 @@ public class TemporaryPinListener {
     if (!this.config.temporaryPinsEnabled().get()) {
       return;
     }
-    LabyConnectSession session = event.labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) {
-      return;
-    }
 
     UUID uniqueId = event.message().sender().getUniqueId();
-    Friend friend = session.getFriend(uniqueId);
+    Friend friend = BetterFriendsAddon.references().sessionHelper().getFriend(uniqueId);
     if (friend == null || friend.isPinned()) {
       return;
     }
@@ -89,12 +85,7 @@ public class TemporaryPinListener {
       return;
     }
 
-    LabyConnectSession session = event.labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) {
-      return;
-    }
-
-    Friend friend = session.getFriend(uniqueId);
+    Friend friend = BetterFriendsAddon.references().sessionHelper().getFriend(uniqueId);
     if (friend == null || !friend.isPinned()) {
       return;
     }
