@@ -28,6 +28,9 @@ public class BlocklistConfig extends Config {
   @SwitchSetting
   private final ConfigProperty<Boolean> showInteractionBullets = new ConfigProperty<>(true);
 
+  @SwitchSetting
+  private final ConfigProperty<Boolean> showBlockIcon = new ConfigProperty<>(true);
+
   @SettingSection(value = "behavior", center = true)
   @SwitchSetting
   private final ConfigProperty<Boolean> unfriendBlockedPlayers = new ConfigProperty<>(true);
@@ -44,6 +47,10 @@ public class BlocklistConfig extends Config {
 
   public List<BlockedPlayer> blockedPlayers() {
     return this.blockedPlayers;
+  }
+
+  public ConfigProperty<Boolean> showBlockIcon() {
+    return this.showBlockIcon;
   }
 
   public ConfigProperty<Boolean> showInteractionBullets() {

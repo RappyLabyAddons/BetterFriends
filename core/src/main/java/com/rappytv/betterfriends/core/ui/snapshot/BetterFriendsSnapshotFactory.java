@@ -8,17 +8,17 @@ import net.labymod.api.service.annotation.AutoService;
 
 @AutoService(LabySnapshotFactory.class)
 public class BetterFriendsSnapshotFactory extends
-    LabySnapshotFactory<Player, BetterFriendsFriendSnapshot> {
+    LabySnapshotFactory<Player, BetterFriendsPlayerSnapshot> {
 
   private final BetterFriendsAddon addon;
 
   public BetterFriendsSnapshotFactory(BetterFriendsAddon addon) {
-    super(BetterFriendsKeys.FRIEND);
+    super(BetterFriendsKeys.PLAYER);
     this.addon = addon;
   }
 
   @Override
-  protected BetterFriendsFriendSnapshot create(Player player, Extras extras) {
-    return new BetterFriendsFriendSnapshot(player, extras, this.addon);
+  protected BetterFriendsPlayerSnapshot create(Player player, Extras extras) {
+    return new BetterFriendsPlayerSnapshot(player, extras, this.addon);
   }
 }

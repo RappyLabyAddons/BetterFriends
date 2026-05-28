@@ -1,8 +1,8 @@
 package com.rappytv.betterfriends.core.ui.tags;
 
 import com.rappytv.betterfriends.core.BetterFriendsAddon;
-import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsFriendSnapshot;
 import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsKeys;
+import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsPlayerSnapshot;
 import java.util.Collections;
 import java.util.List;
 import net.labymod.api.client.component.Component;
@@ -28,14 +28,14 @@ public class FriendNoteNameTag extends ComponentNameTag {
   protected @NotNull List<Component> buildComponents(EntitySnapshot snapshot) {
     if (this.snapshot.isDiscrete()
         || this.snapshot.isInvisible()
-        || !this.snapshot.has(BetterFriendsKeys.FRIEND)) {
+        || !this.snapshot.has(BetterFriendsKeys.PLAYER)) {
       return super.buildComponents(snapshot);
     }
-    BetterFriendsFriendSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.FRIEND);
+    BetterFriendsPlayerSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.PLAYER);
 
-    boolean condition = friendSnapshot.config().enabled().get()
-        && friendSnapshot.config().friendNoteTagConfig().enabled().get()
-        && friendSnapshot.config().friendNoteTagConfig().position().get() == this.position;
+    boolean condition = friendSnapshot.isAddonEnabled()
+        && friendSnapshot.getFriendNoteTagConfig().enabled().get()
+        && friendSnapshot.getFriendNoteTagConfig().position().get() == this.position;
 
     if (!condition) {
       return super.buildComponents(snapshot);
@@ -49,7 +49,7 @@ public class FriendNoteNameTag extends ComponentNameTag {
     if (note != null && !note.isBlank()) {
       return Collections.singletonList(this.serializer.deserialize(note));
     }
-    String defaultTag = friendSnapshot.config().friendNoteTagConfig().defaultTag().get();
+    String defaultTag = friendSnapshot.getFriendNoteTagConfig().defaultTag().get();
     if (defaultTag.isBlank()) {
       return super.buildComponents(snapshot);
     }
@@ -58,11 +58,11 @@ public class FriendNoteNameTag extends ComponentNameTag {
 
   @Override
   protected int getBackgroundColor(EntitySnapshot snapshot) {
-    BetterFriendsFriendSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.FRIEND);
+    BetterFriendsPlayerSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.PLAYER);
     if (friendSnapshot == null) {
       return super.getBackgroundColor(snapshot);
     }
-    return friendSnapshot.config().friendNoteTagConfig().hideBackground().get()
+    return friendSnapshot.getFriendNoteTagConfig().hideBackground().get()
         ? 0
         : super.getBackgroundColor(snapshot);
   }

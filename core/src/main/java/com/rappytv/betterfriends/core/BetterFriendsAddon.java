@@ -19,6 +19,7 @@ import com.rappytv.betterfriends.core.ui.hud.FriendCountHudWidget;
 import com.rappytv.betterfriends.core.ui.hud.IncomingFriendRequestCountHudWidget;
 import com.rappytv.betterfriends.core.ui.hud.OnlineFriendCountHudWidget;
 import com.rappytv.betterfriends.core.ui.hud.UnreadChatCountWidget;
+import com.rappytv.betterfriends.core.ui.tags.BlockedPlayerIconTag;
 import com.rappytv.betterfriends.core.ui.tags.FriendNoteNameTag;
 import com.rappytv.betterfriends.core.ui.tags.FriendPinIconTag;
 import net.labymod.api.Laby;
@@ -89,6 +90,11 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
           new FriendNoteNameTag(this, position)
       );
     }
+    this.labyAPI().tagRegistry().register(
+        "betterfriends_blocked_icon",
+        PositionType.RIGHT_TO_NAME,
+        new BlockedPlayerIconTag()
+    );
     this.labyAPI().tagRegistry().registerBefore(
         "VoiceTag",
         "betterfriends_pin_icon",

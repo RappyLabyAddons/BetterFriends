@@ -4,6 +4,6 @@ import net.labymod.api.laby3d.renderer.snapshot.ExtraKey;
 
 public class BetterFriendsKeys {
 
-  public static final ExtraKey<BetterFriendsFriendSnapshot> FRIEND = ExtraKey.of(
-      "better_friends_friend", BetterFriendsFriendSnapshot.class);
+  public static final ExtraKey<BetterFriendsPlayerSnapshot> PLAYER = ExtraKey.of(
+      "better_friends_player", BetterFriendsPlayerSnapshot.class);
 }
