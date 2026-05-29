@@ -87,7 +87,7 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
           "labymod_role",
           "betterfriends_friend_note",
           position,
-          new FriendNoteNameTag(this, position)
+          new FriendNoteNameTag(position)
       );
     }
     this.labyAPI().tagRegistry().register(

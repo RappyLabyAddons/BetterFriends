@@ -1,7 +1,6 @@
 package com.rappytv.betterfriends.core.ui.snapshot;
 
 import com.rappytv.betterfriends.core.BetterFriendsAddon;
-import com.rappytv.betterfriends.core.config.subconfig.FriendNoteTagConfig;
 import net.labymod.api.client.entity.player.Player;
 import net.labymod.api.laby3d.renderer.snapshot.AbstractLabySnapshot;
 import net.labymod.api.laby3d.renderer.snapshot.Extras;
@@ -15,7 +14,6 @@ public class BetterFriendsPlayerSnapshot extends AbstractLabySnapshot {
   private final boolean addonEnabled;
   private final boolean pinIconEnabled;
   private final boolean blockIconEnabled;
-  private final FriendNoteTagConfig friendNoteTagConfig;
 
   public BetterFriendsPlayerSnapshot(Player player, Extras extras, BetterFriendsAddon addon) {
     super(extras);
@@ -26,7 +24,6 @@ public class BetterFriendsPlayerSnapshot extends AbstractLabySnapshot {
     this.addonEnabled = addon.configuration().enabled().get();
     this.pinIconEnabled = addon.configuration().pinIconConfig().pinIcon().get();
     this.blockIconEnabled = addon.configuration().blocklist().showBlockIcon().get();
-    this.friendNoteTagConfig = addon.configuration().friendNoteTagConfig();
   }
 
   @Nullable
@@ -50,7 +47,4 @@ public class BetterFriendsPlayerSnapshot extends AbstractLabySnapshot {
     return this.blockIconEnabled;
   }
 
-  public FriendNoteTagConfig getFriendNoteTagConfig() {
-    return this.friendNoteTagConfig;
-  }
 }

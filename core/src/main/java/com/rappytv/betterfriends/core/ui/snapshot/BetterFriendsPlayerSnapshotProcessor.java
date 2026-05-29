@@ -22,5 +22,6 @@ public class BetterFriendsPlayerSnapshotProcessor extends EntitySnapshotProcesso
   @Override
   public void process(Player player, float partialTicks, ExtrasWriter entityWriter) {
     this.registry().captureSnapshot(entityWriter, BetterFriendsKeys.PLAYER, player);
+    this.registry().captureSnapshot(entityWriter, BetterFriendsKeys.FRIEND_NOTE, player);
   }
 }
