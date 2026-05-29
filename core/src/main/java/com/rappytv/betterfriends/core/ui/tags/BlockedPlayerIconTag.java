@@ -1,14 +1,14 @@
 package com.rappytv.betterfriends.core.ui.tags;
 
+import com.rappytv.betterfriends.api.ui.BetterFriendsTextures;
 import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsKeys;
 import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsPlayerSnapshot;
-import net.labymod.api.Textures;
 import net.labymod.api.client.entity.player.tag.tags.IconTag;
 
 public class BlockedPlayerIconTag extends IconTag {
 
   public BlockedPlayerIconTag() {
-    super(Textures.SpriteCommon.PIN, 8); // TODO: change icon
+    super(BetterFriendsTextures.BLOCKED, 8);
   }
 
   @Override

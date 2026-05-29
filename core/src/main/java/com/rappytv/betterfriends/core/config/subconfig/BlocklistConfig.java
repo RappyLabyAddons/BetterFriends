@@ -9,6 +9,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.activity.settings.Activi
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.loader.annotation.Exclude;
+import net.labymod.api.configuration.loader.annotation.SpriteSlot;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.SettingRequires;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
@@ -19,29 +20,36 @@ public class BlocklistConfig extends Config {
   @Exclude
   private final List<BlockedPlayer> blockedPlayers = new ArrayList<>();
 
+  @SpriteSlot(y = 1)
   @MethodOrder(after = "blockedPlayers")
   @ActivitySetting
   public Activity menu() {
     return new BlocklistActivity();
   }
 
+  @SpriteSlot(x = 2, y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> showInteractionBullets = new ConfigProperty<>(true);
 
+  @SpriteSlot(x = 2, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> showBlockIcon = new ConfigProperty<>(true);
 
   @SettingSection(value = "behavior", center = true)
+  @SpriteSlot(x = 5, y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> unfriendBlockedPlayers = new ConfigProperty<>(true);
 
+  @SpriteSlot(x = 3, y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> muteInVoiceChat = new ConfigProperty<>(true);
 
   @SwitchSetting
+  @SpriteSlot(x = 1, y = 1)
   private final ConfigProperty<Boolean> declineFriendRequests = new ConfigProperty<>(true);
 
   @SettingRequires("declineFriendRequests")
+  @SpriteSlot(x = 4, y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> notifyOnFriendRequest = new ConfigProperty<>(false);
 

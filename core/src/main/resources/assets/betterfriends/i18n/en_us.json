@@ -99,6 +99,9 @@
         "showInteractionBullets": {
           "name": "Show interaction bullets"
         },
+        "showBlockIcon": {
+          "name": "Show icon next to blocked players"
+        },
         "unfriendBlockedPlayers": {
           "name": "Remove player from friend list when blocking them"
         },

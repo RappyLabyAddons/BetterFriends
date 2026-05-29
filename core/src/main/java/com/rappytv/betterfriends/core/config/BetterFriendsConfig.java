@@ -48,6 +48,7 @@ public class BetterFriendsConfig extends AddonConfig {
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
 
   @SettingSection(value = "notifications", center = true)
+  @SpriteSlot(x = 2, y = 1)
   private final BlocklistConfig blocklist = new BlocklistConfig();
 
   @SpriteSlot(x = 5)
@@ -68,11 +69,11 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> friendStatusUpdateNotifications = new ConfigProperty<>(true);
 
-  @SpriteSlot(x = 1, y = 1)
+  @SpriteSlot(x = 5, y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRemovalNotifications = new ConfigProperty<>(true);
 
-  @SpriteSlot(x = 2, y = 1)
+  @SpriteSlot(x = 1, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestRemovalNotifications = new ConfigProperty<>(true);
 

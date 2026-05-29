@@ -90,7 +90,8 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
           new FriendNoteNameTag(position)
       );
     }
-    this.labyAPI().tagRegistry().register(
+    this.labyAPI().tagRegistry().registerBefore(
+        "VoiceTag",
         "betterfriends_blocked_icon",
         PositionType.RIGHT_TO_NAME,
         new BlockedPlayerIconTag()
