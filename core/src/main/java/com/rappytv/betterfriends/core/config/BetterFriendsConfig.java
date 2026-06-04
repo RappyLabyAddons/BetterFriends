@@ -48,6 +48,7 @@ public class BetterFriendsConfig extends AddonConfig {
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
 
   @SettingSection(value = "notifications", center = true)
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.2")
   @SpriteSlot(x = 2, y = 1)
   private final BlocklistConfig blocklist = new BlocklistConfig();
 

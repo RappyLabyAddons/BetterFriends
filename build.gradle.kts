@@ -11,16 +11,6 @@ version = providers.environmentVariable("VERSION").getOrElse("1.1.1")
 labyMod {
     defaultPackageName = "com.rappytv.betterfriends"
 
-    minecraft {
-        registerVersion(versions.toTypedArray()) {
-            runs {
-                getByName("client") {
-                    devLogin = true
-                }
-            }
-        }
-    }
-
     addonInfo {
         namespace = "betterfriends"
         displayName = "BetterFriends"
@@ -30,6 +20,16 @@ labyMod {
         version = rootProject.version.toString()
 
         addon("voicechat", true)
+    }
+
+    minecraft {
+        registerVersion(versions.toTypedArray()) {
+            runs {
+                getByName("client") {
+                    devLogin = true
+                }
+            }
+        }
     }
 }
 

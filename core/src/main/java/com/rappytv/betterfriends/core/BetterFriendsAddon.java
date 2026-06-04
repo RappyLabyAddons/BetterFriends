@@ -51,6 +51,11 @@ public class BetterFriendsAddon extends LabyAddon<BetterFriendsConfig> {
         new SemanticVersion(1, 1, 0),
         "2026-04-30"
     ));
+    Laby.references().revisionRegistry().register(new SimpleRevision(
+        "betterfriends",
+        new SemanticVersion(1, 1, 2),
+        "2026-06-18"
+    ));
   }
 
   @Override
