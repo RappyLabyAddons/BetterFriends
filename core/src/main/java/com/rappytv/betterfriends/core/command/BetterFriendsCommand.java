@@ -1,5 +1,7 @@
 package com.rappytv.betterfriends.core.command;
 
+import com.rappytv.betterfriends.api.blocklist.BlockedPlayer;
+import com.rappytv.betterfriends.api.blocklist.BlocklistManager;
 import com.rappytv.betterfriends.core.BetterFriendsAddon;
 import com.rappytv.betterfriends.core.listeners.LabyChatReceiveListener;
 import com.rappytv.betterfriends.core.utils.GroupHelper;
@@ -12,6 +14,7 @@ import net.labymod.api.client.chat.command.Command;
 import net.labymod.api.client.chat.command.SubCommand;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
+import net.labymod.api.client.entity.player.Player;
 import net.labymod.api.client.network.server.ServerInfo;
 import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.User;
@@ -19,6 +22,7 @@ import net.labymod.api.labyconnect.protocol.model.chat.Chat;
 import net.labymod.api.labyconnect.protocol.model.chat.ChatMessage;
 import net.labymod.api.labyconnect.protocol.model.chat.TextChatMessage;
 import net.labymod.api.labyconnect.protocol.model.request.IncomingFriendRequest;
+import org.jetbrains.annotations.Nullable;
 
 public class BetterFriendsCommand extends Command {
 
@@ -27,6 +31,8 @@ public class BetterFriendsCommand extends Command {
 
     this.translationKey("betterfriends.command");
     this.withSubCommand(new AcceptFriendRequestSubcommand());
+    this.withSubCommand(new BlockPlayerSubcommand());
+    this.withSubCommand(new UnblockPlayerSubcommand());
     this.withSubCommand(new DeclineFriendRequestSubcommand());
     this.withSubCommand(new JoinServerSubcommand());
     this.withSubCommand(new MessageSubcommand());
@@ -55,9 +61,9 @@ public class BetterFriendsCommand extends Command {
     return true;
   }
 
-  public static class AcceptFriendRequestSubcommand extends SubCommand {
+  private static class AcceptFriendRequestSubcommand extends SubCommand {
 
-    protected AcceptFriendRequestSubcommand() {
+    private AcceptFriendRequestSubcommand() {
       super("accept");
 
       this.translationKey("betterfriends.command.requests");
@@ -116,9 +122,135 @@ public class BetterFriendsCommand extends Command {
     }
   }
 
-  public static class DeclineFriendRequestSubcommand extends SubCommand {
+  private static class BlockPlayerSubcommand extends SubCommand {
 
-    protected DeclineFriendRequestSubcommand() {
+    private final BlocklistManager manager = BetterFriendsAddon.references().blocklistManager();
+
+    private BlockPlayerSubcommand() {
+      super("block");
+
+      this.translationKey("betterfriends.command.block");
+    }
+
+    @Override
+    public boolean execute(String prefix, String[] arguments) {
+      if (arguments.length < 1) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("enterName"),
+                    NamedTextColor.RED
+                ))
+        );
+        return true;
+      }
+      Player player = this.getPlayer(arguments[0]);
+      if (player == null) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("playerNotFound"),
+                    NamedTextColor.RED
+                ))
+        );
+        return true;
+      }
+      if (Laby.labyAPI().getUniqueId().equals(player.getUniqueId())) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("cantBlockSelf"),
+                    NamedTextColor.RED
+                ))
+        );
+        return true;
+      }
+      if (this.manager.isBlocked(player.getUniqueId())) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("alreadyBlocked"),
+                    NamedTextColor.RED
+                ))
+        );
+        return true;
+      }
+      Laby.labyAPI().minecraft().executeNextTick(() ->
+          this.manager.block(player.getUniqueId(), player.getName())
+      );
+      return true;
+    }
+
+    @Nullable
+    private Player getPlayer(String username) {
+      for (Player player : Laby.labyAPI().minecraft().clientWorld().getPlayers()) {
+        if (player.getName().equalsIgnoreCase(username)) {
+          return player;
+        }
+      }
+
+      return null;
+    }
+  }
+
+  private static class UnblockPlayerSubcommand extends SubCommand {
+
+    private final BlocklistManager manager = BetterFriendsAddon.references().blocklistManager();
+
+    private UnblockPlayerSubcommand() {
+      super("unblock");
+
+      this.translationKey("betterfriends.command.block");
+    }
+
+    @Override
+    public boolean execute(String prefix, String[] arguments) {
+      if (arguments.length < 1) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("enterName"),
+                    NamedTextColor.RED
+                ))
+        );
+        return true;
+      }
+      BlockedPlayer player = this.getPlayer(arguments[0]);
+      if (player == null) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("notBlocked"),
+                    NamedTextColor.RED
+                ))
+        );
+        return true;
+      }
+      Laby.labyAPI().minecraft().executeNextTick(() -> this.manager.unblock(player.uuid()));
+      return true;
+    }
+
+    @Nullable
+    private BlockedPlayer getPlayer(String username) {
+      for (BlockedPlayer player : this.manager.getBlockedPlayers()) {
+        if (player.username().equalsIgnoreCase(username)) {
+          return player;
+        }
+      }
+
+      return null;
+    }
+  }
+
+  private static class DeclineFriendRequestSubcommand extends SubCommand {
+
+    private DeclineFriendRequestSubcommand() {
       super("decline");
 
       this.translationKey("betterfriends.command.requests");
@@ -177,9 +309,9 @@ public class BetterFriendsCommand extends Command {
     }
   }
 
-  public static class JoinServerSubcommand extends SubCommand {
+  private static class JoinServerSubcommand extends SubCommand {
 
-    protected JoinServerSubcommand() {
+    private JoinServerSubcommand() {
       super("join");
 
       this.translationKey("betterfriends.command.join");
@@ -211,9 +343,9 @@ public class BetterFriendsCommand extends Command {
     }
   }
 
-  public static class MessageSubcommand extends SubCommand {
+  private static class MessageSubcommand extends SubCommand {
 
-    protected MessageSubcommand() {
+    private MessageSubcommand() {
       super("message", "msg");
 
       this.translationKey("betterfriends.command.message");
@@ -287,9 +419,9 @@ public class BetterFriendsCommand extends Command {
     }
   }
 
-  public static class ReadSubcommand extends SubCommand {
+  private static class ReadSubcommand extends SubCommand {
 
-    protected ReadSubcommand() {
+    private ReadSubcommand() {
       super("read");
 
       this.translationKey("betterfriends.command.read");

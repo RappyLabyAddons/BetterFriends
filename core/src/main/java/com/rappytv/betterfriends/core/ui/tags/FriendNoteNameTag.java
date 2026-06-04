@@ -1,8 +1,7 @@
 package com.rappytv.betterfriends.core.ui.tags;
 
-import com.rappytv.betterfriends.core.BetterFriendsAddon;
-import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsFriendSnapshot;
 import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsKeys;
+import com.rappytv.betterfriends.core.ui.snapshot.FriendNoteSnapshot;
 import java.util.Collections;
 import java.util.List;
 import net.labymod.api.client.component.Component;
@@ -10,65 +9,68 @@ import net.labymod.api.client.component.serializer.legacy.LegacyComponentSeriali
 import net.labymod.api.client.entity.player.tag.PositionType;
 import net.labymod.api.client.entity.player.tag.tags.ComponentNameTag;
 import net.labymod.api.client.render.state.entity.EntitySnapshot;
-import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class FriendNoteNameTag extends ComponentNameTag {
 
-  private final BetterFriendsAddon addon;
   private final PositionType position;
   private final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();
 
-  public FriendNoteNameTag(BetterFriendsAddon addon, PositionType position) {
-    this.addon = addon;
+  public FriendNoteNameTag(PositionType position) {
     this.position = position;
   }
 
   @Override
   protected @NotNull List<Component> buildComponents(EntitySnapshot snapshot) {
+    Component note = this.getNote(snapshot);
+    if (note == null) {
+      return super.buildComponents(snapshot);
+    }
+    return Collections.singletonList(note);
+  }
+
+  @Nullable
+  private Component getNote(EntitySnapshot snapshot) {
     if (this.snapshot.isDiscrete()
         || this.snapshot.isInvisible()
-        || !this.snapshot.has(BetterFriendsKeys.FRIEND)) {
-      return super.buildComponents(snapshot);
+        || !this.snapshot.has(BetterFriendsKeys.FRIEND_NOTE)) {
+      return null;
     }
-    BetterFriendsFriendSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.FRIEND);
+    FriendNoteSnapshot noteSnapshot = snapshot.get(BetterFriendsKeys.FRIEND_NOTE);
 
-    boolean condition = friendSnapshot.config().enabled().get()
-        && friendSnapshot.config().friendNoteTagConfig().enabled().get()
-        && friendSnapshot.config().friendNoteTagConfig().position().get() == this.position;
+    boolean condition = noteSnapshot.isAddonEnabled()
+        && noteSnapshot.isTagEnabled()
+        && noteSnapshot.getPosition() == this.position
+        && noteSnapshot.isFriend();
 
     if (!condition) {
-      return super.buildComponents(snapshot);
+      return null;
     }
 
-    Friend friend = friendSnapshot.friend();
-    if (friend == null) {
-      return super.buildComponents(snapshot);
+    String note = noteSnapshot.getNote();
+    String tag = note != null && !note.isBlank() ? note : noteSnapshot.getDefaultTag();
+    if (tag.isBlank()) {
+      return null;
     }
-    String note = friend.getNote();
-    if (note != null && !note.isBlank()) {
-      return Collections.singletonList(this.serializer.deserialize(note));
-    }
-    String defaultTag = friendSnapshot.config().friendNoteTagConfig().defaultTag().get();
-    if (defaultTag.isBlank()) {
-      return super.buildComponents(snapshot);
-    }
-    return Collections.singletonList(this.serializer.deserialize(defaultTag));
+    return this.serializer.deserialize(tag);
   }
 
   @Override
   protected int getBackgroundColor(EntitySnapshot snapshot) {
-    BetterFriendsFriendSnapshot friendSnapshot = snapshot.get(BetterFriendsKeys.FRIEND);
-    if (friendSnapshot == null) {
+    FriendNoteSnapshot noteSnapshot = snapshot.get(BetterFriendsKeys.FRIEND_NOTE);
+    if (noteSnapshot == null) {
       return super.getBackgroundColor(snapshot);
     }
-    return friendSnapshot.config().friendNoteTagConfig().hideBackground().get()
-        ? 0
-        : super.getBackgroundColor(snapshot);
+    return noteSnapshot.shouldHideBackground() ? 0 : super.getBackgroundColor(snapshot);
   }
 
   @Override
   public float getScale() {
-    return (float) this.addon.configuration().friendNoteTagConfig().size().get() / 10;
+    FriendNoteSnapshot noteSnapshot = this.snapshot.get(BetterFriendsKeys.FRIEND_NOTE);
+    if (noteSnapshot == null) {
+      return super.getScale();
+    }
+    return noteSnapshot.getScale();
   }
 }

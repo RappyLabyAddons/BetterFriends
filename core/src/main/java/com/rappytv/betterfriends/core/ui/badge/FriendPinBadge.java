@@ -26,7 +26,7 @@ public class FriendPinBadge extends BadgeRenderer {
         || !this.addon.configuration().pinIconConfig().pinBadge().get()) {
       return false;
     }
-    Friend friend = BetterFriendsAddon.references().friendHelper().getFriend(player.profile());
+    Friend friend = BetterFriendsAddon.references().sessionHelper().getFriend(player.profile());
 
     return friend != null && friend.isPinned();
   }

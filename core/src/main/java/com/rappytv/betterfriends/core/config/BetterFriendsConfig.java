@@ -1,5 +1,6 @@
 package com.rappytv.betterfriends.core.config;
 
+import com.rappytv.betterfriends.core.config.subconfig.BlocklistConfig;
 import com.rappytv.betterfriends.core.config.subconfig.FriendNoteTagConfig;
 import com.rappytv.betterfriends.core.config.subconfig.PinIconConfig;
 import com.rappytv.betterfriends.core.config.subconfig.PrefixCustomizationConfig;
@@ -47,6 +48,9 @@ public class BetterFriendsConfig extends AddonConfig {
   private final ConfigProperty<String> friendPrefix = new ConfigProperty<>("&aⒻ");
 
   @SettingSection(value = "notifications", center = true)
+  @SpriteSlot(x = 2, y = 1)
+  private final BlocklistConfig blocklist = new BlocklistConfig();
+
   @SpriteSlot(x = 5)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestNotifications = new ConfigProperty<>(true);
@@ -65,11 +69,11 @@ public class BetterFriendsConfig extends AddonConfig {
   @SwitchSetting
   private final ConfigProperty<Boolean> friendStatusUpdateNotifications = new ConfigProperty<>(true);
 
-  @SpriteSlot(x = 1, y = 1)
+  @SpriteSlot(x = 5, y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRemovalNotifications = new ConfigProperty<>(true);
 
-  @SpriteSlot(x = 2, y = 1)
+  @SpriteSlot(x = 1, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> friendRequestRemovalNotifications = new ConfigProperty<>(true);
 
@@ -135,6 +139,10 @@ public class BetterFriendsConfig extends AddonConfig {
 
   public ConfigProperty<FriendRequestReaction> automaticFriendRequestReaction() {
     return this.automaticFriendRequestReaction;
+  }
+
+  public BlocklistConfig blocklist() {
+    return this.blocklist;
   }
 
   public ConfigProperty<Boolean> friendServerSwitchNotifications() {

@@ -8,9 +8,9 @@ import net.labymod.api.laby3d.renderer.snapshot.ExtrasWriter;
 import net.labymod.api.service.annotation.AutoService;
 
 @AutoService(EntitySnapshotProcessor.class)
-public class BetterFriendsFriendSnapshotProcessor extends EntitySnapshotProcessor<Player> {
+public class BetterFriendsPlayerSnapshotProcessor extends EntitySnapshotProcessor<Player> {
 
-  public BetterFriendsFriendSnapshotProcessor(EntitySnapshotRegistry registry) {
+  public BetterFriendsPlayerSnapshotProcessor(EntitySnapshotRegistry registry) {
     super(registry);
   }
 
@@ -21,6 +21,7 @@ public class BetterFriendsFriendSnapshotProcessor extends EntitySnapshotProcesso
 
   @Override
   public void process(Player player, float partialTicks, ExtrasWriter entityWriter) {
-    this.registry().captureSnapshot(entityWriter, BetterFriendsKeys.FRIEND, player);
+    this.registry().captureSnapshot(entityWriter, BetterFriendsKeys.PLAYER, player);
+    this.registry().captureSnapshot(entityWriter, BetterFriendsKeys.FRIEND_NOTE, player);
   }
 }

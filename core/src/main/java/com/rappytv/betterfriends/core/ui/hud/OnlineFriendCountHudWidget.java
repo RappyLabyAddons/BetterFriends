@@ -1,6 +1,6 @@
 package com.rappytv.betterfriends.core.ui.hud;
 
-import net.labymod.api.Laby;
+import com.rappytv.betterfriends.core.BetterFriendsAddon;
 import net.labymod.api.Textures.SpriteCommon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
@@ -39,8 +39,10 @@ public class OnlineFriendCountHudWidget extends TextHudWidget<TextHudWidgetConfi
 
   @Override
   public boolean isVisibleInGame() {
-    LabyConnectSession session = Laby.references().labyConnect().getSession();
-    if(session == null || !session.isAuthenticated()) return false;
+    LabyConnectSession session = BetterFriendsAddon.references().sessionHelper().getValidSession();
+    if (session == null) {
+      return false;
+    }
     if(session.getOnlineFriendCount() != this.friendCount)
       this.friendCount = session.getOnlineFriendCount();
     return true;
