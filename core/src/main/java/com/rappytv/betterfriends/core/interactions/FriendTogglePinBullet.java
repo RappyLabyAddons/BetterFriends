@@ -1,13 +1,11 @@
 package com.rappytv.betterfriends.core.interactions;
 
 import com.rappytv.betterfriends.core.BetterFriendsAddon;
-import net.labymod.api.Laby;
 import net.labymod.api.Textures.SpriteCommon;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.entity.player.Player;
 import net.labymod.api.client.entity.player.interaction.BulletPoint;
 import net.labymod.api.client.gui.icon.Icon;
-import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 
 public class FriendTogglePinBullet implements BulletPoint {
@@ -43,10 +41,7 @@ public class FriendTogglePinBullet implements BulletPoint {
       if (!this.addon.configuration().enabled().get() || !this.addon.configuration().togglePinBullet().get())
           return false;
 
-    LabyConnectSession session = Laby.references().labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) return false;
-
-    Friend friend = session.getFriend(player.getUniqueId());
+    Friend friend = BetterFriendsAddon.references().sessionHelper().getFriend(player.getUniqueId());
     if (friend == null) return false;
 
     this.friend = friend;

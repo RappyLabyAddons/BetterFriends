@@ -42,8 +42,8 @@ public class FriendNoteEditorBullet implements BulletPoint {
 //    if (!this.addon.configuration().enabled().get() || !this.addon.configuration().noteEditorBullet().get())
 //      return false;
 //
-//    LabyConnectSession session = Laby.references().labyConnect().getSession();
-//    if (session == null || !session.isAuthenticated()) return false;
+//    LabyConnectSession session = BetterFriendsAddon.references().sessionHelper().getValidSession();
+//    if (session == null) return false;
 //
 //    Friend friend = session.getFriend(player.getUniqueId());
 //    if (friend == null) return false;

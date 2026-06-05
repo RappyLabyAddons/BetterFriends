@@ -1,15 +1,14 @@
 package com.rappytv.betterfriends.core.ui.tags;
 
+import com.rappytv.betterfriends.api.ui.BetterFriendsTextures;
 import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsKeys;
 import com.rappytv.betterfriends.core.ui.snapshot.BetterFriendsPlayerSnapshot;
-import net.labymod.api.Textures;
 import net.labymod.api.client.entity.player.tag.tags.IconTag;
-import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 
-public class FriendPinIconTag extends IconTag {
+public class BlockedPlayerIconTag extends IconTag {
 
-  public FriendPinIconTag() {
-    super(Textures.SpriteCommon.PIN, 8);
+  public BlockedPlayerIconTag() {
+    super(BetterFriendsTextures.BLOCKED, 8);
   }
 
   @Override
@@ -19,13 +18,11 @@ public class FriendPinIconTag extends IconTag {
     }
     BetterFriendsPlayerSnapshot playerSnapshot = this.snapshot.get(BetterFriendsKeys.PLAYER);
 
-    Friend friend = playerSnapshot.friend();
     return super.isVisible()
         && !this.snapshot.isDiscrete()
         && !this.snapshot.isInvisible()
         && playerSnapshot.isAddonEnabled()
-        && playerSnapshot.isPinIconEnabled()
-        && friend != null
-        && friend.isPinned();
+        && playerSnapshot.isBlocked()
+        && playerSnapshot.isBlockIconEnabled();
   }
 }

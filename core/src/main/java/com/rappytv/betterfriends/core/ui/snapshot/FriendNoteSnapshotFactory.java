@@ -7,18 +7,18 @@ import net.labymod.api.laby3d.renderer.snapshot.LabySnapshotFactory;
 import net.labymod.api.service.annotation.AutoService;
 
 @AutoService(LabySnapshotFactory.class)
-public class BetterFriendsSnapshotFactory extends
-    LabySnapshotFactory<Player, BetterFriendsPlayerSnapshot> {
+public class FriendNoteSnapshotFactory extends
+    LabySnapshotFactory<Player, FriendNoteSnapshot> {
 
   private final BetterFriendsAddon addon;
 
-  public BetterFriendsSnapshotFactory(BetterFriendsAddon addon) {
-    super(BetterFriendsKeys.PLAYER);
+  public FriendNoteSnapshotFactory(BetterFriendsAddon addon) {
+    super(BetterFriendsKeys.FRIEND_NOTE);
     this.addon = addon;
   }
 
   @Override
-  protected BetterFriendsPlayerSnapshot create(Player player, Extras extras) {
-    return new BetterFriendsPlayerSnapshot(player, extras, this.addon);
+  protected FriendNoteSnapshot create(Player player, Extras extras) {
+    return new FriendNoteSnapshot(player, extras, this.addon);
   }
 }

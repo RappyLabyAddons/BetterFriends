@@ -2,13 +2,11 @@ package com.rappytv.betterfriends.core.listeners;
 
 import com.rappytv.betterfriends.core.BetterFriendsAddon;
 import java.util.UUID;
-import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.chat.ChatReceiveEvent;
-import net.labymod.api.labyconnect.LabyConnectSession;
 import net.labymod.api.labyconnect.protocol.model.friend.Friend;
 import net.labymod.api.loader.MinecraftVersions;
 
@@ -37,12 +35,7 @@ public class ChatReceiveListener {
       return;
     }
 
-    LabyConnectSession session = Laby.references().labyConnect().getSession();
-    if (session == null || !session.isAuthenticated()) {
-      return;
-    }
-
-    Friend friend = session.getFriend(uuid);
+    Friend friend = BetterFriendsAddon.references().sessionHelper().getFriend(uuid);
     if (friend == null) {
       return;
     }

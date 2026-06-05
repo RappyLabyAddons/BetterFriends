@@ -86,12 +86,42 @@
         "name": "Friend prefix in chat",
         "description": "This will be prepended to friend messages. You can leave this empty to disable."
       },
+      "blocklist": {
+        "header": {
+          "behavior": {
+            "name": "Blocking behavior"
+          }
+        },
+        "name": "Blocklist",
+        "menu": {
+          "name": "Manage blocked players"
+        },
+        "showInteractionBullets": {
+          "name": "Show interaction bullets"
+        },
+        "showBlockIcon": {
+          "name": "Show icon next to blocked players"
+        },
+        "unfriendBlockedPlayers": {
+          "name": "Remove player from friend list when blocking them"
+        },
+        "muteInVoiceChat": {
+          "name": "Mute player in VoiceChat when blocking them"
+        },
+        "declineFriendRequests": {
+          "name": "Decline friend requests automatically"
+        },
+        "notifyOnFriendRequest": {
+          "name": "Show chat message when blocked player sends a friend request"
+        }
+      },
       "friendRequestNotifications": {
         "name": "Friend requests",
         "description": "If you want to receive chat messages when you receive a friend request."
       },
       "automaticFriendRequestReaction": {
         "name": "Automatic friend request reaction",
+        "title": "Friend request",
         "description": "With this option you can set an automatic reaction to incoming friend requests. You will still be notified about any incoming friend requests and if they were accepted/denied automatically.",
         "entries": {
           "none": "None",
@@ -112,7 +142,7 @@
         "description": "Note that this will also notify you when you remove them from your friend list as there is no way to check who was performing the action."
       },
       "friendRequestRemovalNotifications": {
-        "name": "Friend declines your friend request",
+        "name": "Player declines your friend request",
         "description": "Note that this will also notify you when you cancel the friend request as there is no way to check who was performing the action."
       },
       "labyChatMessageNotifications": {
@@ -174,6 +204,14 @@
     },
     "command": {
       "usage": "Usage: %s",
+      "block": {
+        "title": "Blocklist",
+        "enterName": "Please enter a username!",
+        "playerNotFound": "Player not found. Make sure they are around you!",
+        "alreadyBlocked": "This player is already blocked!",
+        "notBlocked": "This player is not blocked!",
+        "cantBlockSelf": "You cannot block yourself!"
+      },
       "requests": {
         "notFound": "Unknown friend request!",
         "enterName": "Please provide a valid username!",
@@ -196,6 +234,13 @@
         "enterText": "Please enter the message content you want to send!",
         "notFound": "Player not found!"
       }
+    },
+    "blocklist": {
+      "empty": "Blocklist is empty",
+      "hint": "Hint: You can block players with /bf block or via the interaction menu",
+      "blockedFriendRequest": "Blocked player %s sent a friend request which was automatically declined.",
+      "blockedPlayer": "You blocked %s!",
+      "unblockedPlayer": "You unblocked %s!"
     },
     "notifications": {
       "friendRemoval": {
@@ -232,6 +277,8 @@
       }
     },
     "interactions": {
+      "block": "Block player",
+      "unblock": "Unblock player",
       "editNote": {
         "title": "Edit friend note"
       },

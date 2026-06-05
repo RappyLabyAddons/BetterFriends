@@ -6,20 +6,10 @@ plugins {
 val versions = providers.gradleProperty("net.labymod.minecraft-versions").get().split(";")
 
 group = "org.example"
-version = providers.environmentVariable("VERSION").getOrElse("1.1.1")
+version = providers.environmentVariable("VERSION").getOrElse("1.1.2")
 
 labyMod {
     defaultPackageName = "com.rappytv.betterfriends"
-
-    minecraft {
-        registerVersion(versions.toTypedArray()) {
-            runs {
-                getByName("client") {
-                    devLogin = true
-                }
-            }
-        }
-    }
 
     addonInfo {
         namespace = "betterfriends"
@@ -30,6 +20,16 @@ labyMod {
         version = rootProject.version.toString()
 
         addon("voicechat", true)
+    }
+
+    minecraft {
+        registerVersion(versions.toTypedArray()) {
+            runs {
+                getByName("client") {
+                    devLogin = true
+                }
+            }
+        }
     }
 }
 
