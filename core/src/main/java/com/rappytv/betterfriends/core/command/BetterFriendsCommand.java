@@ -148,9 +148,11 @@ public class BetterFriendsCommand extends Command {
       String username = arguments[0];
       Player player = this.getPlayer(username);
       if (player == null) {
-        Laby.labyAPI().labyNetController().loadUniqueIdByName(username, (result) -> {
-          this.handlePlayer(new BlockedPlayer(result.getNullable(), username));
-        });
+        Laby.labyAPI()
+            .labyNetController()
+            .loadUniqueIdByName(username, (result) -> this.handlePlayer(
+                new BlockedPlayer(result.getNullable(), username)
+            ));
         return true;
       }
 
