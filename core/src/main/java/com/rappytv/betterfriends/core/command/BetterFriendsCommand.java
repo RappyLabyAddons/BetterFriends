@@ -145,43 +145,16 @@ public class BetterFriendsCommand extends Command {
         );
         return true;
       }
-      Player player = this.getPlayer(arguments[0]);
+      String username = arguments[0];
+      Player player = this.getPlayer(username);
       if (player == null) {
-        this.displayMessage(
-            Component.empty()
-                .append(BetterFriendsAddon.getPrefix())
-                .append(Component.translatable(
-                    this.getTranslationKey("playerNotFound"),
-                    NamedTextColor.RED
-                ))
-        );
+        Laby.labyAPI().labyNetController().loadUniqueIdByName(username, (result) -> {
+          this.handlePlayer(new BlockedPlayer(result.getNullable(), username));
+        });
         return true;
       }
-      if (Laby.labyAPI().getUniqueId().equals(player.getUniqueId())) {
-        this.displayMessage(
-            Component.empty()
-                .append(BetterFriendsAddon.getPrefix())
-                .append(Component.translatable(
-                    this.getTranslationKey("cantBlockSelf"),
-                    NamedTextColor.RED
-                ))
-        );
-        return true;
-      }
-      if (this.manager.isBlocked(player.getUniqueId())) {
-        this.displayMessage(
-            Component.empty()
-                .append(BetterFriendsAddon.getPrefix())
-                .append(Component.translatable(
-                    this.getTranslationKey("alreadyBlocked"),
-                    NamedTextColor.RED
-                ))
-        );
-        return true;
-      }
-      Laby.labyAPI().minecraft().executeNextTick(() ->
-          this.manager.block(player.getUniqueId(), player.getName())
-      );
+
+      this.handlePlayer(new BlockedPlayer(player.getUniqueId(), player.getName()));
       return true;
     }
 
@@ -194,6 +167,43 @@ public class BetterFriendsCommand extends Command {
       }
 
       return null;
+    }
+
+    private void handlePlayer(@Nullable BlockedPlayer player) {
+      if (player == null) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("playerNotFound"),
+                    NamedTextColor.RED
+                ))
+        );
+        return;
+      }
+      if (Laby.labyAPI().getUniqueId().equals(player.uuid())) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("cantBlockSelf"),
+                    NamedTextColor.RED
+                ))
+        );
+        return;
+      }
+      if (this.manager.isBlocked(player.uuid())) {
+        this.displayMessage(
+            Component.empty()
+                .append(BetterFriendsAddon.getPrefix())
+                .append(Component.translatable(
+                    this.getTranslationKey("alreadyBlocked"),
+                    NamedTextColor.RED
+                ))
+        );
+        return;
+      }
+      Laby.labyAPI().minecraft().executeNextTick(() -> this.manager.block(player));
     }
   }
 
