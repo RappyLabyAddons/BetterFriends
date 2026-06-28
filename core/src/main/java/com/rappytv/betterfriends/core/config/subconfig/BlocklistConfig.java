@@ -52,6 +52,7 @@ public class BlocklistConfig extends Config {
   @SwitchSetting
   private final ConfigProperty<Boolean> muteInVoiceChat = new ConfigProperty<>(true);
 
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.3")
   @SpriteSlot(x = 3, y = 1)
   @SwitchSetting
   private final ConfigProperty<Boolean> hideChatMessages = new ConfigProperty<>(true);
