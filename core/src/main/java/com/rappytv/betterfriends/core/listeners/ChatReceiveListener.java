@@ -19,28 +19,48 @@ public class ChatReceiveListener {
   }
 
   @Subscribe(125)
-  public void onChatReceive(ChatReceiveEvent receiveEvent) {
-    if (receiveEvent.isCancelled() || this.addon.configuration().friendPrefix().get().isBlank()) {
+  public void onChatReceive(ChatReceiveEvent event) {
+    if (event.isCancelled()) {
       return;
     }
 
-    Component message = receiveEvent.message();
+    if (this.checkIfBlocked(event.chatMessage().getSenderUniqueId())) {
+      event.setCancelled(true);
+      return;
+    }
+    this.addFriendPrefix(event);
+  }
+
+  private boolean checkIfBlocked(UUID sender) {
+    boolean enabled = this.addon.configuration().blocklist().hideChatMessages().get();
+    if (sender == null || !enabled) {
+      return false;
+    }
+
+    return BetterFriendsAddon.references().blocklistManager().isBlocked(sender);
+  }
+
+  private void addFriendPrefix(ChatReceiveEvent event) {
+    if (!this.addon.configuration().friendPrefix().get().isBlank()) {
+      return;
+    }
+    Component message = event.message();
 
     if (MinecraftVersions.V1_12_2.orOlder()) {
       message = message.copy().colorIfAbsent(NamedTextColor.WHITE);
     }
 
-    UUID uuid = receiveEvent.chatMessage().getSenderUniqueId();
-    if (uuid == null) {
+    UUID sender = event.chatMessage().getSenderUniqueId();
+    if (sender == null) {
       return;
     }
 
-    Friend friend = BetterFriendsAddon.references().sessionHelper().getFriend(uuid);
+    Friend friend = BetterFriendsAddon.references().sessionHelper().getFriend(sender);
     if (friend == null) {
       return;
     }
 
-    receiveEvent.setMessage(
+    event.setMessage(
         Component.empty()
             .append(LegacyComponentSerializer.legacyAmpersand().deserialize(
                 this.addon.configuration().friendPrefix().get()

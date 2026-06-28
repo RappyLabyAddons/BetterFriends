@@ -108,6 +108,10 @@
         "muteInVoiceChat": {
           "name": "Mute player in VoiceChat when blocking them"
         },
+        "hideChatMessages": {
+          "name": "Hide chat messages by blocked players",
+          "description": "Note: This may not work on all servers."
+        },
         "declineFriendRequests": {
           "name": "Decline friend requests automatically"
         },

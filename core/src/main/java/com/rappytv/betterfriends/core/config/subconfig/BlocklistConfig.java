@@ -10,6 +10,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.Switc
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.loader.annotation.Exclude;
 import net.labymod.api.configuration.loader.annotation.IntroducedIn;
+import net.labymod.api.configuration.loader.annotation.ModRequirement;
 import net.labymod.api.configuration.loader.annotation.SpriteSlot;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 import net.labymod.api.configuration.settings.annotation.SettingRequires;
@@ -46,9 +47,15 @@ public class BlocklistConfig extends Config {
   private final ConfigProperty<Boolean> unfriendBlockedPlayers = new ConfigProperty<>(true);
 
   @IntroducedIn(namespace = "betterfriends", value = "1.1.2")
+  @ModRequirement(namespace = "voicechat")
   @SpriteSlot(x = 3, y = 2)
   @SwitchSetting
   private final ConfigProperty<Boolean> muteInVoiceChat = new ConfigProperty<>(true);
+
+  @IntroducedIn(namespace = "betterfriends", value = "1.1.3")
+  @SpriteSlot(x = 3, y = 1)
+  @SwitchSetting
+  private final ConfigProperty<Boolean> hideChatMessages = new ConfigProperty<>(true);
 
   @IntroducedIn(namespace = "betterfriends", value = "1.1.2")
   @SwitchSetting
@@ -79,6 +86,10 @@ public class BlocklistConfig extends Config {
 
   public ConfigProperty<Boolean> muteInVoiceChat() {
     return this.muteInVoiceChat;
+  }
+
+  public ConfigProperty<Boolean> hideChatMessages() {
+    return this.hideChatMessages;
   }
 
   public ConfigProperty<Boolean> declineFriendRequests() {
